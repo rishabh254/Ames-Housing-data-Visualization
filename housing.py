@@ -20,10 +20,10 @@ from sklearn.manifold import MDS
 
 ##### Task 0 #####
 def preprocess(df):
-    cols = ['YrSold','MoSold','ExterQual','KitchenQual','OverallQual',
+    cols = ['YrSold','SalePrice','YearRemodAdd','MoSold','ExterQual','KitchenQual','OverallQual',
             'FireplaceQu','BsmtQual','BsmtFinSF1','GrLivArea','GarageArea','LotArea']
     df = df[cols]
-    df = df[:750]
+    #df = df[:750]
     # features rated as Ex, Gd, TA, Fa, Po
     feature_rated =['ExterQual','ExterCond','BsmtQual','BsmtCond','BsmtExposure',
                 'HeatingQC','KitchenQual','FireplaceQu','GarageQual']
@@ -46,11 +46,20 @@ def preprocess(df):
                 lbl = preprocessing.LabelEncoder()
                 lbl.fit(list(train_encoded[feature].values))
                 train_encoded[feature] = lbl.transform(list(train_encoded[feature].values))
-        else:
+        #else:
             #pass
-            train_encoded[feature] = stats.zscore(train_encoded[feature])
+            #train_encoded[feature] = stats.zscore(train_encoded[feature])
     train_encoded.fillna(train_encoded.mean(),inplace=True)
     return train_encoded
+
+
+def get_line_data(data):
+    df = data[['SalePrice','YrSold','YearRemodAdd','OverallQual']]
+    df['age'] = df['YrSold'] - df['YearRemodAdd']
+    df = df.drop(columns=['YrSold','YearRemodAdd'])
+    df = df.groupby(['age']).mean().reset_index()
+    df = df[df['age']>=0]
+    return df.to_json(orient='records')
 
 ##### Task 1.2 #####
 def kmeans_elbow(df):
@@ -131,15 +140,15 @@ if __name__ == "__main__":
     
     print(len(df_encoded))
     
-    kmeans_elbow(df_encoded)
-    no_clusters = 3
+    #kmeans_elbow(df_encoded)
+    #no_clusters = 3
 
-    kmeans = KMeans(n_clusters=no_clusters, init='k-means++', max_iter=300, n_init=10, random_state=0)
-    kmeans.fit(df_encoded)
-    labels = kmeans.labels_
+    #kmeans = KMeans(n_clusters=no_clusters, init='k-means++', max_iter=300, n_init=10, random_state=0)
+    #kmeans.fit(df_encoded)
+    #labels = kmeans.labels_
 
     #Glue back to originaal data
-    df_encoded['clusterNo'] = labels
+    #df_encoded['clusterNo'] = labels
     df_encoded.to_csv('df_orig.csv',index=False)
     
     

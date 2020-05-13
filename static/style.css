@@ -67,4 +67,29 @@ li {
  .button:hover{
      background-color:#4095c6;
 }
+
+
+axisRed line{
+  stroke: red;
+}
+
+.axisRed path{
+  stroke: red;
+}
+
+.axisRed text{
+  fill: red;
+}
+
+axisBlue line{
+  stroke: steelblue;
+}
+
+.axisBlue path{
+  stroke: steelblue;
+}
+
+.axisBlue text{
+  fill: steelblue;
+}
  

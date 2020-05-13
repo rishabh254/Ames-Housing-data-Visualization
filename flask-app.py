@@ -22,18 +22,16 @@ def get_html(name):
 @app.route('/get_eigen')
 def get_eigen():
     eigen_orig = housing.get_eigenVs(df_orig)
-    eigen_random = housing.get_eigenVs(r_sample)
-    eigen_stratified = housing.get_eigenVs(s_sample)
-    data = {"eigen_orig": eigen_orig, "eigen_random": eigen_random, "eigen_stratified":eigen_stratified}
+    #eigen_random = housing.get_eigenVs(r_sample)
+    #eigen_stratified = housing.get_eigenVs(s_sample)
+    #data = {"eigen_orig": eigen_orig, "eigen_random": eigen_random, "eigen_stratified":eigen_stratified}
+    data = {"eigen_orig": eigen_orig}
     return jsonify(data)
 
 ##### Task 3.1 #####
-@app.route('/get_PCS')
+@app.route('/get_line_data')
 def get_pcs():
-    PC_orig = housing.get_PCS(df_orig)
-    PC_random = housing.get_PCS(r_sample)
-    PC_stratified = housing.get_PCS(s_sample)
-    data = {"PC_orig": PC_orig, "PC_random": PC_random, "PC_stratified":PC_stratified}
+    data = housing.get_line_data(df_orig)
     return (data)
 
 ##### Task 3.2 #####
@@ -66,14 +64,14 @@ def get_scatter_matrix_data():
 if __name__ == '__main__':
     df_orig = pd.read_csv('df_orig.csv')
     ##### Task 1.1 #####
-    r_sample = df_orig.sample(frac =.25, random_state=1)
-    r_sample = r_sample.reset_index(drop=True)
-    s_sample = df_orig.groupby('clusterNo').apply(lambda x: x.sample(frac=0.25,random_state=1))
-    s_sample = s_sample.reset_index(drop=True)
-    mds_origE = housing.get_MDS(df_orig,'euclidean')
-    mds_randomE = housing.get_MDS(r_sample,'euclidean')
-    mds_stratifiedE = housing.get_MDS(s_sample,'euclidean')
-    mds_origC = housing.get_MDS(df_orig,'correlation')
-    mds_randomC = housing.get_MDS(r_sample,'correlation')
-    mds_stratifiedC = housing.get_MDS(s_sample,'correlation')
+    #r_sample = df_orig.sample(frac =.25, random_state=1)
+    #r_sample = r_sample.reset_index(drop=True)
+    #s_sample = df_orig.groupby('clusterNo').apply(lambda x: x.sample(frac=0.25,random_state=1))
+    #s_sample = s_sample.reset_index(drop=True)
+    #mds_origE = housing.get_MDS(df_orig,'euclidean')
+    #mds_randomE = housing.get_MDS(r_sample,'euclidean')
+    #mds_stratifiedE = housing.get_MDS(s_sample,'euclidean')
+    #mds_origC = housing.get_MDS(df_orig,'correlation')
+    #mds_randomC = housing.get_MDS(r_sample,'correlation')
+    #mds_stratifiedC = housing.get_MDS(s_sample,'correlation')
     app.run(host='0.0.0.0',debug=True)
