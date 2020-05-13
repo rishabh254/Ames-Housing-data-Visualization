@@ -4,14 +4,17 @@
       <script src = "../static/d3/d3.min.js"></script>
 	  <script src="../static/d3/d3v4.js"></script>
 	  <script src="../static/d3/jquery-3.2.1.min.js"></script>
-	  <script src="../static/screePlot.js"></script>
-      <script src="../static/pcaScatter.js"></script>
+	  <script src="../static/lineGraph.js"></script>
+      <!--script src="../static/pcaScatter.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
-	  <script src="../static/scatterMatrix.js"></script>
+	  <script src="../static/scatterMatrix.js"></script-->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	  <link rel="icon" 
+      type="image/png" 
+      href="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png">
       <link rel="stylesheet" type="text/css" href="../static/style.css" media="screen"/>
    </head>
    <body>
@@ -23,7 +26,7 @@
             <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 			<li>
-				<a class="presentation" id="screePlot">Scree Plot</a>
+				<a class="presentation" id="lineGraph">Line Graph</a>
 			</li>
 			<li>
 				<a class="presentation" id="pcaScatterPlot">Top 2 PCA vectors ScatterPlot</a>
@@ -39,11 +42,13 @@
 			</li>
             </ul>
          </div>
+		 
+		 <div id="my_dataviz"></div>
       
 	  
-	  <input type="checkbox" id="myCheckboxOrig" style="margin-left: 400px" > <label style="color:white;padding:5px;background-color:#2A4D69">Original Data</label> </input>
+	  <!--input type="checkbox" id="myCheckboxOrig" style="margin-left: 400px" > <label style="color:white;padding:5px;background-color:#2A4D69">Original Data</label> </input>
 	  <input type="checkbox" id="myCheckboxRand" style="margin-left: 50px" > <label style="color:white;padding:5px;background-color:#EE6262">Random sampled Data </label></input>
-	  <input type="checkbox" id="myCheckboxStrat" style="margin-left: 50px" ><label style="color:white;padding:5px;background-color:#99B898"> Stratified sampled Data</label> </input>
+	  <input type="checkbox" id="myCheckboxStrat" style="margin-left: 50px" ><label style="color:white;padding:5px;background-color:#99B898"> Stratified sampled Data</label> </input-->
       
 
       <script type="text/javascript">
@@ -51,7 +56,7 @@
 	   var visibility = ["hidden","visible"];
 	   var opacity = [0,1];
 	   
-	   function updateOrig_scatter(){
+	   /*function updateOrig_scatter(){
 				if(d3.select("#myCheckboxOrig").property("checked")){
 					updateScatter(0,1);
 					updateScatter(1,0);
@@ -118,29 +123,29 @@
 									.delay(function(d,i){ return(i)});
 					break;
 			  }		
-		}
+		}*/
 		
-	    d3.select("#screePlot").on('click', function(){
+	    d3.select("#lineGraph").on('click', function(){
 			
-			d3.select("#myCheckboxOrig").property("checked",true);
-			d3.select("#myCheckboxRand").property("checked",true);
-			d3.select("#myCheckboxStrat").property("checked",true);
+			//d3.select("#myCheckboxOrig").property("checked",true);
+			//d3.select("#myCheckboxRand").property("checked",true);
+			//d3.select("#myCheckboxStrat").property("checked",true);
 			
 			d3.select("#menu1")
-			.text("Scree Plot")
+			.text("Line Graph")
 			.append("span")
 			.attr("class","caret");
 			
 			
 			d3.select("body").selectAll("svg").remove();
 			
-			d3.select("#myCheckboxOrig").on("change",updateOrig_scree);
-			d3.select("#myCheckboxRand").on("change",updateRand_scree);
-			d3.select("#myCheckboxStrat").on("change",updateStrat_scree);
-			drawScreePlot();
+			//d3.select("#myCheckboxOrig").on("change",updateOrig_scree);
+			//d3.select("#myCheckboxRand").on("change",updateRand_scree);
+			//d3.select("#myCheckboxStrat").on("change",updateStrat_scree);
+			drawLineGraph();
 		});
 		
-		d3.select("#pcaScatterPlot").on('click', function(){
+		/*d3.select("#pcaScatterPlot").on('click', function(){
 			
 			
 			d3.select("#myCheckboxOrig").property("checked",true);
@@ -218,7 +223,7 @@
 			d3.select("#myCheckboxRand").on("change",updateRand_matrix);
 			d3.select("#myCheckboxStrat").on("change",updateStrat_matrix);
 			drawscatterMatrix();
-		});
+		});*/
 		
       </script>
    </body>

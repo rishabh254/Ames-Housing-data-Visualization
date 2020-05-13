@@ -1,4 +1,4 @@
-function updateOrig_scree() {
+/*function updateOrig_scree() {
     if (d3.select("#myCheckboxOrig").property("checked")) {
         updateScree(0, visibility[1]);
 
@@ -43,12 +43,116 @@ function updateScree(dataType, visibility) {
             d3.select("body").selectAll(".dotScreePlot_s").style("visibility", visibility);
             break;
     }
-}
+}*/
 
-function drawScreePlot() {
+function drawLineGraph() {
+
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 700 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + 2*margin.left + 2*margin.right)
+    .attr("height", height + 2*margin.top + 2*margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+//Read the data
+d3.json("/get_line_data", function(data) {
+	
+          
+
+ // Add X axis --> it is a date format
+    var x = d3.scaleLinear()
+      .domain(d3.extent(data, function(d) { return d.age; }))
+      .range([ 0, width ]);
+    
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .domain([0.9*d3.min(data, function(d) { return +d.OverallQual; }), 1.1*d3.max(data, function(d) { return +d.OverallQual; })])
+      .range([ height, 0 ]);
+    //svg.append("g")
+      //.call(d3.axisLeft(y));
+	  
+	  var y1 = d3.scaleLinear()
+      .domain([0.9*d3.min(data, function(d) { return +d.SalePrice; }), 1.1*d3.max(data, function(d) { return +d.SalePrice; })])
+      .range([ height, 0 ]);
+	  
+	  
+            // x axis
+            var x_axis = d3.axisBottom(x)
+                ;
+
+            // x axis
+            var y_axis = d3.axisLeft(y);
+			var y1_axis = d3.axisRight(y1);
+                
+	svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(x_axis);  
+	  
+    svg.append("g")
+	   .attr("class", "axisRed")
+      .attr("transform", "translate(" + width + ",0)")
+      .call(y1_axis);
+	  
+	  svg.append("g")
+	  .attr("class", "axisBlue")
+      .call(y_axis);
+
+	  
+	  // x axis label
+            svg.append("text")
+                .attr("transform", "translate(" + (width+margin.left+margin.right) + " ," + (height+margin.bottom+margin.top) + ")")
+                .attr("dx", "-20.6em")
+                .attr("dy", "-0.6em")
+                .style("text-anchor", "end")
+                .text("House Age (Year Sold - Year last remodelled)");
+
+            // y axis label
+            svg.append("text")
+                .attr("transform", "translate(" + -(margin.left) + " ," + 0 + ")" + " rotate(-90)")
+                .attr("dx", "-10.7em")
+                .attr("dy", "1.0em")
+                .style("text-anchor", "end")
+                .text("Overall Quality");
+
+			svg.append("text")
+                .attr("transform", "translate(" + (width+margin.left) + " ," + 0 + ")" + " rotate(-90)")
+                .attr("dx", "-10.7em")
+                .attr("dy", "1.0em")
+                .style("text-anchor", "end")
+                .text("SalePrice");
+	  
+    // Add the line
+    svg.append("path")
+      .datum(data)
+      .attr("fill", "none")
+	  .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.age) })
+        .y(function(d) { return y(d.OverallQual) })
+        )
+		
+	svg.append("path")
+      .datum(data)
+      .attr("fill", "none")
+      .attr("stroke", "red")
+	  .attr("stroke-width", 1.5)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.age) })
+        .y(function(d) { return y1(d.SalePrice) })
+        )
+});
 
 
-    d3.json("/get_eigen",
+    /*d3.json("/get_eigen",
         function(d) {
             screePlotData = d.eigen_orig;
             console.log(d.eigen_orig);
@@ -137,14 +241,7 @@ function drawScreePlot() {
                 //.attr("class","screeplotSvg")
                 .attr("viewBox", "-50 30 " + width + " " + height);
 
-            /* var borderRect = container.append("rect")
-            .attr("stroke","#000000")
-            .attr("fill-opacity",0.5)
-            .attr("stroke-width",0)
-            .attr("width", width-leftMargin-rightMargin)
-            .attr("height",height-topMargin-bottomMargin)
-            .attr("transform","translate(" + leftMargin + "," + topMargin + ")");
-		*/
+        
             var canvas = container.append("g")
                 .attr("transform", "translate(" + leftMargin + "," + topMargin + ")");
 
@@ -197,19 +294,6 @@ function drawScreePlot() {
                 .call(y_gridlines);
 
 
-            // custom invert function
-            /*  widthScale.invert = (function(){
-                  var domain = widthScale.domain();
-                  var range = widthScale.range();
-                  var scale = d3.scaleQuantize().domain(range).range(domain);
-
-                  return function(widthScale){
-                      return scale(widthScale);
-                  }
-              })();
-
-              */
-
 
             // append the rectangles for the bar chart
             // group of bars
@@ -228,14 +312,7 @@ function drawScreePlot() {
                     return d.index
                 });
 
-            /*var bars =  barGroups.enter().append("rect")
-                  .attr("class","bar")
-                  .attr("fill","blue")
-                  .attr("x", function(d) { return widthScale(d.index); })
-                  .attr("width", widthScale.bandwidth())
-                  .attr("y", function(d) { if(d.eigen < 1){ return height-topMargin-bottomMargin - 2;} else{return heightScale(d.eigen);} })
-                  .attr("height", function(d) { if(d.eigen < 1){return 2; } else{return height-topMargin-bottomMargin - heightScale(d.eigen);} })
-                  .merge(barGroups);*/
+         
 
             // individual bars
             var bars_orig = barGroups_orig
@@ -470,6 +547,6 @@ function drawScreePlot() {
                 });
 
 
-        });
+        });*/
 
 }
