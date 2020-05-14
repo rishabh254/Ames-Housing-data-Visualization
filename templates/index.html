@@ -5,6 +5,7 @@
 	  <script src="../static/d3/d3v4.js"></script>
 	  <script src="../static/d3/jquery-3.2.1.min.js"></script>
 	  <script src="../static/lineGraph.js"></script>
+	  <script src="../static/mdsScatter.js"></script>
       <!--script src="../static/pcaScatter.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
 	  <script src="../static/scatterMatrix.js"></script-->
@@ -167,12 +168,12 @@
 		});
 		
 		
-		
+		*/
 		d3.select("#mdsScatterPlotE").on('click', function(){
 			
-			d3.select("#myCheckboxOrig").property("checked",true);
-			d3.select("#myCheckboxRand").property("checked",false);
-			d3.select("#myCheckboxStrat").property("checked",false);
+			//d3.select("#myCheckboxOrig").property("checked",true);
+			//d3.select("#myCheckboxRand").property("checked",false);
+			//d3.select("#myCheckboxStrat").property("checked",false);
 			
 			d3.select("#menu1")
 			.text("MDS ScatterPlot (Euclidean)")
@@ -181,13 +182,13 @@
 			
 			d3.select("body").selectAll("svg").remove();
 			
-			d3.select("#myCheckboxOrig").on("change",updateOrig_scatter);
-			d3.select("#myCheckboxRand").on("change",updateRand_scatter);
-			d3.select("#myCheckboxStrat").on("change",updateStrat_scatter);
+			//d3.select("#myCheckboxOrig").on("change",updateOrig_scatter);
+			//d3.select("#myCheckboxRand").on("change",updateRand_scatter);
+			//d3.select("#myCheckboxStrat").on("change",updateStrat_scatter);
 			drawMDSscatter("euclidean");
 		});
 		
-		d3.select("#mdsScatterPlotC").on('click', function(){
+		/*d3.select("#mdsScatterPlotC").on('click', function(){
 			
 			d3.select("#myCheckboxOrig").property("checked",true);
 			d3.select("#myCheckboxRand").property("checked",false);

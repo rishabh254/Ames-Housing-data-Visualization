@@ -21,8 +21,8 @@ function drawMDSscatter(type) {
         function(d) {
 
             d_mds_orig = (JSON.parse(d.mds_orig));
-            d_mds_random = (JSON.parse(d.mds_random));
-            d_mds_stratified = (JSON.parse(d.mds_stratified));
+            //d_mds_random = (JSON.parse(d.mds_random));
+            //d_mds_stratified = (JSON.parse(d.mds_stratified));
 
             var leftMargin = 10;
             var rightMargin = 10;
@@ -33,7 +33,7 @@ function drawMDSscatter(type) {
 
             // x axis scale
             var widthScale = d3.scaleLinear()
-                .domain([Math.round(getMin(d_mds_orig, "dim0")) - 1, Math.round(getMax(d_mds_orig, "dim0")) - 2])
+                .domain([Math.round(getMin(d_mds_orig, "dim0"))-0.3, Math.round(getMax(d_mds_orig, "dim0"))+0.3])
                 .range([0, width - leftMargin - rightMargin]);
 
             if (type == 'correlation')
@@ -41,13 +41,13 @@ function drawMDSscatter(type) {
 
             // y axis scale
             var heightScale = d3.scaleLinear()
-                .domain([Math.round(getMin(d_mds_orig, "dim1")) - 1, Math.round(getMax(d_mds_orig, "dim1"))])
+                .domain([Math.round(getMin(d_mds_orig, "dim1"))-0.3 , Math.round(getMax(d_mds_orig, "dim1"))+0.3])
                 .range([height - topMargin - bottomMargin, 0]);
 
             if (type == 'correlation')
                 heightScale.domain([-1.5, 1.5]);
 
-            var colorScale = ["red", "blue", "green"];
+            var colorScale = ["steelblue", "red", "green"];
 
             // color scale
             var color = d3.scaleLinear()
@@ -113,10 +113,12 @@ function drawMDSscatter(type) {
                 .attr("cy", function(d) {
                     return heightScale(d["dim1"]);
                 })
-                .attr("r", 4)
+				.attr("r", function(d) {
+                    return 4*(d["dataType"]+0.5);
+                })
                 .attr("opacity", "0")
                 .style("fill", function(d) {
-                    return colorScale[d["clusterNo"]];
+                    return colorScale[d["dataType"]];
                 });
 
 
@@ -130,7 +132,7 @@ function drawMDSscatter(type) {
                     return (i)
                 });
 
-            canvas.append('g')
+           /* canvas.append('g')
                 .selectAll("dot")
                 .data(d_mds_random)
                 .enter()
@@ -167,6 +169,6 @@ function drawMDSscatter(type) {
                 .style("fill", function(d) {
                     return colorScale[d["clusterNo"]];
                 });
-
+*/
         });
 }

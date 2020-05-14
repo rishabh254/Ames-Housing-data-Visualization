@@ -19,7 +19,7 @@ import random
 from sklearn.manifold import MDS
 
 ##### Task 0 #####
-def preprocess(df):
+def preprocess(df,norm):
     cols = ['YrSold','SalePrice','YearRemodAdd','MoSold','ExterQual','KitchenQual','OverallQual',
             'FireplaceQu','BsmtQual','BsmtFinSF1','GrLivArea','GarageArea','LotArea']
     df = df[cols]
@@ -46,9 +46,10 @@ def preprocess(df):
                 lbl = preprocessing.LabelEncoder()
                 lbl.fit(list(train_encoded[feature].values))
                 train_encoded[feature] = lbl.transform(list(train_encoded[feature].values))
-        #else:
-            #pass
-            #train_encoded[feature] = stats.zscore(train_encoded[feature])
+        if norm == 1:
+                mn = min(train_encoded[feature])
+                mx = max(train_encoded[feature])
+                train_encoded[feature] = (train_encoded[feature]-mn)/(mx-mn)
     train_encoded.fillna(train_encoded.mean(),inplace=True)
     return train_encoded
 
@@ -111,15 +112,32 @@ def get_PCS(data):
 
 ##### Task 3.2 #####
 def get_MDS(data,distType):
-    if distType is 'euclidean':
+    no_cols = len(data.columns)
+    '''dd = data.T.corr()
+    vv = data.corr()
+    vd=[]
+
+    for col in data.columns:
+        v_df = (pd.DataFrame(0, index=np.arange(len(data)), columns=data.columns))
+        v_df[col]=1
+        vd.append(data.corrwith(v_df, axis=1))
+    dv = np.array(vd).T
+    cm = np.concatenate((np.concatenate((dd,dv),1), np.concatenate((vd,vv),1)),0)
+    print(len(cm))'''
+    
+    if distType is 'lol':
         embedding = MDS(n_init=1, n_components=2, dissimilarity = distType, random_state=1)
         X_transformed = embedding.fit_transform(data)
     else:
         embedding = MDS(n_init=1 , n_components=2, dissimilarity = 'precomputed', random_state=1)
         X_transformed = embedding.fit_transform(pow(2*(1-data.T.corr()),0.5))
+        X_transformed1 = embedding.fit_transform(pow(2*(1-data.corr()),0.5))
 
-    mds_df = pd.DataFrame(X_transformed, columns=['dim0','dim1'])
-    mds_df['clusterNo'] = data['clusterNo'].astype(int)
+    
+    mds_df = pd.DataFrame(np.concatenate((X_transformed,X_transformed1),0), columns=['dim0','dim1'])
+    # datatype 0 : datapoint , 1 : feature
+    mds_df['dataType'] = 0
+    mds_df.iloc[len(mds_df)-no_cols:]['dataType']=1
     return mds_df.to_json(orient='records')
 
 ##### Task 3.3 #####
@@ -136,9 +154,8 @@ def get_scatter_matrix_data(data):
 if __name__ == "__main__":
     df = pd.read_csv('housing.csv')
 
-    df_encoded = preprocess(df)
-    
-    print(len(df_encoded))
+    df_orig = preprocess(df,0)
+    df_norm = preprocess(df,1)
     
     #kmeans_elbow(df_encoded)
     #no_clusters = 3
@@ -149,6 +166,7 @@ if __name__ == "__main__":
 
     #Glue back to originaal data
     #df_encoded['clusterNo'] = labels
-    df_encoded.to_csv('df_orig.csv',index=False)
+    df_orig.to_csv('df_orig.csv',index=False)
+    df_norm.to_csv('df_norm.csv',index=False)
     
     
