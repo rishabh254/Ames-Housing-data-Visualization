@@ -69,7 +69,7 @@ if __name__ == '__main__':
     #r_sample = r_sample.reset_index(drop=True)
     #s_sample = df_orig.groupby('clusterNo').apply(lambda x: x.sample(frac=0.25,random_state=1))
     #s_sample = s_sample.reset_index(drop=True)
-    mds_origE = housing.get_MDS(df_norm,'euclidean')
+    mds_origE = housing.get_MDS(df_norm,df_orig,'euclidean')
     #mds_randomE = housing.get_MDS(r_sample,'euclidean')
     #mds_stratifiedE = housing.get_MDS(s_sample,'euclidean')
     #mds_origC = housing.get_MDS(df_orig,'correlation')

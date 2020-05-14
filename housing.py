@@ -46,10 +46,12 @@ def preprocess(df,norm):
                 lbl = preprocessing.LabelEncoder()
                 lbl.fit(list(train_encoded[feature].values))
                 train_encoded[feature] = lbl.transform(list(train_encoded[feature].values))
+        #train_encoded = train_encoded[train_encoded[feature].between(train_encoded[feature].quantile(.01), train_encoded[feature].quantile(.99))]
         if norm == 1:
                 mn = min(train_encoded[feature])
                 mx = max(train_encoded[feature])
                 train_encoded[feature] = (train_encoded[feature]-mn)/(mx-mn)
+                #print(len(train_encoded))
     train_encoded.fillna(train_encoded.mean(),inplace=True)
     return train_encoded
 
@@ -111,8 +113,8 @@ def get_PCS(data):
     return PCA_DF.to_json(orient='records')
 
 ##### Task 3.2 #####
-def get_MDS(data,distType):
-    no_cols = len(data.columns)
+def get_MDS(df_norm,df_orig,distType):
+    no_cols = len(df_norm.columns)
     '''dd = data.T.corr()
     vv = data.corr()
     vd=[]
@@ -127,17 +129,25 @@ def get_MDS(data,distType):
     
     if distType is 'lol':
         embedding = MDS(n_init=1, n_components=2, dissimilarity = distType, random_state=1)
-        X_transformed = embedding.fit_transform(data)
+        X_transformed = embedding.fit_transform(df_norm)
     else:
         embedding = MDS(n_init=1 , n_components=2, dissimilarity = 'precomputed', random_state=1)
-        X_transformed = embedding.fit_transform(pow(2*(1-data.T.corr()),0.5))
-        X_transformed1 = embedding.fit_transform(pow(2*(1-data.corr()),0.5))
+        X_transformed = embedding.fit_transform(pow(2*(1-df_norm.T.corr()),0.5))
+        X_transformed1 = embedding.fit_transform(pow(2*(1-df_norm.corr()),0.5))
 
     
     mds_df = pd.DataFrame(np.concatenate((X_transformed,X_transformed1),0), columns=['dim0','dim1'])
     # datatype 0 : datapoint , 1 : feature
     mds_df['dataType'] = 0
-    mds_df.iloc[len(mds_df)-no_cols:]['dataType']=1
+    mds_df['label'] = ""
+    for i in range(len(df_norm.columns)):
+        mds_df.loc[len(mds_df)-i-1,'label'] = df_norm.columns[no_cols-i-1]
+    mds_df.loc[len(mds_df)-no_cols:,'dataType']=1
+
+    for col in df_norm.columns:
+        mds_df[col] = df_norm[col]
+        mds_df[col+'1'] = df_orig[col]
+        mds_df.loc[len(mds_df)-no_cols:,col]=1
     return mds_df.to_json(orient='records')
 
 ##### Task 3.3 #####

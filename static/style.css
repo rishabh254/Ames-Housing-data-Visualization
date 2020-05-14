@@ -35,7 +35,6 @@ li {
      color: #313639;
      border: 1px solid #313639;
      border-radius: 8px;
-     pointer-events: none;
      font-size: 1.3rem;
 }
  .line {
@@ -92,4 +91,17 @@ axisBlue line{
 .axisBlue text{
   fill: steelblue;
 }
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;								
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: solid;		
+    border-radius: 8px;
+	cursor:pointer;
+    pointer-events: auto;	
+}
+
  
