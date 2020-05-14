@@ -21,8 +21,9 @@ from sklearn.manifold import MDS
 ##### Task 0 #####
 def preprocess(df):
     cols = ['YrSold','SalePrice','YearRemodAdd','MoSold','ExterQual','KitchenQual','OverallQual',
-            'FireplaceQu','BsmtQual','BsmtFinSF1','GrLivArea','GarageArea','LotArea']
+            'FireplaceQu','BsmtQual','BsmtFinSF1','GrLivArea','GarageArea','LotArea', 'Neighborhood']
     df = df[cols]
+
     #df = df[:750]
     # features rated as Ex, Gd, TA, Fa, Po
     feature_rated =['ExterQual','ExterCond','BsmtQual','BsmtCond','BsmtExposure',
@@ -60,6 +61,21 @@ def get_line_data(data):
     df = df.groupby(['age']).mean().reset_index()
     df = df[df['age']>=0]
     return df.to_json(orient='records')
+
+def get_parallel_data(data):
+    df = data[['SalePrice', 'GarageArea', 'OverallQual', 'GrLivArea', 'LotArea']]
+    return df.to_json(orient='records')
+
+def get_bubble_data(data):
+    df = data[['SalePrice', 'Neighborhood']]
+    df_new = df.groupby('Neighborhood')['SalePrice'].agg(['count', 'mean']).reset_index()
+    df_new['scale'] = df_new[['mean']].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
+    df_new = df_new.drop(columns=['mean'])
+    df_new.columns = ['Name', 'Count', 'scale']
+    df_new[['Count']] = df_new[['Count']].fillna(0.0).astype(int)
+    return df_new.to_json(orient='records')
+
+
 
 ##### Task 1.2 #####
 def kmeans_elbow(df):
@@ -137,6 +153,7 @@ if __name__ == "__main__":
     df = pd.read_csv('housing.csv')
 
     df_encoded = preprocess(df)
+    print(df_encoded['Neighborhood'])
     
     print(len(df_encoded))
     

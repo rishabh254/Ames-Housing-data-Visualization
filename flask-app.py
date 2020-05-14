@@ -32,7 +32,23 @@ def get_eigen():
 @app.route('/get_line_data')
 def get_pcs():
     data = housing.get_line_data(df_orig)
+    print("linr....")
+    print(data)
     return (data)
+
+@app.route('/get_parallel_data')
+def get_parallel_data():
+    data = housing.get_parallel_data(df_orig)
+    print("pc....")
+    print(data)
+    return (data)
+
+@app.route('/get_bubble_data')
+def get_bubble_data():
+    data = housing.get_bubble_data(df_orig)
+    print("data in bubble")
+    print(data)
+    return data
 
 ##### Task 3.2 #####
 @app.route('/get_mds/euclidean')

@@ -5,6 +5,8 @@
 	  <script src="../static/d3/d3v4.js"></script>
 	  <script src="../static/d3/jquery-3.2.1.min.js"></script>
 	  <script src="../static/lineGraph.js"></script>
+	   <script src="../static/parallelCoordinates.js"></script>
+	   <script src="../static/bubble.js"></script>
       <!--script src="../static/pcaScatter.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
 	  <script src="../static/scatterMatrix.js"></script-->
@@ -28,6 +30,13 @@
 			<li>
 				<a class="presentation" id="lineGraph">Line Graph</a>
 			</li>
+
+				<li>
+					<a class="presentation" id="bubble">bubble Graph</a>
+				</li>
+				<li>
+					<a class="presentation" id="parallelGraph">Parallel  Coordinates</a>
+				</li>
 			<li>
 				<a class="presentation" id="pcaScatterPlot">Top 2 PCA vectors ScatterPlot</a>
 			</li>
@@ -143,6 +152,25 @@
 			//d3.select("#myCheckboxRand").on("change",updateRand_scree);
 			//d3.select("#myCheckboxStrat").on("change",updateStrat_scree);
 			drawLineGraph();
+		});
+
+
+	    d3.select("#parallelGraph").on('click', function(){
+			d3.select("#menu1")
+			.text("Parallel Graph")
+			.append("span")
+			.attr("class","caret");
+			d3.select("body").selectAll("svg").remove();
+			drawParallelCoordinates();
+		});
+
+		 d3.select("#bubble").on('click', function(){
+			d3.select("#menu1")
+			.text("Bubble")
+			.append("span")
+			.attr("class","caret");
+			d3.select("body").selectAll("svg").remove();
+			bubble_test();
 		});
 		
 		/*d3.select("#pcaScatterPlot").on('click', function(){
