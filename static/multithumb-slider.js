@@ -92,7 +92,7 @@ Slider.prototype.moveSliderTo = function (value) {
   var valueMax = parseInt(this.domNode.getAttribute('aria-valuemax'));
   var valueMin = parseInt(this.domNode.getAttribute('aria-valuemin'));
   
-  console.log("max"+this.sliderNo);
+  //console.log("max"+this.sliderNo);
   
 
   if (value > valueMax) {
@@ -115,6 +115,7 @@ Slider.prototype.moveSliderTo = function (value) {
 	  currMax[(this.sliderNo-1)/2] = this.valueNow;
 	  //d3.select("svg").select("g").style("visibility", "hidden");
 		
+	  // for data context map
 	  
 	for(var i = 0;i<d_mds_orig.length-13;i++)
 	  {
@@ -128,7 +129,28 @@ Slider.prototype.moveSliderTo = function (value) {
 		else
 			d3.select("#scatter_"+i).style("visibility", "hidden");
 			
-	  }  
+	  }
+
+	  //// for line graph
+	  
+	  d_line = [];
+	  
+		//console.log(d_line_graph[0][features[0]]);
+	  for(var i = 0;i<d_line_graph.length-13;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d_line.push(d_line_graph[i]);
+			
+	  }
+		
+	  //console.log(d_line_graph.length + " , "+d_line.length);
+	  updateLineGraph(d_line);
+	  
 	  
     this.minDomNode.setAttribute('aria-valuemax', this.valueNow);
   }
@@ -150,6 +172,26 @@ Slider.prototype.moveSliderTo = function (value) {
 			d3.select("#scatter_"+i).style("visibility", "hidden");
 			
 	  }
+	  
+	 
+	d_line = [];
+	  
+		//console.log(d_line_graph[0][features[0]]);
+	  for(var i = 0;i<d_line_graph.length-13;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d_line.push(d_line_graph[i]);
+			
+	  }
+	   updateLineGraph(d_line);
+	  //console.log(d_line_graph.length + " , "+d_line.length);
+	  
+	  
 	  
     this.maxDomNode.setAttribute('aria-valuemin', this.valueNow);
   }

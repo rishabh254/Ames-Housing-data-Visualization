@@ -129,7 +129,7 @@ function drawMDSscatter(type) {
                     return heightScale(d["dim1"]);
                 })
 				.attr("r", function(d) {
-                    return 4*(d["dataType"]+0.5);
+                    return 4*(d["dataType"]+1);
                 })
                 .attr("opacity", "0")
 				.style("stroke", function(d) {
@@ -156,7 +156,7 @@ function drawMDSscatter(type) {
 					d3.select(this).transition()
                 .duration('300')
                 .attr("r", function(d) {
-                    return 4*(d["dataType"]+0.5);
+                    return 4*(d["dataType"]+1);
                 });
 					
 					div.transition()		

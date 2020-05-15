@@ -45,43 +45,173 @@ function updateScree(dataType, visibility) {
     }
 }*/
 
-function drawLineGraph() {
+var groupBy = function(xs, key) {
+  return xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
 
-// set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 700 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + 2*margin.left + 2*margin.right)
-    .attr("height", height + 2*margin.top + 2*margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-//Read the data
-d3.json("/get_line_data", function(data) {
+function getLineData(data){
 	
-          
+	for (var i=0;i<data.length-13;i++)
+	{
+		data[i]['age'] = data[i]['YrSold1'] - data[i]['YearRemodAdd1'];
+		data[i] = {
+					age:   data[i].age,
+					SalePrice:   data[i].SalePrice1,
+					OverallQual: data[i].OverallQual1
+				   };
+	}
+	var result=[]
+	
+	
+	groupData = groupBy(data,'age');
+	
+	for(i in groupData)
+	{
+		if(i>=0)
+		{
+		 sp = groupData[i].reduce((accum,item) => accum + item.SalePrice, 0)/groupData[i].length;
+		 oq = groupData[i].reduce((accum,item) => accum + item.OverallQual, 0)/groupData[i].length;
+		 ag = groupData[i].reduce((accum,item) => accum + item.age, 0)/groupData[i].length;
+		 //console.log(i);
+		 result.push({age: ag, SalePrice:sp, OverallQual:oq});
+		}
+	}
+	return result;
+}
 
- // Add X axis --> it is a date format
+d_line_graph =[]
+var svgLineGraph=null;
+var marginLineGraph,widthLineGraph,heightLineGraph;
+
+
+		  
+		  
+function drawInitialLineGraph() {
+d3.json("/get_mds/euclidean", function(d) {
+	
+	d_line_graph = JSON.parse(d.mds_orig);
+	drawLineGraph(d_line_graph.slice());
+});
+}
+
+function updateLineGraph(lineData)
+{
+	if(svgLineGraph!=null)
+	{
+	data = getLineData(lineData);
+	
+	
+	
+	// Add X axis --> it is a date format
     var x = d3.scaleLinear()
       .domain(d3.extent(data, function(d) { return d.age; }))
-      .range([ 0, width ]);
+      .range([ 0, widthLineGraph ]);
     
 
     // Add Y axis
     var y = d3.scaleLinear()
       .domain([0.9*d3.min(data, function(d) { return +d.OverallQual; }), 1.1*d3.max(data, function(d) { return +d.OverallQual; })])
-      .range([ height, 0 ]);
+      .range([ heightLineGraph, 0 ]);
     //svg.append("g")
       //.call(d3.axisLeft(y));
 	  
 	  var y1 = d3.scaleLinear()
       .domain([0.9*d3.min(data, function(d) { return +d.SalePrice; }), 1.1*d3.max(data, function(d) { return +d.SalePrice; })])
-      .range([ height, 0 ]);
+      .range([ heightLineGraph, 0 ]);
+	  
+	     // x axis
+            var x_axis = d3.axisBottom(x)
+                ;
+
+            // x axis
+            var y_axis = d3.axisLeft(y);
+			var y1_axis = d3.axisRight(y1);
+                
+	svgLineGraph.select(".x_axis")
+      .transition()
+	  .duration(750)
+	  .attr("transform", "translate(0," + heightLineGraph + ")")
+      .call(x_axis);  
+	  
+    svgLineGraph.select(".axisRed")
+      .transition()
+	  .duration(750)
+	  .attr("transform", "translate(" + widthLineGraph + ",0)")
+      .call(y1_axis);
+	  
+	  svgLineGraph.select(".axisBlue")
+      .transition()
+	  .duration(750)
+	  .call(y_axis);
+	  
+	  
+	  //console.log("update" + data[0]['OverallQual']);
+	  
+	  svgLineGraph.select(".lineO")
+      .datum(data)
+      .transition()
+	  .duration(750)
+	  .attr("fill", "none")
+	  .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.age) })
+        .y(function(d) { return y(d.OverallQual) })
+        );
+		
+		svgLineGraph.select(".lineS")
+      .datum(data)
+	  .transition()
+	  .duration(750)
+      .attr("fill", "none")
+	  .attr("stroke", "red")
+      .attr("stroke-width", 1.5)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.age) })
+        .y(function(d) { return y1(d.SalePrice) })
+        );
+	  
+	}
+}
+
+function drawLineGraph(lineData) {
+
+	
+	data = getLineData(lineData);
+	
+	// set the dimensions and marginLineGraphs of the graph
+     marginLineGraph = {top: 10, right: 30, bottom: 30, left: 60},
+    widthLineGraph = 700 - marginLineGraph.left - marginLineGraph.right,
+    heightLineGraph = 500 - marginLineGraph.top - marginLineGraph.bottom;
+
+// append the svg object to the body of the page
+   svgLineGraph = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", widthLineGraph + 2*marginLineGraph.left + 2*marginLineGraph.right)
+    .attr("height", heightLineGraph + 2*marginLineGraph.top + 2*marginLineGraph.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + marginLineGraph.left + "," + marginLineGraph.top + ")");
+	
+ // Add X axis --> it is a date format
+    var x = d3.scaleLinear()
+      .domain(d3.extent(data, function(d) { return d.age; }))
+      .range([ 0, widthLineGraph ]);
+    
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .domain([0.9*d3.min(data, function(d) { return +d.OverallQual; }), 1.1*d3.max(data, function(d) { return +d.OverallQual; })])
+      .range([ heightLineGraph, 0 ]);
+    //svgLineGraph.append("g")
+      //.call(d3.axisLeft(y));
+	  
+	  var y1 = d3.scaleLinear()
+      .domain([0.9*d3.min(data, function(d) { return +d.SalePrice; }), 1.1*d3.max(data, function(d) { return +d.SalePrice; })])
+      .range([ heightLineGraph, 0 ]);
 	  
 	  
             // x axis
@@ -92,47 +222,50 @@ d3.json("/get_line_data", function(data) {
             var y_axis = d3.axisLeft(y);
 			var y1_axis = d3.axisRight(y1);
                 
-	svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
+	svgLineGraph.append("g")
+      .attr("class", "x_axis")
+      .attr("transform", "translate(0," + heightLineGraph + ")")
       .call(x_axis);  
 	  
-    svg.append("g")
-	   .attr("class", "axisRed")
-      .attr("transform", "translate(" + width + ",0)")
+    svgLineGraph.append("g")
+	  .attr("class", "axisRed")
+      .attr("transform", "translate(" + widthLineGraph + ",0)")
       .call(y1_axis);
 	  
-	  svg.append("g")
+	  svgLineGraph.append("g")
 	  .attr("class", "axisBlue")
       .call(y_axis);
 
 	  
 	  // x axis label
-            svg.append("text")
-                .attr("transform", "translate(" + (width+margin.left+margin.right) + " ," + (height+margin.bottom+margin.top) + ")")
+            svgLineGraph.append("text")
+                .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left+marginLineGraph.right) + " ," + (heightLineGraph+marginLineGraph.bottom+marginLineGraph.top) + ")")
                 .attr("dx", "-20.6em")
                 .attr("dy", "-0.6em")
                 .style("text-anchor", "end")
                 .text("House Age (Year Sold - Year last remodelled)");
 
             // y axis label
-            svg.append("text")
-                .attr("transform", "translate(" + -(margin.left) + " ," + 0 + ")" + " rotate(-90)")
+            svgLineGraph.append("text")
+                .attr("transform", "translate(" + -(marginLineGraph.left) + " ," + 0 + ")" + " rotate(-90)")
                 .attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
                 .text("Overall Quality");
 
-			svg.append("text")
-                .attr("transform", "translate(" + (width+margin.left) + " ," + 0 + ")" + " rotate(-90)")
+			svgLineGraph.append("text")
+                .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left) + " ," + 0 + ")" + " rotate(-90)")
                 .attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
                 .text("SalePrice");
 	  
     // Add the line
-    svg.append("path")
+	console.log("original" + data[0]);
+    svgLineGraph.append("path")
       .datum(data)
       .attr("fill", "none")
+	  .attr("class", "lineO")
 	  .attr("stroke", "steelblue")
       .attr("stroke-width", 1.5)
       .attr("d", d3.line()
@@ -140,16 +273,17 @@ d3.json("/get_line_data", function(data) {
         .y(function(d) { return y(d.OverallQual) })
         )
 		
-	svg.append("path")
+	svgLineGraph.append("path")
       .datum(data)
       .attr("fill", "none")
+	  .attr("class", "lineS")
       .attr("stroke", "red")
 	  .attr("stroke-width", 1.5)
       .attr("d", d3.line()
         .x(function(d) { return x(d.age) })
         .y(function(d) { return y1(d.SalePrice) })
         )
-});
+
 
 
     /*d3.json("/get_eigen",
@@ -188,10 +322,10 @@ d3.json("/get_line_data", function(data) {
                 d.eigen = +d.eigen;
             });
 
-            var leftMargin = 10;
-            var rightMargin = 10;
-            var topMargin = 20;
-            var bottomMargin = 40;
+            var leftmarginLineGraph = 10;
+            var rightmarginLineGraph = 10;
+            var topmarginLineGraph = 20;
+            var bottommarginLineGraph = 40;
             var height = 500;
             var width = 700;
             // var noOfGridlines = 10;
@@ -201,13 +335,13 @@ d3.json("/get_line_data", function(data) {
                 .domain(dataset.map(function(d) {
                     return d.index;
                 }))
-                .range([0, width - leftMargin - rightMargin])
+                .range([0, width - leftmarginLineGraph - rightmarginLineGraph])
                 .padding(0.1);
 
             // y axis scale
             var heightScale = d3.scaleLinear()
                 .domain([0, 110])
-                .range([height - topMargin - bottomMargin, 0]);
+                .range([height - topmarginLineGraph - bottommarginLineGraph, 0]);
 
             //var color = d3.scaleOrdinal(d3.schemeCategory20c);
             // color scale
@@ -227,27 +361,27 @@ d3.json("/get_line_data", function(data) {
                 .ticks(10)
                 .tickSize(10);
 
-            //		  height = height - topMargin-bottomMargin;
-            //  width = width - leftMargin - rightMargin;
+            //		  height = height - topmarginLineGraph-bottommarginLineGraph;
+            //  width = width - leftmarginLineGraph - rightmarginLineGraph;
 
             // append the svg object to the body of the page
             // append a 'group' element to 'svg'
-            // moves the 'group' element to the top left margin
+            // moves the 'group' element to the top left marginLineGraph
             var container = d3.select("body")
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("style", "margin-left:20em;margin-right:20em;margin-top:2em")
+                .attr("style", "marginLineGraph-left:20em;marginLineGraph-right:20em;marginLineGraph-top:2em")
                 //.attr("class","screeplotSvg")
                 .attr("viewBox", "-50 30 " + width + " " + height);
 
         
             var canvas = container.append("g")
-                .attr("transform", "translate(" + leftMargin + "," + topMargin + ")");
+                .attr("transform", "translate(" + leftmarginLineGraph + "," + topmarginLineGraph + ")");
 
 
             canvas.append("g")
-                .attr("transform", "translate(0," + (height - topMargin - bottomMargin) + ")")
+                .attr("transform", "translate(0," + (height - topmarginLineGraph - bottommarginLineGraph) + ")")
                 .call(x_axis);
 
             // add the y Axis
@@ -257,7 +391,7 @@ d3.json("/get_line_data", function(data) {
 
             // x axis label
             canvas.append("text")
-                .attr("transform", "translate(" + (width - leftMargin - rightMargin) + " ," + (height - topMargin) + ")")
+                .attr("transform", "translate(" + (width - leftmarginLineGraph - rightmarginLineGraph) + " ," + (height - topmarginLineGraph) + ")")
                 .attr("dx", "-20.6em")
                 .attr("dy", "-0.6em")
                 .style("text-anchor", "end")
@@ -265,7 +399,7 @@ d3.json("/get_line_data", function(data) {
 
             // y axis label
             canvas.append("text")
-                .attr("transform", "translate(" + (-5 * leftMargin) + " ," + 0 + ")" + " rotate(-90)")
+                .attr("transform", "translate(" + (-5 * leftmarginLineGraph) + " ," + 0 + ")" + " rotate(-90)")
                 .attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
@@ -274,18 +408,18 @@ d3.json("/get_line_data", function(data) {
 
             // add the X gridlines
             var x_gridlines = d3.axisBottom(widthScale)
-                .tickSize(-height + topMargin + bottomMargin)
+                .tickSize(-height + topmarginLineGraph + bottommarginLineGraph)
                 .tickFormat("");
 
 
             // add the Y gridlines
             var y_gridlines = d3.axisLeft(heightScale)
-                .tickSize(-width + leftMargin + rightMargin)
+                .tickSize(-width + leftmarginLineGraph + rightmarginLineGraph)
                 .tickFormat("");
 
             canvas.append("g")
                 .attr("class", "grid")
-                .attr("transform", "translate(0," + (height - topMargin - bottomMargin) + ")")
+                .attr("transform", "translate(0," + (height - topmarginLineGraph - bottommarginLineGraph) + ")")
                 .call(x_gridlines);
 
 
@@ -320,7 +454,7 @@ d3.json("/get_line_data", function(data) {
                 .append("rect")
                 .attr("class", "bar_o")
                 .attr("height", function(d) {
-                    return height - topMargin - bottomMargin - heightScale(0);
+                    return height - topmarginLineGraph - bottommarginLineGraph - heightScale(0);
                 })
                 .attr("width", widthScale.bandwidth() / 4)
                 .attr("fill", function(d) {
@@ -340,7 +474,7 @@ d3.json("/get_line_data", function(data) {
                 .append("rect")
                 .attr("class", "bar_r")
                 .attr("height", function(d) {
-                    return height - topMargin - bottomMargin - heightScale(0);
+                    return height - topmarginLineGraph - bottommarginLineGraph - heightScale(0);
                 })
                 .attr("width", widthScale.bandwidth() / 4)
                 .attr("fill", function(d) {
@@ -359,7 +493,7 @@ d3.json("/get_line_data", function(data) {
                 .append("rect")
                 .attr("class", "bar_s")
                 .attr("height", function(d) {
-                    return height - topMargin - bottomMargin - heightScale(0);
+                    return height - topmarginLineGraph - bottommarginLineGraph - heightScale(0);
                 })
                 .attr("width", widthScale.bandwidth() / 4)
                 .attr("fill", function(d) {
@@ -380,7 +514,7 @@ d3.json("/get_line_data", function(data) {
                     return heightScale(d.eigen);
                 })
                 .attr("height", function(d) {
-                    return height - topMargin - bottomMargin - heightScale(d.eigen);
+                    return height - topmarginLineGraph - bottommarginLineGraph - heightScale(d.eigen);
                 })
                 .delay(function(d, i) {
                     return (i * 100)
@@ -393,7 +527,7 @@ d3.json("/get_line_data", function(data) {
                     return heightScale(d.eigen);
                 })
                 .attr("height", function(d) {
-                    return height - topMargin - bottomMargin - heightScale(d.eigen);
+                    return height - topmarginLineGraph - bottommarginLineGraph - heightScale(d.eigen);
                 })
                 .delay(function(d, i) {
                     return (i * 100)
@@ -406,7 +540,7 @@ d3.json("/get_line_data", function(data) {
                     return heightScale(d.eigen);
                 })
                 .attr("height", function(d) {
-                    return height - topMargin - bottomMargin - heightScale(d.eigen);
+                    return height - topmarginLineGraph - bottommarginLineGraph - heightScale(d.eigen);
                 })
                 .delay(function(d, i) {
                     return (i * 100)
