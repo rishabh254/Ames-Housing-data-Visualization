@@ -6,6 +6,7 @@
 	  <script src="../static/d3/jquery-3.2.1.min.js"></script>
 	  <script src="../static/lineGraph.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
+	  <script src="../static/multithumb-slider.js"></script>
       <!--script src="../static/pcaScatter.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
 	  <script src="../static/scatterMatrix.js"></script-->
@@ -17,6 +18,7 @@
       type="image/png" 
       href="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png">
       <link rel="stylesheet" type="text/css" href="../static/style.css" media="screen"/>
+	  <link rel="stylesheet" type="text/css" href="../static/multithumb-slider.css" media="screen"/>
    </head>
    <body>
       <h1 class = "retroshadow"> Ames Housing Dataset</h1>
@@ -46,6 +48,66 @@
 		 
 		 <div id="my_dataviz"></div>
       
+		<h4>
+  OverallQual
+</h3>
+<div class="aria-widget-slider">
+  <div class="rail-label min">
+    0
+  </div>
+  <div class="rail" style="width: 300px;">
+    <img id="minOverallQual"
+         src="../static/min-arrow.png"
+         role="slider"
+         tabindex="0"
+         class="min thumb"
+         aria-valuemin="1"
+         aria-valuenow="1"
+         aria-valuemax="10">
+    <img id="maxOverallQual"
+         src="../static/max-arrow.png"
+         role="slider"
+         tabindex="0"
+         class="max thumb"
+         aria-valuemin="1"
+         aria-valuenow="10"
+         aria-valuemax="10">
+  </div>
+  <div class="rail-label max">
+    10
+  </div>
+</div>
+
+<h4>
+  SalePrice
+</h3>
+<div class="aria-widget-slider">
+  <div class="rail-label min">
+    0
+  </div>
+  <div class="rail" style="width: 300px;">
+    <img id="minOverallQual"
+         src="../static/min-arrow.png"
+         role="slider"
+         tabindex="0"
+         class="min thumb"
+         aria-valuemin="1"
+         aria-valuenow="1"
+         aria-valuemax="500000">
+    <img id="maxOverallQual"
+         src="../static/max-arrow.png"
+         role="slider"
+         tabindex="0"
+         class="max thumb"
+         aria-valuemin="1"
+         aria-valuenow="500000"
+         aria-valuemax="500000">
+  </div>
+  <div class="rail-label max">
+    10
+  </div>
+</div>
+
 	  
 	  <!--input type="checkbox" id="myCheckboxOrig" style="margin-left: 400px" > <label style="color:white;padding:5px;background-color:#2A4D69">Original Data</label> </input>
 	  <input type="checkbox" id="myCheckboxRand" style="margin-left: 50px" > <label style="color:white;padding:5px;background-color:#EE6262">Random sampled Data </label></input>
@@ -53,6 +115,14 @@
       
 
       <script type="text/javascript">
+	  
+		/*var rangeslider = document.getElementById("sliderRange"); 
+		var output = document.getElementById("demo"); 
+		output.innerHTML = rangeslider.value; 
+		  
+		rangeslider.oninput = function() { 
+		  output.innerHTML = this.value; 
+		} */
 	  
 	   var visibility = ["hidden","visible"];
 	   var opacity = [0,1];

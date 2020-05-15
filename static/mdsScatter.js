@@ -16,7 +16,12 @@ function getMin(arr, prop) {
     return min;
 }
 
+d_mds_orig = [];
+features = ['OverallQual1','SalePrice1']
+
 function drawMDSscatter(type) {
+	
+	
     d3.json("/get_mds/" + type,
         function(d) {
 
@@ -142,7 +147,7 @@ function drawMDSscatter(type) {
 					div.transition()		
 						.duration(200)		
 						.style("opacity", .9);		
-					div.html("OverallQual : " + d["OverallQual1"])	
+					div.html("OverallQual : " + d["OverallQual1"] + "\nSalePrice : "+d["SalePrice1"] )	
 						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")		
 						.style("top", (height/4 + heightScale(d["dim1"])) + "px");	
 					})					
@@ -229,6 +234,10 @@ function drawMDSscatter(type) {
                 .style("fill", function(d) {
                     return colorScale[d["clusterNo"]];
                 });
+				
+				
 */
+
+
         });
 }
