@@ -184,11 +184,11 @@ function drawLineGraph(lineData) {
 	
 	// set the dimensions and marginLineGraphs of the graph
      marginLineGraph = {top: 10, right: 30, bottom: 30, left: 60},
-    widthLineGraph = 700 - marginLineGraph.left - marginLineGraph.right,
-    heightLineGraph = 500 - marginLineGraph.top - marginLineGraph.bottom;
+    widthLineGraph = 500 - marginLineGraph.left - marginLineGraph.right,
+    heightLineGraph = 350 - marginLineGraph.top - marginLineGraph.bottom;
 
 // append the svg object to the body of the page
-   svgLineGraph = d3.select("#my_dataviz")
+   svgLineGraph = d3.select("body")
   .append("svg")
     .attr("width", widthLineGraph + 2*marginLineGraph.left + 2*marginLineGraph.right)
     .attr("height", heightLineGraph + 2*marginLineGraph.top + 2*marginLineGraph.bottom)
@@ -201,6 +201,8 @@ function drawLineGraph(lineData) {
       .domain(d3.extent(data, function(d) { return d.age; }))
       .range([ 0, widthLineGraph ]);
     
+	console.log("min" +d3.min(data, function(d) { return +d.OverallQual; }));
+	console.log("max" +d3.max(data, function(d) { return +d.OverallQual; }));
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -251,14 +253,14 @@ function drawLineGraph(lineData) {
                 .attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
-                .text("Overall Quality");
+                .text("Mean Overall Quality");
 
 			svgLineGraph.append("text")
                 .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left) + " ," + 0 + ")" + " rotate(-90)")
                 .attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
-                .text("SalePrice");
+                .text("Mean SalePrice");
 	  
     // Add the line
 	console.log("original" + data[0]);

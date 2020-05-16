@@ -34,8 +34,8 @@ function drawMDSscatter(type) {
             var rightMargin = 10;
             var topMargin = 40;
             var bottomMargin = 40;
-            var height = 500;
-            var width = 700;
+            var height = 400;
+            var width = 570;
 
             // x axis scale
             var widthScale = d3.scaleLinear()

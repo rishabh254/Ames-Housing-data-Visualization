@@ -24,7 +24,7 @@
       <h1 class = "retroshadow"> Ames Housing Dataset</h1>
 	  
 	  
-         <div class="dropdown" style="width: 50px">
+         <!--div class="dropdown" style="width: 50px">
             <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> Choose Visualization
             <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
@@ -44,18 +44,19 @@
 				<a class="presentation" id="scatterPlotMatrix">ScatterPlot matrix</a>
 			</li>
             </ul>
-         </div>
+         </div-->
 		 
-		 <div id="my_dataviz"></div>
+		 
       
-		<h4>
-  OverallQual
-</h3>
+	
 <div class="aria-widget-slider">
+	<button >
+  OverallQual
+</button>
   <div class="rail-label min">
     0
   </div>
-  <div class="rail" style="width: 300px;">
+  <div class="rail" style="width: 100px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -78,14 +79,14 @@
   </div>
 </div>
 
-<h4>
+<div>
   SalePrice
-</h3>
+</div>
 <div class="aria-widget-slider">
   <div class="rail-label min">
     0
   </div>
-  <div class="rail" style="width: 300px;">
+  <div class="rail" style="width: 100px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -108,7 +109,7 @@
   </div>
 </div>
 
-	  
+	  <!--div id="my_dataviz"></div-->
 	  <!--input type="checkbox" id="myCheckboxOrig" style="margin-left: 400px" > <label style="color:white;padding:5px;background-color:#2A4D69">Original Data</label> </input>
 	  <input type="checkbox" id="myCheckboxRand" style="margin-left: 50px" > <label style="color:white;padding:5px;background-color:#EE6262">Random sampled Data </label></input>
 	  <input type="checkbox" id="myCheckboxStrat" style="margin-left: 50px" ><label style="color:white;padding:5px;background-color:#99B898"> Stratified sampled Data</label> </input-->
@@ -196,16 +197,16 @@
 			  }		
 		}*/
 		
-	    d3.select("#lineGraph").on('click', function(){
+	    //d3.select("#lineGraph").on('click', function(){
 			
 			//d3.select("#myCheckboxOrig").property("checked",true);
 			//d3.select("#myCheckboxRand").property("checked",true);
 			//d3.select("#myCheckboxStrat").property("checked",true);
 			
-			d3.select("#menu1")
-			.text("Line Graph")
-			.append("span")
-			.attr("class","caret");
+		//	d3.select("#menu1")
+			//.text("Line Graph")
+			//.append("span")
+			//.attr("class","caret");
 			
 			
 			d3.select("body").selectAll("svg").remove();
@@ -213,8 +214,10 @@
 			//d3.select("#myCheckboxOrig").on("change",updateOrig_scree);
 			//d3.select("#myCheckboxRand").on("change",updateRand_scree);
 			//d3.select("#myCheckboxStrat").on("change",updateStrat_scree);
+			drawMDSscatter("euclidean");
 			drawInitialLineGraph();
-		});
+			
+	//	});
 		
 		/*d3.select("#pcaScatterPlot").on('click', function(){
 			

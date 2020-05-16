@@ -128,4 +128,13 @@ div.tooltip {
     height: 26px; width: auto; border: 1px solid #ddd; 
     font-size: 13px; line-height: 26px;
 }
- 
+
+div
+{
+    display: inline;
+}
+
+h4
+{
+    display: inline;
+} 
