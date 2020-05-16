@@ -32,7 +32,23 @@ def get_eigen():
 @app.route('/get_line_data')
 def get_pcs():
     data = housing.get_line_data(df_orig)
+    print("linr....")
+    print(data)
     return (data)
+
+@app.route('/get_parallel_data')
+def get_parallel_data():
+    # data = housing.get_parallel_data(df_orig)
+    # print("pc....")
+    # print(data)
+    # return (data)
+    data = {"mds_orig": mds_origE}
+    return (data)
+
+@app.route('/get_bubble_data')
+def get_bubble_data():
+    data = housing.get_bubble_data(df_orig)
+    return data
 
 ##### Task 3.2 #####
 @app.route('/get_mds/euclidean')
@@ -41,6 +57,7 @@ def get_mdsE():
     #mds_random = housing.get_MDS(r_sample,distType)
     #mds_stratified = housing.get_MDS(s_sample,distType)
     data = {"mds_orig": mds_origE}
+    print("mds data", data);
     return (data)
 
 ##### Task 3.2 #####

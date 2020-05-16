@@ -129,12 +129,39 @@ div.tooltip {
     font-size: 13px; line-height: 26px;
 }
 
-div
-{
-    display: inline;
+
+div.parallelCoordinates{
+  margin: 2em;
 }
 
-h4
-{
-    display: inline;
-} 
+g.inactive path, g.active path{
+  fill: none;
+  stroke: lightgrey;
+  stroke-linecap:"round"
+}
+g.active path{
+  stroke:#0081af;
+}
+.parallel-class{
+float: left;
+    display: inline-block;
+    width: 60%;
+}
+.bubble-class{
+width: 40%;
+    float: right;
+    display: inline-block;
+}
+
+.dcm-class{
+float:left;
+width: 50%;
+display: inline-block;
+}
+
+.line-class{
+float:right;
+width: 50%;
+display: inline-block;
+}
+
