@@ -138,7 +138,8 @@ Slider.prototype.moveSliderTo = function (value) {
 			d_bubble.push(bubble_global_data[i]);
 	  }
 	  //console.log("len....",d_bubble.length);
-	  updateBubbleGraph(d_bubble);
+	  //updateBubbleGraph(d_bubble);
+	  drawBubbleGraph(d_bubble)
   }
 
   if (this.minDomNode) {
