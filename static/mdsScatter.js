@@ -34,8 +34,8 @@ function drawMDSscatter(type) {
             var rightMargin = 10;
             var topMargin = 40;
             var bottomMargin = 40;
-            var height = 500;
-            var width = 700;
+            var height = 400;
+            var width = 570;
 
             // x axis scale
             var widthScale = d3.scaleLinear()
@@ -72,12 +72,12 @@ function drawMDSscatter(type) {
                 .tickSize(10);
 
             // container for svg graph
-            var container = d3.select("body")
+            var container = d3.select("#dcm-div")
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("style", "margin-left:20em;margin-right:20em;margin-top:2em")
-                //.attr("class","screeplotSvg")
+                .attr("style", "margin-left:0em;margin-right:5em;margin-top:2em")
+                //.attr("class","screeplotSvg") 
                 .attr("viewBox", "-50 0 " + width + " " + height);
 
 
@@ -129,7 +129,7 @@ function drawMDSscatter(type) {
                     return heightScale(d["dim1"]);
                 })
 				.attr("r", function(d) {
-                    return 4*(d["dataType"]+0.5);
+                    return 4*(d["dataType"]+1);
                 })
                 .attr("opacity", "0")
 				.style("stroke", function(d) {
@@ -156,7 +156,7 @@ function drawMDSscatter(type) {
 					d3.select(this).transition()
                 .duration('300')
                 .attr("r", function(d) {
-                    return 4*(d["dataType"]+0.5);
+                    return 4*(d["dataType"]+1);
                 });
 					
 					div.transition()		
@@ -193,51 +193,6 @@ function drawMDSscatter(type) {
                 })
                 .delay(function(d, i) {
                     return (i)
-                });	
-			//}
-            
-
-           /* canvas.append('g')
-                .selectAll("dot")
-                .data(d_mds_random)
-                .enter()
-                .append("circle")
-                .attr("class", "scatter_r")
-                .attr("cx", function(d) {
-                    return widthScale(d["dim0"]);
-                })
-                .attr("cy", function(d) {
-                    return heightScale(d["dim1"]);
-                })
-                .attr("r", 4)
-                //.attr("visibility","hidden")
-                .attr("opacity", "0")
-                .style("fill", function(d) {
-                    return colorScale[d["clusterNo"]];
                 });
-
-            canvas.append('g')
-                .selectAll("dot")
-                .data(d_mds_stratified)
-                .enter()
-                .append("circle")
-                .attr("class", "scatter_s")
-                .attr("cx", function(d) {
-                    return widthScale(d["dim0"]);
-                })
-                .attr("cy", function(d) {
-                    return heightScale(d["dim1"]);
-                })
-                .attr("r", 4)
-                .attr("opacity", "0")
-                // .attr("visibility","hidden")
-                .style("fill", function(d) {
-                    return colorScale[d["clusterNo"]];
-                });
-				
-				
-*/
-
-
         });
 }

@@ -8,7 +8,7 @@
 	   <script src="../static/parallelCoordinates.js"></script>
 	   <script src="../static/bubble1.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
-	  <script src="../static/slider.js"></script>
+	  <script src="../static/multithumb-slider.js"></script>
       <!--script src="../static/pcaScatter.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
 	  <script src="../static/scatterMatrix.js"></script-->
@@ -24,45 +24,22 @@
    </head>
    <body>
       <h1 class = "retroshadow"> Ames Housing Dataset</h1>
-<!--         <div class="dropdown" style="width: 50px">-->
-<!--            <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> Choose Visualization-->
-<!--            <span class="caret"></span></button>-->
-<!--            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">-->
-<!--			<li>-->
-<!--				<a class="presentation" id="lineGraph">Line Graph</a>-->
-<!--			</li>-->
-
-<!--				<li>-->
-<!--					<a class="presentation" id="bubble">bubble Graph</a>-->
-<!--				</li>-->
-<!--				<li>-->
-<!--					<a class="presentation" id="parallelGraph">Parallel  Coordinates</a>-->
-<!--				</li>-->
-<!--			<li>-->
-<!--				<a class="presentation" id="pcaScatterPlot">Top 2 PCA vectors ScatterPlot</a>-->
-<!--			</li>-->
-<!--			<li>-->
-<!--				<a class="presentation" id="mdsScatterPlotE">MDS ScatterPlot (Euclidean)</a>-->
-<!--			</li>-->
-<!--			<li>-->
-<!--				<a class="presentation" id="mdsScatterPlotC">MDS ScatterPlot (Correlation)</a>-->
-<!--			</li>-->
-<!--			<li>-->
-<!--				<a class="presentation" id="scatterPlotMatrix">ScatterPlot matrix</a>-->
-<!--			</li>-->
-<!--            </ul>-->
-<!--         </div>-->
-		 
-		 <div id="parallel-div" class="parallel-class"></div>
+        <div id="dcm-div" class="dcm-class"></div>
+        <div id="line-div" class="line-class"></div>
+        <div id="parallel-div" class="parallel-class"></div>
         <div id="bubble-div" class="bubble-class"></div>
-		<h4>
+		<h3>
   OverallQual
 </h3>
+
 <div class="aria-widget-slider">
+	<button >
+  OverallQual
+</button>
   <div class="rail-label min">
     0
   </div>
-  <div class="rail" style="width: 300px;">
+  <div class="rail" style="width: 100px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -85,14 +62,14 @@
   </div>
 </div>
 
-<h4>
+<div>
   SalePrice
-</h3>
+</div>
 <div class="aria-widget-slider">
   <div class="rail-label min">
     0
   </div>
-  <div class="rail" style="width: 300px;">
+  <div class="rail" style="width: 100px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -115,216 +92,13 @@
   </div>
 </div>
 
-	  
-	  <!--input type="checkbox" id="myCheckboxOrig" style="margin-left: 400px" > <label style="color:white;padding:5px;background-color:#2A4D69">Original Data</label> </input>
-	  <input type="checkbox" id="myCheckboxRand" style="margin-left: 50px" > <label style="color:white;padding:5px;background-color:#EE6262">Random sampled Data </label></input>
-	  <input type="checkbox" id="myCheckboxStrat" style="margin-left: 50px" ><label style="color:white;padding:5px;background-color:#99B898"> Stratified sampled Data</label> </input-->
-      
+
 
       <script type="text/javascript">
-	  
-		/*var rangeslider = document.getElementById("sliderRange"); 
-		var output = document.getElementById("demo"); 
-		output.innerHTML = rangeslider.value; 
-		  
-		rangeslider.oninput = function() { 
-		  output.innerHTML = this.value; 
-		} */
-	  
-	   var visibility = ["hidden","visible"];
-	   var opacity = [0,1];
-	   
-	   /*function updateOrig_scatter(){
-				if(d3.select("#myCheckboxOrig").property("checked")){
-					updateScatter(0,1);
-					updateScatter(1,0);
-					updateScatter(2,0);
-					d3.selectAll('#myCheckboxRand').property('checked', false);
-					d3.selectAll('#myCheckboxStrat').property('checked', false);
-					
-				} else {
-					updateScatter(0,0);			
-				}
-		}
-
-		function updateRand_scatter(){
-				if(d3.select("#myCheckboxRand").property("checked")){
-					updateScatter(0,0);
-					updateScatter(1,1);
-					updateScatter(2,0);
-					d3.selectAll('#myCheckboxStrat').property('checked', false);
-					d3.selectAll('#myCheckboxOrig').property('checked', false);
-					
-				} else {
-					updateScatter(1,0);			
-				}
-		}
-		
-		function updateStrat_scatter(){
-				if(d3.select("#myCheckboxStrat").property("checked")){
-					updateScatter(0,0);
-					updateScatter(1,0);
-					updateScatter(2,1);
-					d3.selectAll('#myCheckboxOrig').property('checked', false);
-					d3.selectAll('#myCheckboxRand').property('checked', false);
-					
-				} else {
-					updateScatter(2,0);			
-				}
-		}
-		function updateScatter(dataType,ind)
-		{
-			switch(dataType)
-			  {
-				case 0:
-					d3.select("body").selectAll(".scatter_o")
-									//.style("visibility", visibility[ind])
-									.transition()
-									.duration(50)
-									.attr("opacity", function(d,i) { return opacity[ind]; })
-									.delay(function(d,i){ return(i)});
-					break;
-				case 1:
-					d3.select("body").selectAll(".scatter_r")
-									//.style("visibility", visibility[ind])
-									 .transition()
-									.duration(50)
-									.attr("opacity", function(d,i) { return opacity[ind]; })
-									.delay(function(d,i){ return(i)});
-					break;
-				case 2:
-					d3.select("body").selectAll(".scatter_s")
-									//.style("visibility", visibility[ind])
-									.transition()
-									.duration(50)
-									.attr("opacity", function(d,i) { return opacity[ind]; })
-									.delay(function(d,i){ return(i)});
-					break;
-			  }		
-		}*/
-		
-	    d3.select("#lineGraph").on('click', function(){
-			
-			//d3.select("#myCheckboxOrig").property("checked",true);
-			//d3.select("#myCheckboxRand").property("checked",true);
-			//d3.select("#myCheckboxStrat").property("checked",true);
-			
-			d3.select("#menu1")
-			.text("Line Graph")
-			.append("span")
-			.attr("class","caret");
-			
-			
-			//d3.select("body").selectAll("svg").remove();
-			
-			//d3.select("#myCheckboxOrig").on("change",updateOrig_scree);
-			//d3.select("#myCheckboxRand").on("change",updateRand_scree);
-			//d3.select("#myCheckboxStrat").on("change",updateStrat_scree);
-			drawLineGraph();
-		});
-
-
-<!--	    d3.select("#parallelGraph").on('click', function(){-->
-<!--			d3.select("#menu1")-->
-<!--			.text("Parallel Graph")-->
-<!--			.append("span")-->
-<!--			.attr("class","caret");-->
-<!--			d3.select("body").selectAll("svg").remove();-->
-<!--			drawInitialParallelGraph();-->
-<!--		});-->
-
-<!--		 d3.select("#bubble").on('click', function(){-->
-<!--			d3.select("#menu1")-->
-<!--			.text("Bubble")-->
-<!--			.append("span")-->
-<!--			.attr("class","caret");-->
-<!--			d3.select("body").selectAll("svg").remove();-->
-<!--			bubble_test();-->
-<!--		});-->
-
-		bubble_test();
-		drawInitialParallelGraph();
-		
-		/*d3.select("#pcaScatterPlot").on('click', function(){
-			
-			
-			d3.select("#myCheckboxOrig").property("checked",true);
-			d3.select("#myCheckboxRand").property("checked",false);
-			d3.select("#myCheckboxStrat").property("checked",false);
-			
-			
-			d3.select("#menu1")
-			.text("Top 2 PCA vectors ScatterPlot")
-			.append("span")
-			.attr("class","caret");
-			
-			d3.select("body").selectAll("svg").remove();
-			
-			d3.select("#myCheckboxOrig").on("change",updateOrig_scatter);
-			d3.select("#myCheckboxRand").on("change",updateRand_scatter);
-			d3.select("#myCheckboxStrat").on("change",updateStrat_scatter);
-			drawPCAscatter();
-		});
-		
-		
-		*/
-		d3.select("#mdsScatterPlotE").on('click', function(){
-			
-			//d3.select("#myCheckboxOrig").property("checked",true);
-			//d3.select("#myCheckboxRand").property("checked",false);
-			//d3.select("#myCheckboxStrat").property("checked",false);
-			
-			d3.select("#menu1")
-			.text("MDS ScatterPlot (Euclidean)")
-			.append("span")
-			.attr("class","caret");
-			
-			d3.select("body").selectAll("svg").remove();
-			
-			//d3.select("#myCheckboxOrig").on("change",updateOrig_scatter);
-			//d3.select("#myCheckboxRand").on("change",updateRand_scatter);
-			//d3.select("#myCheckboxStrat").on("change",updateStrat_scatter);
-			drawMDSscatter("euclidean");
-		});
-		
-		/*d3.select("#mdsScatterPlotC").on('click', function(){
-			
-			d3.select("#myCheckboxOrig").property("checked",true);
-			d3.select("#myCheckboxRand").property("checked",false);
-			d3.select("#myCheckboxStrat").property("checked",false);
-			
-			d3.select("#menu1")
-			.text("MDS ScatterPlot (Correlation)")
-			.append("span")
-			.attr("class","caret");
-			
-			d3.select("body").selectAll("svg").remove();
-			
-			d3.select("#myCheckboxOrig").on("change",updateOrig_scatter);
-			d3.select("#myCheckboxRand").on("change",updateRand_scatter);
-			d3.select("#myCheckboxStrat").on("change",updateStrat_scatter);
-			drawMDSscatter("correlation");
-		});
-		
-		d3.select("#scatterPlotMatrix").on('click', function(){
-			
-			d3.select("#myCheckboxOrig").property("checked",true);
-			d3.select("#myCheckboxRand").property("checked",false);
-			d3.select("#myCheckboxStrat").property("checked",false);
-			
-			d3.select("#menu1")
-			.text("ScatterPlot matrix")
-			.append("span")
-			.attr("class","caret");
-			
-			d3.select("body").selectAll("svg").remove();
-			
-			d3.select("#myCheckboxOrig").on("change",updateOrig_matrix);
-			d3.select("#myCheckboxRand").on("change",updateRand_matrix);
-			d3.select("#myCheckboxStrat").on("change",updateStrat_matrix);
-			drawscatterMatrix();
-		});*/
-		
+          drawInitialParallelGraph();
+          bubble_test();
+          drawMDSscatter("euclidean");
+          drawInitialLineGraph();
       </script>
    </body>
 </html>

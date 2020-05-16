@@ -129,6 +129,7 @@ div.tooltip {
     font-size: 13px; line-height: 26px;
 }
 
+
 div.parallelCoordinates{
   margin: 2em;
 }
@@ -151,4 +152,16 @@ width: 40%;
     float: right;
     display: inline-block;
 }
- 
+
+.dcm-class{
+float:left;
+width: 50%;
+display: inline-block;
+}
+
+.line-class{
+float:right;
+width: 50%;
+display: inline-block;
+}
+

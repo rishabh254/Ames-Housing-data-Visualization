@@ -93,10 +93,6 @@ Slider.prototype.moveSliderTo = function (value) {
   var valueMax = parseInt(this.domNode.getAttribute('aria-valuemax'));
   var valueMin = parseInt(this.domNode.getAttribute('aria-valuemin'));
 
-  console.log("max"+this.sliderNo);
-  console.log(this.valueNow);
-
-
   if (value > valueMax) {
     value = valueMax;
   }
@@ -112,12 +108,39 @@ Slider.prototype.moveSliderTo = function (value) {
   this.domNode.setAttribute('aria-valuenow', this.valueNow);
   this.domNode.setAttribute('aria-valuetext', this.dolValueNow);
 
+    function updateBubble(){
+  	  d_bubble = [];
+	  for(var i = 0;i<bubble_global_data.length-13;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((bubble_global_data[i][features[j]]>=currMin[j] && bubble_global_data[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d_bubble.push(bubble_global_data[i]);
+	  }
+	  updateBubbleGraph(getBubbleData(d_bubble));
+  }
+
+    const applyFilters = function(){
+        d3.select('g.active').selectAll('path')
+    .style('display', d=>(selected(d)?null:'none'));
+    }
+  function selected(d){
+	    var tmp = true;
+	    for(var j=0; j<parallel_slider.length;j++){
+	        tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
+	    }
+	    return tmp;
+  }
+
   if (this.minDomNode) {
 	  //console.log("max"+this.sliderNo)
 	  currMax[(this.sliderNo-1)/2] = this.valueNow;
 	  //d3.select("svg").select("g").style("visibility", "hidden");
 
-
+	  // for data context map
 	for(var i = 0;i<d_mds_orig.length-13;i++)
 	  {
 		 var temp=true;
@@ -129,9 +152,32 @@ Slider.prototype.moveSliderTo = function (value) {
 			d3.select("#scatter_"+i).style("visibility", "visible");
 		else
 			d3.select("#scatter_"+i).style("visibility", "hidden");
+	  }
+
+	  //// for line graph
+	  d_line = [];
+
+		//console.log(d_line_graph[0][features[0]]);
+	  for(var i = 0;i<d_line_graph.length-13;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d_line.push(d_line_graph[i]);
 
 	  }
 
+	  //console.log(d_line_graph.length + " , "+d_line.length);
+	  updateLineGraph(d_line);
+
+	  //For parallel graph
+	  applyFilters();
+	  //for bubble chart
+
+	  updateBubble();
     this.minDomNode.setAttribute('aria-valuemax', this.valueNow);
   }
 
@@ -152,6 +198,28 @@ Slider.prototype.moveSliderTo = function (value) {
 			d3.select("#scatter_"+i).style("visibility", "hidden");
 
 	  }
+
+
+	d_line = [];
+
+		//console.log(d_line_graph[0][features[0]]);
+	  for(var i = 0;i<d_line_graph.length-13;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d_line.push(d_line_graph[i]);
+
+	  }
+	   updateLineGraph(d_line);
+	  //console.log(d_line_graph.length + " , "+d_line.length);
+	    //for parallel
+        applyFilters();
+        //for bubble
+        updateBubble();
 
     this.maxDomNode.setAttribute('aria-valuemin', this.valueNow);
   }

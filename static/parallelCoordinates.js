@@ -42,7 +42,7 @@ const linePath = function(d){
   return(lineGenerator(points));
 }
 
-function getLineData(data){
+function getParallelData(data){
     for (var i=0;i<data.length;i++)
 	{
 		data[i] = {
@@ -64,7 +64,7 @@ d3.json("/get_mds/euclidean", function(d) {
 }
 
 function drawParallelGraph(lineData) {
-    data = getLineData(lineData);
+    data = getParallelData(lineData);
     pcSvg = d3.select("#parallel-div")
   .append('svg')
   .attr('width', width)
