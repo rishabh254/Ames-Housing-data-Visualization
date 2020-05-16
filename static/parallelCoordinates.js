@@ -1,7 +1,7 @@
 var d_parallel_graph=[];
 var parallel_slider=['OverallQual','SalePrice']
 
-const width = 960, height = 400, padding = 28, brush_width = 20;
+const width = 700, height = 400, padding = 28, brush_width = 20;
 const lineGenerator = d3.line();
 var pcSvg=null;
 
@@ -65,7 +65,7 @@ d3.json("/get_mds/euclidean", function(d) {
 
 function drawParallelGraph(lineData) {
     data = getLineData(lineData);
-    pcSvg = d3.select("#my_dataviz")
+    pcSvg = d3.select("#parallel-div")
   .append('svg')
   .attr('width', width)
   .attr('height', height);

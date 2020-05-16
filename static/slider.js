@@ -139,7 +139,7 @@ Slider.prototype.moveSliderTo = function (value) {
 	  }
 	  //console.log("len....",d_bubble.length);
 	  //updateBubbleGraph(d_bubble);
-	  drawBubbleGraph(d_bubble)
+	  updateBubbleGraph(getBubbleData(d_bubble));
   }
 
   if (this.minDomNode) {

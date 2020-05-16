@@ -141,5 +141,14 @@ g.inactive path, g.active path{
 g.active path{
   stroke:#0081af;
 }
-
+.parallel-class{
+float: left;
+    display: inline-block;
+    width: 60%;
+}
+.bubble-class{
+width: 40%;
+    float: right;
+    display: inline-block;
+}
  

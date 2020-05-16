@@ -24,36 +24,37 @@
    </head>
    <body>
       <h1 class = "retroshadow"> Ames Housing Dataset</h1>
-         <div class="dropdown" style="width: 50px">
-            <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> Choose Visualization
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-			<li>
-				<a class="presentation" id="lineGraph">Line Graph</a>
-			</li>
+<!--         <div class="dropdown" style="width: 50px">-->
+<!--            <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> Choose Visualization-->
+<!--            <span class="caret"></span></button>-->
+<!--            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">-->
+<!--			<li>-->
+<!--				<a class="presentation" id="lineGraph">Line Graph</a>-->
+<!--			</li>-->
 
-				<li>
-					<a class="presentation" id="bubble">bubble Graph</a>
-				</li>
-				<li>
-					<a class="presentation" id="parallelGraph">Parallel  Coordinates</a>
-				</li>
-			<li>
-				<a class="presentation" id="pcaScatterPlot">Top 2 PCA vectors ScatterPlot</a>
-			</li>
-			<li>
-				<a class="presentation" id="mdsScatterPlotE">MDS ScatterPlot (Euclidean)</a>
-			</li>
-			<li>
-				<a class="presentation" id="mdsScatterPlotC">MDS ScatterPlot (Correlation)</a>
-			</li>
-			<li>
-				<a class="presentation" id="scatterPlotMatrix">ScatterPlot matrix</a>
-			</li>
-            </ul>
-         </div>
+<!--				<li>-->
+<!--					<a class="presentation" id="bubble">bubble Graph</a>-->
+<!--				</li>-->
+<!--				<li>-->
+<!--					<a class="presentation" id="parallelGraph">Parallel  Coordinates</a>-->
+<!--				</li>-->
+<!--			<li>-->
+<!--				<a class="presentation" id="pcaScatterPlot">Top 2 PCA vectors ScatterPlot</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a class="presentation" id="mdsScatterPlotE">MDS ScatterPlot (Euclidean)</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a class="presentation" id="mdsScatterPlotC">MDS ScatterPlot (Correlation)</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a class="presentation" id="scatterPlotMatrix">ScatterPlot matrix</a>-->
+<!--			</li>-->
+<!--            </ul>-->
+<!--         </div>-->
 		 
-		 <div id="my_dataviz"></div>
+		 <div id="parallel-div" class="parallel-class"></div>
+        <div id="bubble-div" class="bubble-class"></div>
 		<h4>
   OverallQual
 </h3>
@@ -223,23 +224,26 @@
 		});
 
 
-	    d3.select("#parallelGraph").on('click', function(){
-			d3.select("#menu1")
-			.text("Parallel Graph")
-			.append("span")
-			.attr("class","caret");
-			d3.select("body").selectAll("svg").remove();
-			drawInitialParallelGraph();
-		});
+<!--	    d3.select("#parallelGraph").on('click', function(){-->
+<!--			d3.select("#menu1")-->
+<!--			.text("Parallel Graph")-->
+<!--			.append("span")-->
+<!--			.attr("class","caret");-->
+<!--			d3.select("body").selectAll("svg").remove();-->
+<!--			drawInitialParallelGraph();-->
+<!--		});-->
 
-		 d3.select("#bubble").on('click', function(){
-			d3.select("#menu1")
-			.text("Bubble")
-			.append("span")
-			.attr("class","caret");
-			d3.select("body").selectAll("svg").remove();
-			bubble_test();
-		});
+<!--		 d3.select("#bubble").on('click', function(){-->
+<!--			d3.select("#menu1")-->
+<!--			.text("Bubble")-->
+<!--			.append("span")-->
+<!--			.attr("class","caret");-->
+<!--			d3.select("body").selectAll("svg").remove();-->
+<!--			bubble_test();-->
+<!--		});-->
+
+		bubble_test();
+		drawInitialParallelGraph();
 		
 		/*d3.select("#pcaScatterPlot").on('click', function(){
 			
