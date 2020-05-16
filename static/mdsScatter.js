@@ -34,8 +34,8 @@ function drawMDSscatter(type) {
             var rightMargin = 10;
             var topMargin = 40;
             var bottomMargin = 40;
-            var height = 400;
-            var width = 570;
+            var height = 350;
+            var width = 520;
 
             // x axis scale
             var widthScale = d3.scaleLinear()
@@ -76,8 +76,8 @@ function drawMDSscatter(type) {
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("style", "margin-left:0em;margin-right:5em;margin-top:2em")
-                //.attr("class","screeplotSvg") 
+                .attr("style", "margin-left:0em;margin-right:5em;margin-top:0em")
+                //.attr("class","screeplotSvg")
                 .attr("viewBox", "-50 0 " + width + " " + height);
 
 
@@ -94,7 +94,7 @@ function drawMDSscatter(type) {
 
             // x axis label
             canvas.append("text")
-                .attr("transform", "translate(" + (width - leftMargin - rightMargin) + " ," + (height - topMargin) + ")")
+                .attr("transform", "translate(" + (width +leftMargin +rightMargin) + " ," + (height - topMargin) + ")")
                 .attr("dx", "-25.6em")
                 .attr("dy", "-0.6em")
                 .style("text-anchor", "end")
@@ -102,7 +102,7 @@ function drawMDSscatter(type) {
 
             // y axis label
             canvas.append("text")
-                .attr("transform", "translate(" + (-5 * leftMargin) + " ," + 0 + ")" + " rotate(-90)")
+                .attr("transform", "translate(" + (-5 * leftMargin) + " ," + -90 + ")" + " rotate(-90)")
                 .attr("dx", "-15.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")

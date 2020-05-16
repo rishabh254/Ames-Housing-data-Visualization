@@ -197,7 +197,7 @@ function drawLineGraph(lineData) {
 	  // x axis label
             svgLineGraph.append("text")
                 .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left+marginLineGraph.right) + " ," + (heightLineGraph+marginLineGraph.bottom+marginLineGraph.top) + ")")
-                .attr("dx", "-20.6em")
+                .attr("dx", "-10.6em")
                 .attr("dy", "-0.6em")
                 .style("text-anchor", "end")
                 .text("House Age (Year Sold - Year last remodelled)");

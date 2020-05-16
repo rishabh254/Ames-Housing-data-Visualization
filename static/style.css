@@ -14,7 +14,7 @@ li {
 
  h1 {
      font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-     font-size: 50px;
+     font-size: 40px;
      margin-left : 250px;
      margin-right : 250px;
      text-align: center;
@@ -145,11 +145,10 @@ g.active path{
 .parallel-class{
 float: left;
     display: inline-block;
-    width: 60%;
+    width: 50%;
 }
 .bubble-class{
-width: 40%;
-    float: right;
+width: 50%;
     display: inline-block;
 }
 
@@ -163,5 +162,9 @@ display: inline-block;
 float:right;
 width: 50%;
 display: inline-block;
+margin-top: -10px;
+}
+.slider-component{
+display:inline-block;
 }
 

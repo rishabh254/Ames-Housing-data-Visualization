@@ -9,9 +9,6 @@
 	   <script src="../static/bubble1.js"></script>
 	  <script src="../static/mdsScatter.js"></script>
 	  <script src="../static/multithumb-slider.js"></script>
-      <!--script src="../static/pcaScatter.js"></script>
-	  <script src="../static/mdsScatter.js"></script>
-	  <script src="../static/scatterMatrix.js"></script-->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -24,22 +21,11 @@
    </head>
    <body>
       <h1 class = "retroshadow"> Ames Housing Dataset</h1>
-        <div id="dcm-div" class="dcm-class"></div>
-        <div id="line-div" class="line-class"></div>
-        <div id="parallel-div" class="parallel-class"></div>
-        <div id="bubble-div" class="bubble-class"></div>
-		<h3>
-  OverallQual
-</h3>
-
-<div class="aria-widget-slider">
-	<button >
-  OverallQual
-</button>
-  <div class="rail-label min">
-    0
-  </div>
-  <div class="rail" style="width: 100px;">
+      <div class="slider">
+          <div class="slider-component">OverallQual
+            <div class="aria-widget-slider">
+            <div class="rail-label min">0</div>
+            <div class="rail" style="width: 100px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -57,19 +43,13 @@
          aria-valuenow="10"
          aria-valuemax="10">
   </div>
-  <div class="rail-label max">
-    10
-  </div>
-</div>
-
-<div>
-  SalePrice
-</div>
-<div class="aria-widget-slider">
-  <div class="rail-label min">
-    0
-  </div>
-  <div class="rail" style="width: 100px;">
+            <div class="rail-label max">10</div>
+            </div>
+          </div>
+        <div class="slider-component">SalePrice
+            <div class="aria-widget-slider">
+            <div class="rail-label min">0</div>
+            <div class="rail" style="width: 100px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -87,13 +67,16 @@
          aria-valuenow="500000"
          aria-valuemax="500000">
   </div>
-  <div class="rail-label max">
-    10
-  </div>
-</div>
-
-
-
+            <div class="rail-label max">10</div>
+            </div>
+        </div>
+      </div>
+      <div class="graph-class">
+        <div id="dcm-div" class="dcm-class"></div>
+        <div id="line-div" class="line-class"></div>
+        <div id="parallel-div" class="parallel-class"></div>
+        <div id="bubble-div" class="bubble-class"></div>
+      </div>
       <script type="text/javascript">
           drawInitialParallelGraph();
           bubble_test();
