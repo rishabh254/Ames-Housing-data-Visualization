@@ -38,9 +38,11 @@ def get_pcs():
 
 @app.route('/get_parallel_data')
 def get_parallel_data():
-    data = housing.get_parallel_data(df_orig)
-    print("pc....")
-    print(data)
+    # data = housing.get_parallel_data(df_orig)
+    # print("pc....")
+    # print(data)
+    # return (data)
+    data = {"mds_orig": mds_origE}
     return (data)
 
 @app.route('/get_bubble_data')
@@ -56,7 +58,7 @@ def get_mdsE():
     #mds_orig = housing.get_MDS(df_orig,distType)
     #mds_random = housing.get_MDS(r_sample,distType)
     #mds_stratified = housing.get_MDS(s_sample,distType)
-    data = {"mds_orig": mds_origE, "mds_random": mds_randomE, "mds_stratified":mds_stratifiedE}
+    data = {"mds_orig": mds_origE}
     return (data)
 
 ##### Task 3.2 #####
@@ -79,12 +81,13 @@ def get_scatter_matrix_data():
 
 if __name__ == '__main__':
     df_orig = pd.read_csv('df_orig.csv')
+    df_norm = pd.read_csv('df_norm.csv')
     ##### Task 1.1 #####
     #r_sample = df_orig.sample(frac =.25, random_state=1)
     #r_sample = r_sample.reset_index(drop=True)
     #s_sample = df_orig.groupby('clusterNo').apply(lambda x: x.sample(frac=0.25,random_state=1))
     #s_sample = s_sample.reset_index(drop=True)
-    #mds_origE = housing.get_MDS(df_orig,'euclidean')
+    mds_origE = housing.get_MDS(df_norm,df_orig,'euclidean')
     #mds_randomE = housing.get_MDS(r_sample,'euclidean')
     #mds_stratifiedE = housing.get_MDS(s_sample,'euclidean')
     #mds_origC = housing.get_MDS(df_orig,'correlation')

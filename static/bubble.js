@@ -1,10 +1,10 @@
+var dataset ={};
+
+
 function bubble_test(){
 
 d3.json("/get_bubble_data", function(data) {
-var dataset ={};
-dataset["children"] = data;
- console.log("data", dataset);
-
+get_coorect_data(data);
 
 
  var diameter = 600;

@@ -1,60 +1,107 @@
-function drawParallelCoordinates() {
+var d_parallel_graph=[];
+var parallel_slider=['OverallQual','SalePrice']
 
-var margin = {top: 30, right: 10, bottom: 10, left: 0},
-  width = 500 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+const width = 960, height = 400, padding = 28, brush_width = 20;
+const lineGenerator = d3.line();
+var pcSvg=null;
 
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-.append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-.append("g")
-  .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+const features_parallel = [
+  {name: 'SalePrice', range: [34900,755000]},
+  {name: 'OverallQual', range: [1,10]},
+  {name: 'GarageArea', range: [0,1418]},
+  {name: 'GrLivArea', range: [334,5642]},
+  {name: 'LotArea', range: [1300,115149]},
+];
+const xScale = d3.scalePoint()
+  .domain(features_parallel.map(x=>x.name))
+  .range([padding, width-padding]);
 
-// Parse the Data
-d3.json("/get_parallel_data", function(data) {
-  dimensions = d3.keys(data[0]).filter(function(d) { return d})
+// Each vertical scale
+const yScales = {};
+features_parallel.map(x=>{
+  yScales[x.name] = d3.scaleLinear()
+    .domain(x.range)
+    .range([height-padding, padding]);
+});
 
-  var y = {}
-  for (i in dimensions) {
-    name = dimensions[i]
-    y[name] = d3.scaleLinear()
-      .domain( d3.extent(data, function(d) { return +d[name]; }) )
-      .range([height, 0])
-  }
+yScales.team = d3.scaleOrdinal()
+    .domain(features_parallel[0].range)
+    .range([height-padding, padding]);
 
-  x = d3.scalePoint()
-    .range([0, width])
-    .padding(1)
-    .domain(dimensions);
+// Each axis generator
+const yAxis = {};
+d3.entries(yScales).map(x=>{
+  yAxis[x.key] = d3.axisLeft(x.value);
+});
 
-  function path(d) {
-      return d3.line()(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
-  }
 
-  // Draw the lines
-  svg
-    .selectAll("myPath")
-    .data(data)
-    .enter().append("path")
-    .attr("d",  path)
-    .style("fill", "none")
-    .style("stroke", "#69b3a2")
-    .style("opacity", 0.5)
 
-  svg.selectAll("myAxis")
-    .data(dimensions).enter()
-    .append("g")
-    .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
-    .each(function(d) { d3.select(this).call(d3.axisLeft().scale(y[d])); })
-    .append("text")
-      .style("text-anchor", "middle")
-      .attr("y", -9)
-      .text(function(d) { return d; })
-      .style("fill", "black")
+const linePath = function(d){
+  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null);
+  let points = _data.map(x=>([xScale(x.key),yScales[x.key](x.value)]));
+  return(lineGenerator(points));
+}
 
-})
+function getLineData(data){
+    for (var i=0;i<data.length;i++)
+	{
+		data[i] = {
+					SalePrice:   data[i].SalePrice1,
+					OverallQual:   data[i].OverallQual1,
+					GarageArea: data[i].GarageArea1,
+					GrLivArea: data[i].GrLivArea1,
+					LotArea: data[i].LotArea1
+				   };
+	}
+	return data;
+}
+
+function drawInitialParallelGraph() {
+d3.json("/get_mds/euclidean", function(d) {
+	d_parallel_graph = JSON.parse(d.mds_orig);
+	drawParallelGraph(d_parallel_graph.slice());
+});
+}
+
+function drawParallelGraph(lineData) {
+    data = getLineData(lineData);
+    pcSvg = d3.select("#my_dataviz")
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height);
+
+// Inactive data
+pcSvg.append('g').attr('class','inactive').selectAll('path')
+  .data(data)
+  .enter()
+    .append('path')
+    .attr('d', d=>linePath(d));
+
+// Inactive data
+pcSvg.append('g').attr('class','active').selectAll('path')
+  .data(data)
+  .enter()
+    .append('path')
+    .attr('d', d=>linePath(d));
+
+// Vertical axis for the features
+const featureAxisG = pcSvg.selectAll('g.feature')
+  .data(features_parallel)
+  .enter()
+    .append('g')
+      .attr('class','feature')
+      .attr('transform',d=>('translate('+xScale(d.name)+',0)'));
+
+featureAxisG
+      .append('g')
+      .each(function(d){
+        d3.select(this).call(yAxis[d.name]);
+      });
+
+featureAxisG
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr('y', padding/2)
+  .text(d=>d.name);
 
 }

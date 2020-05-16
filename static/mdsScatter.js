@@ -16,13 +16,19 @@ function getMin(arr, prop) {
     return min;
 }
 
+d_mds_orig = [];
+features = ['OverallQual1','SalePrice1']
+
 function drawMDSscatter(type) {
+	
+	
     d3.json("/get_mds/" + type,
         function(d) {
 
             d_mds_orig = (JSON.parse(d.mds_orig));
-            d_mds_random = (JSON.parse(d.mds_random));
-            d_mds_stratified = (JSON.parse(d.mds_stratified));
+            //d_mds_random = (JSON.parse(d.mds_random));
+            //d_mds_stratified = (JSON.parse(d.mds_stratified));
+			console.log("hello "+(d_mds_orig.length))
 
             var leftMargin = 10;
             var rightMargin = 10;
@@ -33,7 +39,7 @@ function drawMDSscatter(type) {
 
             // x axis scale
             var widthScale = d3.scaleLinear()
-                .domain([Math.round(getMin(d_mds_orig, "dim0")) - 1, Math.round(getMax(d_mds_orig, "dim0")) - 2])
+                .domain([Math.round(getMin(d_mds_orig, "dim0"))-0.3, Math.round(getMax(d_mds_orig, "dim0"))+0.3])
                 .range([0, width - leftMargin - rightMargin]);
 
             if (type == 'correlation')
@@ -41,13 +47,14 @@ function drawMDSscatter(type) {
 
             // y axis scale
             var heightScale = d3.scaleLinear()
-                .domain([Math.round(getMin(d_mds_orig, "dim1")) - 1, Math.round(getMax(d_mds_orig, "dim1"))])
+                .domain([Math.round(getMin(d_mds_orig, "dim1"))-0.3 , Math.round(getMax(d_mds_orig, "dim1"))+0.3])
                 .range([height - topMargin - bottomMargin, 0]);
 
             if (type == 'correlation')
                 heightScale.domain([-1.5, 1.5]);
 
-            var colorScale = ["red", "blue", "green"];
+            var colorScale = ["steelblue", "red"];
+			var borderScale = ["transparent", "black"];
 
             // color scale
             var color = d3.scaleLinear()
@@ -100,37 +107,97 @@ function drawMDSscatter(type) {
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
                 .text("Dimension 2");
+				
+			// Define the div for the tooltip
+			var div = d3.select("body").append("div")	
+				.attr("class", "tooltip")
+				.style("opacity", 0);
 
             canvas.append('g')
                 .selectAll("dot")
                 .data(d_mds_orig)
                 .enter()
                 .append("circle")
-                .attr("class", "scatter_o")
+                .attr("id", function(d,i) {
+                    return "scatter_"+i;
+                })
+				.attr("class","scatter_o")
                 .attr("cx", function(d) {
                     return widthScale(d["dim0"]);
                 })
                 .attr("cy", function(d) {
                     return heightScale(d["dim1"]);
                 })
-                .attr("r", 4)
+				.attr("r", function(d) {
+                    return 4*(d["dataType"]+0.5);
+                })
                 .attr("opacity", "0")
+				.style("stroke", function(d) {
+                    return borderScale[d["dataType"]];
+                })
                 .style("fill", function(d) {
-                    return colorScale[d["clusterNo"]];
+                    return colorScale[d["dataType"]];
+                })
+				.on("mouseover", function(d) {
+					
+					d3.select(this).transition()
+                .duration('300')
+                .attr("r",10);
+						
+					div.transition()		
+						.duration(200)		
+						.style("opacity", .9);		
+					div.html("OverallQual : " + d["OverallQual1"] + "\nSalePrice : "+d["SalePrice1"] )	
+						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")		
+						.style("top", (height/4 + heightScale(d["dim1"])) + "px");	
+					})					
+				.on("mouseout", function(d) {		
+					
+					d3.select(this).transition()
+                .duration('300')
+                .attr("r", function(d) {
+                    return 4*(d["dataType"]+0.5);
                 });
+					
+					div.transition()		
+						.duration(500)		
+						.style("opacity", 0);	
+				});
+				
+				canvas.append('g')
+                .selectAll("dot")
+                .data(d_mds_orig)
+                .enter()
+                .append("text")
+                .attr("class", "scatter_o")
+                .attr("x", function(d) {
+                    return widthScale(d["dim0"])-30;
+                })
+                .attr("y", function(d) {
+                    return heightScale(d["dim1"])-10;
+                })
+				.text(function(d) {
+                    return d["label"];
+                })
+                .attr("opacity", "0")
+				;
 
-
-            canvas.selectAll(".scatter_o")
+			
+			//for(var i=0;i<d_mds_orig.length;i++)
+			//{
+				canvas.selectAll(".scatter_o")
                 .transition()
                 .duration(50)
                 .attr("opacity", function(d, i) {
-                    return 1;
+                    return d['GarageArea'];
                 })
                 .delay(function(d, i) {
                     return (i)
-                });
+                });	
+			//}
+            
 
-            canvas.append('g')
+           /* canvas.append('g')
                 .selectAll("dot")
                 .data(d_mds_random)
                 .enter()
@@ -167,6 +234,10 @@ function drawMDSscatter(type) {
                 .style("fill", function(d) {
                     return colorScale[d["clusterNo"]];
                 });
+				
+				
+*/
+
 
         });
 }
