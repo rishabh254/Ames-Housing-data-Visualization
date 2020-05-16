@@ -122,6 +122,25 @@ Slider.prototype.moveSliderTo = function (value) {
 	    return tmp;
   }
 
+  function updateBubble(){
+  	  d_bubble = [];
+  	  //console.log("before update",bubble_global_data.length);
+	  for(var i = 0;i<bubble_global_data.length-13;i++)
+	  {
+
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+		  //console.log("currMin[j].........",currMin[j]);
+			  temp = temp & ((bubble_global_data[i][features[j]]>=currMin[j] && bubble_global_data[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d_bubble.push(bubble_global_data[i]);
+	  }
+	  //console.log("len....",d_bubble.length);
+	  updateBubbleGraph(d_bubble);
+  }
+
   if (this.minDomNode) {
 	  //console.log("max"+this.sliderNo)
 	  currMax[(this.sliderNo-1)/2] = this.valueNow;
@@ -163,10 +182,13 @@ Slider.prototype.moveSliderTo = function (value) {
 
 	  //For parallel graph
 	  applyFilters();
+	  //for bubble chart
 
+	  updateBubble();
 
     this.minDomNode.setAttribute('aria-valuemax', this.valueNow);
   }
+
 
 
   if (this.maxDomNode) {
@@ -205,6 +227,8 @@ Slider.prototype.moveSliderTo = function (value) {
 	   updateLineGraph(d_line);
 	   //for parallel
         applyFilters();
+        //for bubble
+        updateBubble();
 
 
 
