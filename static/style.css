@@ -185,6 +185,7 @@ height:30%;
 
 .dcm-class{
 width: 50%;
+margin-left:70px;
 }
 
 .line-class{
@@ -210,6 +211,13 @@ margin-bottom:70px;
 
 .table-text{
 margin-top:20px;
+}
+
+.table-class{
+    height: 200px;
+    width: 500px;
+    margin-left: 250px;
+    margin-top: 60px;
 }
 
 
