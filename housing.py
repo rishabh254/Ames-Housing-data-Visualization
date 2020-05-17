@@ -24,7 +24,7 @@ def preprocess(df,norm):
             'FireplaceQu','BsmtQual','BsmtFinSF1','GrLivArea','GarageArea','LotArea', 'Neighborhood']
     df = df[cols]
 
-    #df = df[:750]
+    df = df[:750]
     # features rated as Ex, Gd, TA, Fa, Po
     feature_rated =['ExterQual','ExterCond','BsmtQual','BsmtCond','BsmtExposure',
                 'HeatingQC','KitchenQual','FireplaceQu','GarageQual']
@@ -132,9 +132,9 @@ def get_MDS(df_norm,df_orig,distType):
     dv = np.array(vd).T
     cm = np.concatenate((np.concatenate((dd,dv),1), np.concatenate((vd,vv),1)),0)
     print(len(cm))'''
-    print("df_orig",df_orig)
-    print("df_norm",df_norm)
-    print("distType", distType)
+    #print("df_orig",df_orig)
+    #print("df_norm",df_norm)
+    #print("distType", distType)
     
     if distType is 'lol':
         embedding = MDS(n_init=1, n_components=2, dissimilarity = distType, random_state=1)

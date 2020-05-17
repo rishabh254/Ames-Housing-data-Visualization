@@ -94,14 +94,17 @@ const featureAxisG = pcSvg.selectAll('g.feature')
 
 featureAxisG
       .append('g')
+	  .attr("class", "axisWhite")
       .each(function(d){
-        d3.select(this).call(yAxis[d.name]);
+        d3.select(this).
+		call(yAxis[d.name]);
       });
 
 featureAxisG
   .append("text")
   .attr("text-anchor", "middle")
   .attr('y', padding/2)
+  .attr("fill", textColor)
   .text(d=>d.name);
 
 }

@@ -120,7 +120,8 @@ if(svg_bubble != null){
 
       text
         .transition(t)
-          .attr("x", function(d){ return d.x; })
+          .attr("x", function(d){ return d.x-20; })
+		  .attr("font-size", function(d){ return d.r/2+"px";})
           .attr("y", function(d){ return d.y; });
 
       //ENTER
@@ -150,10 +151,12 @@ if(svg_bubble != null){
 
       text.enter().append("text")
          //.attr("opacity", 1e-1)
-          .attr("x", function(d){ return d.x; })
+		 .attr("fill", "black")
+          .attr("x", function(d){ return d.x-20; })
           .attr("y", function(d){ return d.y; })
           .attr("font-family", "sans-serif")
-          .attr("font-size", "10px")
+          .attr("font-size", function(d){ return d.r/2+"px";})
+		  //.attr("font-size", "7px")
           .text(function(d){ return d.data.Name; })
         .transition(t)
           .attr("opacity", 1);

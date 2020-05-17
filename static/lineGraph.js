@@ -83,19 +83,19 @@ function updateLineGraph(lineData)
             var y_axis = d3.axisLeft(y);
 			var y1_axis = d3.axisRight(y1);
 
-	svgLineGraph.select(".x_axis")
+	svgLineGraph.select(".axisWhite")
       .transition()
 	  .duration(750)
 	  .attr("transform", "translate(0," + heightLineGraph + ")")
       .call(x_axis);
 
-    svgLineGraph.select(".axisRed")
+    svgLineGraph.select(".axisTeal")
       .transition()
 	  .duration(750)
 	  .attr("transform", "translate(" + widthLineGraph + ",0)")
       .call(y1_axis);
 
-	  svgLineGraph.select(".axisBlue")
+	  svgLineGraph.select(".axisPink")
       .transition()
 	  .duration(750)
 	  .call(y_axis);
@@ -120,7 +120,7 @@ function updateLineGraph(lineData)
 	  .transition()
 	  .duration(750)
       .attr("fill", "none")
-	  .attr("stroke", "teal")
+	  .attr("stroke", "#6EC6BA")
       .attr("stroke-width", 1.5)
       .attr("d", d3.line()
         .x(function(d) { return x(d.age) })
@@ -179,23 +179,24 @@ function drawLineGraph(lineData) {
 			var y1_axis = d3.axisRight(y1);
 
 	svgLineGraph.append("g")
-      .attr("class", "x_axis")
+      .attr("class", "axisWhite")
       .attr("transform", "translate(0," + heightLineGraph + ")")
       .call(x_axis);
 
     svgLineGraph.append("g")
-	  .attr("class", "axisRed")
+	  .attr("class", "axisTeal")
       .attr("transform", "translate(" + widthLineGraph + ",0)")
       .call(y1_axis);
 
 	  svgLineGraph.append("g")
-	  .attr("class", "axisBlue")
+	  .attr("class", "axisPink")
       .call(y_axis);
 
 
 	  // x axis label
             svgLineGraph.append("text")
                 .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left+marginLineGraph.right) + " ," + (heightLineGraph+marginLineGraph.bottom+marginLineGraph.top) + ")")
+				.attr("fill", textColor)
                 .attr("dx", "-10.6em")
                 .attr("dy", "-0.6em")
                 .style("text-anchor", "end")
@@ -203,15 +204,17 @@ function drawLineGraph(lineData) {
 
             // y axis label
             svgLineGraph.append("text")
-                .attr("transform", "translate(" + -(marginLineGraph.left) + " ," + 0 + ")" + " rotate(-90)")
-                .attr("dx", "-10.7em")
+                .attr("transform", "translate(" + -(0.8*marginLineGraph.left) + " ," +(-4*marginLineGraph.bottom) + ")" + " rotate(-90)")
+                .attr("fill", "#FF7F7F")
+				.attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
                 .text("Mean Overall Quality");
 
 			svgLineGraph.append("text")
-                .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left) + " ," + 0 + ")" + " rotate(-90)")
-                .attr("dx", "-10.7em")
+                .attr("transform", "translate(" + (widthLineGraph+1.3*marginLineGraph.left) + " ," +(heightLineGraph+4*marginLineGraph.bottom) + ")" + " rotate(90)")
+                .attr("fill", "#6EC6BA")
+				.attr("dx", "-10.7em")
                 .attr("dy", "1.0em")
                 .style("text-anchor", "end")
                 .text("Mean SalePrice");
@@ -232,7 +235,7 @@ function drawLineGraph(lineData) {
       .datum(data)
       .attr("fill", "none")
 	  .attr("class", "lineS")
-      .attr("stroke", "teal")
+      .attr("stroke", "#6EC6BA")
 	  .attr("stroke-width", 1.5)
       .attr("d", d3.line()
         .x(function(d) { return x(d.age) })

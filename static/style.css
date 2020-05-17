@@ -69,28 +69,44 @@ li {
 }
 
 
-axisRed line{
-  stroke: teal;
+axisTeal line{
+  stroke: #6EC6BA;
 }
 
-.axisRed path{
-  stroke: teal;
+.axisTeal path{
+  stroke: #6EC6BA;
 }
 
-.axisRed text{
-  fill: teal;
+.axisTeal text{
+  fill: #6EC6BA;
 }
 
-axisBlue line{
+axisPink line{
   stroke: #FF7F7F;
 }
 
-.axisBlue path{
+.axisPink path{
   stroke: #FF7F7F;
 }
 
-.axisBlue text{
+.axisPink text{
   fill: #FF7F7F;
+}
+
+axisWhite line{
+  stroke: #FFFFFF;
+}
+
+.axisWhite path{
+  stroke: #e5e5e5;
+}
+
+.axisWhite text{
+  fill: #e5e5e5;
+}
+
+.axisWhite tick{
+  stroke: #e5e5e5;
 }
 
 div.tooltip, tooltip.tooltip {

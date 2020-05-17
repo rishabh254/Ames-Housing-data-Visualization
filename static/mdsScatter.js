@@ -85,18 +85,21 @@ function drawMDSscatter(type) {
                 .attr("transform", "translate(" + leftMargin + "," + topMargin + ")");
 
             canvas.append("g")
+				.attr("class", "axisWhite")
                 .attr("transform", "translate(0," + (height - topMargin - bottomMargin) + ")")
                 .call(x_axis);
 
             // add the y Axis
             canvas.append("g")
-                .call(y_axis);
+                .attr("class", "axisWhite")
+				.call(y_axis);
 
             // x axis label
             canvas.append("text")
                 .attr("transform", "translate(" + (width +leftMargin +rightMargin) + " ," + (height - topMargin) + ")")
                 .attr("dx", "-25.6em")
                 .attr("dy", "-0.6em")
+				.attr("fill", textColor)
                 .style("text-anchor", "end")
                 .text("Dimension 1");
 
@@ -105,6 +108,7 @@ function drawMDSscatter(type) {
                 .attr("transform", "translate(" + (-5 * leftMargin) + " ," + -90 + ")" + " rotate(-90)")
                 .attr("dx", "-15.7em")
                 .attr("dy", "1.0em")
+				.attr("fill", textColor)
                 .style("text-anchor", "end")
                 .text("Dimension 2");
 				
@@ -169,6 +173,7 @@ function drawMDSscatter(type) {
                 .data(d_mds_orig)
                 .enter()
                 .append("text")
+				.attr("fill", "#FF7F7F")
                 .attr("class", "scatter_o")
                 .attr("x", function(d) {
                     return widthScale(d["dim0"])-30;
