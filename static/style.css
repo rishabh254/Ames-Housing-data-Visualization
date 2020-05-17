@@ -172,7 +172,7 @@ g.inactive path, g.active path{
 width: 30%;
 margin-top=-30px;
 display: inline-block;
-margin-left:70px;
+margin-left:70px
 }
 .parallel-class{
     float:right;
@@ -198,8 +198,13 @@ float:left;
 width:12%;
 margin-left:-40px;
 }
-.slider-component text{
-color:"#e5e5e5";
+.slider-component{
+height:10%
+
+}
+
+.slider-text{
+
 }
 
 

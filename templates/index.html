@@ -22,7 +22,8 @@
    <body>
       <h1 class = "retroshadow"> Ames Housing Dataset</h1>
       <div class="slider">
-          <div class="slider-component">OverallQual
+          <div class="slider-component">
+              <div class="slider-text">OverallQual</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
             <div class="rail" style="width: 100px;">
@@ -179,6 +180,29 @@
       <div class="graph-class-bottom">
               <div id="parallel-div" class="parallel-class"></div>
       </div>
+
+      ////
+
+      <div id="displaytable" class="placeholder">
+  <table id="displaytable2" width="50%" cellpadding="1" cellspacing="0" border="3">
+    <tr align="center">
+      <td class="lbl">column1</td>
+      <td class="lbl">column2</td>
+    </tr>
+    <tr>
+      <td align="center">1</td>
+      <td align="center">2</td>
+    </tr>
+    <tr>
+      <td align="center"></td>
+      <td align="center">5</td>
+    </tr>
+  </table>
+</div>
+      
+<div>
+  <input type="button" id="clickme" value="Show/Hide" />
+</div>
       <script type="text/javascript">
 		  var textColor = "#e5e5e5";
           drawInitialParallelGraph();

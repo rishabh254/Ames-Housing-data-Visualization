@@ -22,7 +22,7 @@ var Slider = function (domNode,sliderNo)  {
 
 
   this.railMin = 0;
-  this.railMax = 100;
+  this.railMax = 130;
   this.railWidth = 0;
   this.railBorderWidth = 1;
 
