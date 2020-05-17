@@ -153,18 +153,26 @@ div.parallelCoordinates{
 
 g.inactive path, g.active path{
   fill: none;
-  stroke: lightgrey;
+  stroke: transparent;
   stroke-linecap:"round"
 }
 
 .graph-class-left{
-float: left;
     display: inline-block;
+    width: 50%;
+}
 
+.graph-class-top{
+    height:70%;
+}
+.graph-class-bottom{
+    height:30%;
 }
 .graph-class-right{
-float: right;
+width: 30%;
 margin-top=-30px;
+display: inline-block;
+margin-left:70px;
 }
 .parallel-class{
     float:right;
@@ -180,12 +188,20 @@ width: 50%;
 }
 
 .line-class{
+margin-top:-40px;
 
 height:30%;
 }
-.slider-component{
-display:inline-block;
+
+.slider{
+float:left;
+width:12%;
+margin-left:-40px;
 }
+.slider-component text{
+color:"#e5e5e5";
+}
+
 
 
 

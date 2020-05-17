@@ -138,7 +138,7 @@ function drawLineGraph(lineData) {
 
 	// set the dimensions and marginLineGraphs of the graph
      marginLineGraph = {top: 10, right: 30, bottom: 30, left: 60},
-    widthLineGraph = 500 - marginLineGraph.left - marginLineGraph.right,
+    widthLineGraph = 400 - marginLineGraph.left - marginLineGraph.right,
     heightLineGraph = 200 - marginLineGraph.top - marginLineGraph.bottom;
 
 // append the svg object to the body of the page

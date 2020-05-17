@@ -2,7 +2,7 @@ var myColor1= [d3.scaleLinear().domain([0,10]).range(["white", "teal"]), d3.scal
 
 var myColor = d3.scaleLinear().domain([0,10]).range(["white", "teal"]);
 var diameter = 600;
-var width1= 520, height1 = 250;
+var width1= 420, height1 = 250;
 var bubble_global_data=[]
 
 var svg_bubble = null;

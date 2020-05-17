@@ -34,7 +34,7 @@ function drawMDSscatter(type) {
             var rightMargin = 10;
             var topMargin = 40;
             var bottomMargin = 40;
-            var height = 600;
+            var height = 500;
             var width = 600;
 
             // x axis scale
@@ -167,13 +167,33 @@ function drawMDSscatter(type) {
 						.duration(500)		
 						.style("opacity", 0);	
 				});
-				
 				canvas.append('g')
                 .selectAll("dot")
-                .data(d_mds_orig)
-                .enter()
-                .append("text")
+				.data(d_mds_orig)
+				.enter()
+                .append("rect")
+				 .attr("height", function(d) {
+                    return (d["dataType"])*15;
+                })
+				.attr("width", function(d) {
+                    return (d["dataType"])*(d["label"].length)*8;
+                })
 				.attr("fill", "#FF7F7F")
+                .attr("class", "scatter_o")
+                .attr("x", function(d) {
+                    return widthScale(d["dim0"])-30;
+                })
+                .attr("y", function(d) {
+                    return heightScale(d["dim1"])-24;
+                })
+                .attr("opacity", "1");
+
+				canvas.append('g')
+                .selectAll("dot")
+				.data(d_mds_orig)
+				.enter()
+                .append("text")
+				.attr("fill", "black")
                 .attr("class", "scatter_o")
                 .attr("x", function(d) {
                     return widthScale(d["dim0"])-30;
@@ -184,17 +204,6 @@ function drawMDSscatter(type) {
 				.text(function(d) {
                     return d["label"];
                 })
-                .attr("opacity", "1")
-				;
-
-			
-			//for(var i=0;i<d_mds_orig.length;i++)
-			//{
-//				canvas.selectAll(".scatter_o")
-//                .transition()
-//                .duration(50)
-//                .delay(function(d, i) {
-//                    return (i)
-//                });
+                .attr("opacity", "1");
         });
 }

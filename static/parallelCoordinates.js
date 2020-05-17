@@ -8,9 +8,9 @@ var pcSvg=null;
 const features_parallel = [
   {name: 'SalePrice', range: [34900,755000]},
   {name: 'OverallQual', range: [1,10]},
-  {name: 'GarageArea', range: [0,1418]},
-  {name: 'GrLivArea', range: [334,5642]},
   {name: 'LotArea', range: [1300,115149]},
+  {name: 'GarageArea', range: [0,1418]},
+  {name: 'GrLivArea', range: [334,5642]}
 ];
 const xScale = d3.scalePoint()
   .domain(features_parallel.map(x=>x.name))
