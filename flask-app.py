@@ -43,7 +43,6 @@ def get_mdsE():
     #mds_random = housing.get_MDS(r_sample,distType)
     #mds_stratified = housing.get_MDS(s_sample,distType)
     data = {"mds_orig": mds_origE}
-    print("mds data....", data);
     return (data)
 
 ##### Task 3.2 #####

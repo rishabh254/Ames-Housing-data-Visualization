@@ -144,10 +144,10 @@ g.inactive path, g.active path{
 .parallel-class{
 float: left;
     display: inline-block;
-    width: 50%;
+    width: 60%;
 }
 .bubble-class{
-width: 50%;
+width: 40%;
     display: inline-block;
 }
 

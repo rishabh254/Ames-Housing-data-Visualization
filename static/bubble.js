@@ -2,7 +2,7 @@ var myColor1= [d3.scaleLinear().domain([0,10]).range(["white", "teal"]), d3.scal
 
 var myColor = d3.scaleLinear().domain([0,10]).range(["white", "teal"]);
 var diameter = 600;
-var width1= 520, height1 = 500;
+var width1= 520, height1 = 300;
 var bubble_global_data=[]
 
 var svg_bubble = null;
@@ -79,7 +79,7 @@ function drawBubbleGraph(data){
 function drawBubbleGraphUtil(classes) {
 if(svg_bubble != null){
       var t = d3.transition()
-          .duration(750);
+          .duration(100);
 
       // hierarchy
       var h = d3.hierarchy({children: classes})
@@ -114,14 +114,14 @@ if(svg_bubble != null){
          return myColor(d.data.Scale*10);
             })
           .attr("r", function(d){
-          return d.r/2 })
-          .attr("cx", function(d){ return d.x/2; })
-          .attr("cy", function(d){ return d.y/2; })
+          return d.r })
+          .attr("cx", function(d){ return d.x; })
+          .attr("cy", function(d){ return d.y; })
 
       text
         .transition(t)
-          .attr("x", function(d){ return d.x/2; })
-          .attr("y", function(d){ return d.y/2; });
+          .attr("x", function(d){ return d.x; })
+          .attr("y", function(d){ return d.y; });
 
       //ENTER
       circle.enter().append("circle")
@@ -146,7 +146,7 @@ if(svg_bubble != null){
           .style("fill", function(d) {
          return myColor(d.data.Scale*10);
             })
-          .attr("r", function(d){ return d.r/2});
+          .attr("r", function(d){ return d.r});
 
       text.enter().append("text")
          //.attr("opacity", 1e-1)

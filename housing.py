@@ -37,7 +37,6 @@ def preprocess(df,norm):
 
     for feature in train_encoded:
         # label encoding categorical features
-        print("feature ",feature)
         if feature == 'NeighborhoodText':
             continue;
         if train_encoded[feature].dtype=='object':
