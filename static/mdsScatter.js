@@ -53,8 +53,8 @@ function drawMDSscatter(type) {
             if (type == 'correlation')
                 heightScale.domain([-1.5, 1.5]);
 
-            var colorScale = ["steelblue", "red"];
-			var borderScale = ["transparent", "black"];
+            var colorScale = ["teal", "#FF7F7F"];
+			var borderScale = ["black", "black"];
 
             // color scale
             var color = d3.scaleLinear()
@@ -131,12 +131,12 @@ function drawMDSscatter(type) {
 				.attr("r", function(d) {
                     return 4*(d["dataType"]+1);
                 })
-                .attr("opacity", "0")
+                .attr("opacity", "1")
 				.style("stroke", function(d) {
                     return borderScale[d["dataType"]];
                 })
                 .style("fill", function(d) {
-                    return colorScale[d["dataType"]];
+                    return myColor1[d["dataType"]](d['GarageArea']*10);
                 })
 				.on("mouseover", function(d) {
 					
@@ -179,20 +179,17 @@ function drawMDSscatter(type) {
 				.text(function(d) {
                     return d["label"];
                 })
-                .attr("opacity", "0")
+                .attr("opacity", "1")
 				;
 
 			
 			//for(var i=0;i<d_mds_orig.length;i++)
 			//{
-				canvas.selectAll(".scatter_o")
-                .transition()
-                .duration(50)
-                .attr("opacity", function(d, i) {
-                    return d['GarageArea'];
-                })
-                .delay(function(d, i) {
-                    return (i)
-                });
+//				canvas.selectAll(".scatter_o")
+//                .transition()
+//                .duration(50)
+//                .delay(function(d, i) {
+//                    return (i)
+//                });
         });
 }

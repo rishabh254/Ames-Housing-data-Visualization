@@ -26,6 +26,7 @@ li {
      margin-bottom: 15px;
      margin-right: 80px;
      margin-left: 80px;
+     background: #323F4B;
 }
  .tooltip-donut {
      position: absolute;
@@ -69,27 +70,27 @@ li {
 
 
 axisRed line{
-  stroke: red;
+  stroke: teal;
 }
 
 .axisRed path{
-  stroke: red;
+  stroke: teal;
 }
 
 .axisRed text{
-  fill: red;
+  fill: teal;
 }
 
 axisBlue line{
-  stroke: steelblue;
+  stroke: #FF7F7F;
 }
 
 .axisBlue path{
-  stroke: steelblue;
+  stroke: #FF7F7F;
 }
 
 .axisBlue text{
-  fill: steelblue;
+  fill: #FF7F7F;
 }
 
 div.tooltip, tooltip.tooltip {

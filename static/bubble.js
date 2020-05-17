@@ -1,6 +1,8 @@
-var myColor = d3.scaleLinear().domain([0,10]).range(["white", "blue"]);
+var myColor1= [d3.scaleLinear().domain([0,10]).range(["white", "teal"]), d3.scaleLinear().domain([0,10]).range(["white", "#FF7F7F"])];
+
+var myColor = d3.scaleLinear().domain([0,10]).range(["white", "teal"]);
 var diameter = 600;
-var width1= 600, height1 = 500;
+var width1= 520, height1 = 500;
 var bubble_global_data=[]
 
 var svg_bubble = null;
@@ -112,14 +114,14 @@ if(svg_bubble != null){
          return myColor(d.data.Scale*10);
             })
           .attr("r", function(d){
-          return d.r })
-          .attr("cx", function(d){ return d.x; })
-          .attr("cy", function(d){ return d.y; })
+          return d.r/2 })
+          .attr("cx", function(d){ return d.x/2; })
+          .attr("cy", function(d){ return d.y/2; })
 
       text
         .transition(t)
-          .attr("x", function(d){ return d.x; })
-          .attr("y", function(d){ return d.y; });
+          .attr("x", function(d){ return d.x/2; })
+          .attr("y", function(d){ return d.y/2; });
 
       //ENTER
       circle.enter().append("circle")
@@ -144,7 +146,7 @@ if(svg_bubble != null){
           .style("fill", function(d) {
          return myColor(d.data.Scale*10);
             })
-          .attr("r", function(d){ return d.r });
+          .attr("r", function(d){ return d.r/2});
 
       text.enter().append("text")
          //.attr("opacity", 1e-1)
