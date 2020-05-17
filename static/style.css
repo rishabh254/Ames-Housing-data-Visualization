@@ -141,27 +141,31 @@ g.inactive path, g.active path{
   stroke-linecap:"round"
 }
 
-.parallel-class{
+.graph-class-left{
 float: left;
     display: inline-block;
-    width: 60%;
+
+}
+.graph-class-right{
+float: right;
+margin-top=-30px;
+}
+.parallel-class{
+    float:right;
+    height:30%;
+    margin-top=-30px;
 }
 .bubble-class{
-width: 40%;
-    display: inline-block;
+height:30%;
 }
 
 .dcm-class{
-float:left;
 width: 50%;
-display: inline-block;
 }
 
 .line-class{
-float:right;
-width: 50%;
-display: inline-block;
-margin-top: -10px;
+
+height:30%;
 }
 .slider-component{
 display:inline-block;

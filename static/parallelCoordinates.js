@@ -1,7 +1,7 @@
 var d_parallel_graph=[];
 var parallel_slider=['OverallQual','SalePrice']
 
-const width = 800, height = 300, padding = 50;
+const width = 600, height = 250, padding = 50;
 const lineGenerator = d3.line();
 var pcSvg=null;
 
