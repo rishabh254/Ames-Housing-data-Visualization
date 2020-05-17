@@ -199,12 +199,17 @@ width:12%;
 margin-left:-40px;
 }
 .slider-component{
-height:10%
+height:10%;
+margin-bottom:70px;
 
 }
 
 .slider-text{
 
+}
+
+.table-text{
+margin-top:20px;
 }
 
 

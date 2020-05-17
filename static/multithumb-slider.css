@@ -8,16 +8,21 @@ div.aria-widget-slider {
 
 div.rail-label {
   padding-right: 0.5em;
-  text-align: right;
-  float: left;
   width: 4em;
   position: relative;
   top: -0.5em;
+  color: #e5e5e5;
 }
 
 div.rail-label.max {
   padding-left: 0.5em;
-  text-align: left;
+  float: right;
+  text-align: right;
+}
+
+div.rail-label.min {
+  padding-right: 0.5em;
+  float: left;
 }
 
 div.aria-widget-slider .rail {
@@ -45,4 +50,21 @@ div.aria-widget-slider img[role="slider"]:hover {
 
 div.aria-widget-slider .rail.focus {
   background-color: #aaa;
+}
+
+.slider-text{
+text-align:center;
+color: #e5e5e5;
+}
+.rail-label min{
+float:left;
+color: #e5e5e5;
+}
+
+.rail-label max{
+float:right;
+color: #e5e5e5;
+}
+.rail{
+width: 100px;
 }

@@ -26,7 +26,8 @@
               <div class="slider-text">OverallQual</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
-            <div class="rail" style="width: 100px;">
+                <div class="rail-label max">10</div>
+            <div class="rail" style="width: 160px;">
             <img id="minOverallQual"
                 src="../static/min-arrow.png"
                 role="slider"
@@ -44,13 +45,16 @@
             aria-valuenow="10"
             aria-valuemax="10">
             </div>
-            <div class="rail-label max">10</div>
+
             </div>
           </div>
-          <div class="slider-component">SalePrice
+
+          <div class="slider-component">
+              <div class="slider-text">SalePrice</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
-            <div class="rail" style="width: 100px;">
+                <div class="rail-label max">10</div>
+            <div class="rail" style="width: 160px;">
     <img id="minOverallQual"
          src="../static/min-arrow.png"
          role="slider"
@@ -68,13 +72,14 @@
          aria-valuenow="500000"
          aria-valuemax="500000">
   </div>
-            <div class="rail-label max">10</div>
             </div>
         </div>
-          <div class="slider-component">Lot Area
+          <div class="slider-component">
+              <div class="slider-text">Lot Area</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
-            <div class="rail" style="width: 100px;">
+                <div class="rail-label max">10</div>
+            <div class="rail" style="width: 160px;">
             <img id="minLotArea"
                 src="../static/min-arrow.png"
                 role="slider"
@@ -92,13 +97,14 @@
             aria-valuenow="115149"
             aria-valuemax="115149">
             </div>
-            <div class="rail-label max">115149</div>
             </div>
           </div>
-          <div class="slider-component">Lot Area
+          <div class="slider-component">
+              <div class="slider-text">Garage Area</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
-            <div class="rail" style="width: 100px;">
+                 <div class="rail-label max">115149</div>
+            <div class="rail" style="width: 160px;">
             <img id="minLotArea"
                 src="../static/min-arrow.png"
                 role="slider"
@@ -116,13 +122,15 @@
             aria-valuenow="115149"
             aria-valuemax="115149">
             </div>
-            <div class="rail-label max">115149</div>
+
             </div>
           </div>
-          <div class="slider-component">Lot Area
+          <div class="slider-component">
+           <div class="slider-text">GrLiv Area</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
-            <div class="rail" style="width: 100px;">
+                <div class="rail-label max">115149</div>
+            <div class="rail" style="width: 160px;">
             <img id="minLotArea"
                 src="../static/min-arrow.png"
                 role="slider"
@@ -140,13 +148,15 @@
             aria-valuenow="115149"
             aria-valuemax="115149">
             </div>
-            <div class="rail-label max">115149</div>
+
             </div>
           </div>
-          <div class="slider-component">Lot Area
+          <div class="slider-component">
+             <div class="slider-text">GrLiv Area</div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
-            <div class="rail" style="width: 100px;">
+                <div class="rail-label max">115149</div>
+            <div class="rail" style="width: 160px;">
             <img id="minLotArea"
                 src="../static/min-arrow.png"
                 role="slider"
@@ -164,7 +174,7 @@
             aria-valuenow="115149"
             aria-valuemax="115149">
             </div>
-            <div class="rail-label max">115149</div>
+
             </div>
           </div>
       </div>
@@ -182,27 +192,62 @@
       </div>
 
       ////
-
-      <div id="displaytable" class="placeholder">
-  <table id="displaytable2" width="50%" cellpadding="1" cellspacing="0" border="3">
+      <div width="50%">
+		  <div class="table-text" style="display:inline-block;">
+		  <div id="displaytable" class="placeholder" >
+  <table style="color:#e5e5e5" id="displaytable2" cellpadding="1" cellspacing="0" border="3">
     <tr align="center">
-      <td class="lbl">column1</td>
-      <td class="lbl">column2</td>
+      <td class="lbl">Total Houses </td>
+    </tr>
+     </table>
+</div>
+
+<div id="displaytable" class="placeholder" >
+  <table style="color:#e5e5e5" id="displaytable2" cellpadding="1" cellspacing="0" border="3">
+    <tr align="center">
+      <td class="lbl">243 </td>
+    </tr>
+     </table>
+</div>
+		  </div>
+
+		  <div style="display:inline-block;">
+      <div id="displaytable" class="placeholder"  >
+  <table style="color:#e5e5e5" id="displaytable2"  cellpadding="1" cellspacing="0" border="3">
+    <tr align="center">
+      <td class="lbl">Top Houses acc to your preferences</td>
+    </tr>
+     </table>
+</div>
+
+<div id="displaytable" class="placeholder">
+  <table style="color:#e5e5e5" id="displaytable2" cellpadding="1" cellspacing="0" border="3">
+    <tr align="center">
+      <td class="lbl">SalePrice</td>
+      <td class="lbl">Quality</td>
+	  <td class="lbl">Neighborhood</td>
     </tr>
     <tr>
       <td align="center">1</td>
       <td align="center">2</td>
+	  <td align="center">3</td>
     </tr>
     <tr>
-      <td align="center"></td>
+      <td align="center">4</td>
       <td align="center">5</td>
+	  <td align="center">6</td>
+    </tr>
+	<tr>
+      <td align="center">7</td>
+      <td align="center">8</td>
+	  <td align="center">9</td>
     </tr>
   </table>
 </div>
-      
-<div>
-  <input type="button" id="clickme" value="Show/Hide" />
+
 </div>
+</div>
+
       <script type="text/javascript">
 		  var textColor = "#e5e5e5";
           drawInitialParallelGraph();
