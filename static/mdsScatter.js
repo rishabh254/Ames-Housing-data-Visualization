@@ -62,7 +62,7 @@ function drawMDSscatter(type) {
                 .range(["red", "blue"]);
 
             // x axis
-            var x_axis = d3.axisBottom(widthScale)
+            /*var x_axis = d3.axisBottom(widthScale)
                 .ticks(10)
                 .tickSize(10);
 
@@ -70,7 +70,7 @@ function drawMDSscatter(type) {
             var y_axis = d3.axisLeft(heightScale)
                 .ticks(10)
                 .tickSize(10);
-
+*/
             // container for svg graph
             var container = d3.select("#dcm-div")
                 .append("svg")
@@ -84,7 +84,7 @@ function drawMDSscatter(type) {
             var canvas = container.append("g")
                 .attr("transform", "translate(" + leftMargin + "," + topMargin + ")");
 
-            canvas.append("g")
+  /*          canvas.append("g")
 				.attr("class", "axisWhite")
                 .attr("transform", "translate(0," + (height - topMargin - bottomMargin) + ")")
                 .call(x_axis);
@@ -111,7 +111,7 @@ function drawMDSscatter(type) {
 				.attr("fill", textColor)
                 .style("text-anchor", "end")
                 .text("Dimension 2");
-				
+			*/	
 			// Define the div for the tooltip
 			var div = d3.select("body").append("div")	
 				.attr("class", "tooltip")
@@ -140,10 +140,12 @@ function drawMDSscatter(type) {
                     return borderScale[d["dataType"]];
                 })
                 .style("fill", function(d) {
-                    return myColor1[d["dataType"]](d['GarageArea']*10);
+                    return myColor1[d["dataType"]](d['score']*10);
                 })
 				.on("mouseover", function(d) {
 					
+					if(d["dataType"]==0)
+					{
 					d3.select(this).transition()
                 .duration('300')
                 .attr("r",10);
@@ -154,6 +156,7 @@ function drawMDSscatter(type) {
 					div.html("OverallQual : " + d["OverallQual1"] + "\nSalePrice : "+d["SalePrice1"] )	
 						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")		
 						.style("top", (height/4 + heightScale(d["dim1"])) + "px");	
+					}
 					})					
 				.on("mouseout", function(d) {		
 					

@@ -1,4 +1,4 @@
-var myColor1= [d3.scaleLinear().domain([0,10]).range(["white", "teal"]), d3.scaleLinear().domain([0,10]).range(["white", "#FF7F7F"])];
+var myColor1= [d3.scaleLinear().domain([0,10]).range(["white", "teal"]), d3.scaleLinear().domain([0,10]).range(["#FF7F7F", "#FF7F7F"])];
 
 var myColor = d3.scaleLinear().domain([0,10]).range(["white", "teal"]);
 var diameter = 600;
