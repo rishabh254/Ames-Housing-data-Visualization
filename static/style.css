@@ -205,19 +205,50 @@ margin-bottom:70px;
 
 }
 
-.slider-text{
-
-}
-
-.table-text{
-margin-top:20px;
-}
-
 .table-class{
-    height: 200px;
-    width: 500px;
-    margin-left: 250px;
-    margin-top: 60px;
+width:500px;
+height:500px;
+color:#e5e5e5;
+cellpadding:1;
+cellspacing:0;
+border:3;
+margin-left:120px;
+}
+
+.table-left{
+float:left;
+margin-left: 44px;
+
+}
+
+
+.table-left-top{
+height:50%;
+
+}
+
+.table-left{
+height:50%;
+width:40%;
+margin-left:31px;
+}
+
+.table-right{
+height:50%;
+width:40%;
+}
+
+.table-left-bottom{
+height:50%;
+border:3;
+}
+
+.table-right-top{
+height:30%;
+}
+
+.table-right-bottom{
+height:70%;
 }
 
 
