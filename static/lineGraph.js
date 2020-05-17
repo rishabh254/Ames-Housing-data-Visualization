@@ -32,7 +32,6 @@ function getLineData(data){
 		 result.push({age: ag, SalePrice:sp, OverallQual:oq});
 		}
 	}
-	console.log("result...",result);
 	return result;
 }
 
@@ -218,7 +217,6 @@ function drawLineGraph(lineData) {
                 .text("Mean SalePrice");
 
     // Add the line
-	console.log("original", data[0]);
     svgLineGraph.append("path")
       .datum(data)
       .attr("fill", "none")

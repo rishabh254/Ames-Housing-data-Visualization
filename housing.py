@@ -31,9 +31,15 @@ def preprocess(df,norm):
 
     train_encoded = df.copy()
     train_encoded.fillna(train_encoded.mean(),inplace=True)
+    # Add only in case of df_orig
+    if(norm ==0):
+        train_encoded['NeighborhoodText'] = train_encoded['Neighborhood']
 
     for feature in train_encoded:
         # label encoding categorical features
+        print("feature ",feature)
+        if feature == 'NeighborhoodText':
+            continue;
         if train_encoded[feature].dtype=='object':
             # manual encoding to maintain original value of these features
             if feature in feature_rated:
@@ -64,23 +70,6 @@ def get_line_data(data):
     df = df.groupby(['age']).mean().reset_index()
     df = df[df['age']>=0]
     return df.to_json(orient='records')
-
-def get_parallel_data(data):
-    df = data[['SalePrice', 'GarageArea', 'OverallQual', 'GrLivArea', 'LotArea']]
-    print(df.min())
-    print(df.max())
-    return df.to_json(orient='records')
-
-def get_bubble_data(data):
-    df = data[['SalePrice', 'Neighborhood', 'OverallQual']]
-    # df_new = df.groupby('Neighborhood')['SalePrice'].agg(['count', 'mean']).reset_index()
-    # df_new['scale'] = df_new[['mean']].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
-    # df_new = df_new.drop(columns=['mean'])
-    # df_new.columns = ['Name', 'Count', 'scale']
-    # df_new[['Count']] = df_new[['Count']].fillna(0.0).astype(int)
-    return df.to_json(orient='records')
-
-
 
 ##### Task 1.2 #####
 def kmeans_elbow(df):
@@ -144,6 +133,9 @@ def get_MDS(df_norm,df_orig,distType):
     dv = np.array(vd).T
     cm = np.concatenate((np.concatenate((dd,dv),1), np.concatenate((vd,vv),1)),0)
     print(len(cm))'''
+    print("df_orig",df_orig)
+    print("df_norm",df_norm)
+    print("distType", distType)
     
     if distType is 'lol':
         embedding = MDS(n_init=1, n_components=2, dissimilarity = distType, random_state=1)
@@ -166,6 +158,7 @@ def get_MDS(df_norm,df_orig,distType):
         mds_df[col] = df_norm[col]
         mds_df[col+'1'] = df_orig[col]
         mds_df.loc[len(mds_df)-no_cols:,col]=1
+    mds_df['NeighborhoodText'] = df_orig['NeighborhoodText'];
     return mds_df.to_json(orient='records')
 
 ##### Task 3.3 #####

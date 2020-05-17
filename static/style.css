@@ -92,7 +92,7 @@ axisBlue line{
   fill: steelblue;
 }
 
-div.tooltip {	
+div.tooltip, tooltip.tooltip {
     position: absolute;			
     text-align: center;								
     padding: 2px;				
@@ -139,9 +139,7 @@ g.inactive path, g.active path{
   stroke: lightgrey;
   stroke-linecap:"round"
 }
-g.active path{
-  stroke:#0081af;
-}
+
 .parallel-class{
 float: left;
     display: inline-block;
@@ -167,4 +165,6 @@ margin-top: -10px;
 .slider-component{
 display:inline-block;
 }
+
+
 
