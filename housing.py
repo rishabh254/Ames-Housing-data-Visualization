@@ -158,6 +158,7 @@ def get_MDS(df_norm,df_orig,distType):
         mds_df[col+'1'] = df_orig[col]
         mds_df.loc[len(mds_df)-no_cols:,col]=1
     mds_df['NeighborhoodText'] = df_orig['NeighborhoodText'];
+    mds_df['score'] = 1 
     return mds_df.to_json(orient='records')
 
 ##### Task 3.3 #####

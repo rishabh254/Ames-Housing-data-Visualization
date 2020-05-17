@@ -195,7 +195,7 @@ function drawLineGraph(lineData) {
 
 	  // x axis label
             svgLineGraph.append("text")
-                .attr("transform", "translate(" + (widthLineGraph+marginLineGraph.left+marginLineGraph.right) + " ," + (heightLineGraph+marginLineGraph.bottom+marginLineGraph.top) + ")")
+                .attr("transform", "translate(" + (widthLineGraph+2*marginLineGraph.left+marginLineGraph.right) + " ," + (heightLineGraph+marginLineGraph.bottom+marginLineGraph.top) + ")")
 				.attr("fill", textColor)
                 .attr("dx", "-10.6em")
                 .attr("dy", "-0.6em")

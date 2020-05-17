@@ -141,6 +141,34 @@ Slider.prototype.moveSliderTo = function (value) {
 	  //d3.select("svg").select("g").style("visibility", "hidden");
 
 	  // for data context map
+	  var maxScore = -10000;
+	  var minScore =  10000;
+	  
+	  for(var i = 0;i<d_mds_orig.length-13;i++)	  
+	  {
+		    if(scoreFeatures.length==0)
+				d_mds_orig[i]['score'] = 1;
+			else
+			{
+				d_mds_orig[i]['score'] = 0;
+				for(var j=0;j<scoreFeatures.length;j++)
+				{
+					d_mds_orig[i]['score'] += d_mds_orig[i][scoreFeatures[j]]/scoreFeatures.length;
+				}
+				maxScore = Math.max(d_mds_orig[i]['score'],maxScore);
+				minScore = Math.min(d_mds_orig[i]['score'],minScore);
+			}
+	  }
+	  
+	  if(scoreFeatures.length>0)
+	  {
+		for(var i = 0;i<d_mds_orig.length-13;i++)	  
+		{
+			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
+		}
+	  }
+	  
+	  
 	for(var i = 0;i<d_mds_orig.length-13;i++)
 	  {
 		 var temp=true;

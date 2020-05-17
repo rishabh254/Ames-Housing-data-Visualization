@@ -82,7 +82,7 @@ pcSvg.append('g').attr('class','active').selectAll('path')
   .data(data)
   .enter()
     .append('path')
-    .attr('d', d=>linePath(d)).style("stroke", function(d){ return( myColor(d.OverallQual))} )
+    .attr('d', d=>linePath(d)).style("stroke", function(d){ return( myColor(d.score*10))} )
 
 // Vertical axis for the features
 const featureAxisG = pcSvg.selectAll('g.feature')
