@@ -320,4 +320,26 @@ color:black;
     pointer-events: auto;	
 }
 
+.dcm-name{
+    color: white;
+    text-align: center;
+    font-size: 22px;
+}
+.linegraph-name{
+ color: white;
+    text-align: center;
+    font-size: 22px;
 
+}
+
+.bubble-name{
+ color: white;
+    text-align: center;
+    font-size: 22px;
+}
+
+.pc-name{
+ color: white;
+    text-align: center;
+    font-size: 22px;
+}
