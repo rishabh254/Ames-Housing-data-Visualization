@@ -1,6 +1,6 @@
 /*
 *   This content is licensed according to the W3C Software License at
-*   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+*   https://www.w3.org/Consortium/Legal/2014/copyright-software-and-document
 *
 *   File:   slider.js
 *
@@ -22,7 +22,7 @@ var Slider = function (domNode,sliderNo)  {
 
 
   this.railMin = 0;
-  this.railMax = 130;
+  this.railMax = 140;
   this.railWidth = 0;
   this.railBorderWidth = 1;
 
@@ -86,10 +86,8 @@ Slider.prototype.init = function () {
 
 };
 
-var currMax = [10,500000];
-var currMin = [1,1];
-var maxScore_pc = -10000;
-var minScore_pc =  10000;
+var currMax = [10,800000,50000,1400,5,2010];
+var currMin = [1,30000,1000,0,1,2006];
 
 Slider.prototype.moveSliderTo = function (value) {
   var valueMax = parseInt(this.domNode.getAttribute('aria-valuemax'));
@@ -112,7 +110,7 @@ Slider.prototype.moveSliderTo = function (value) {
 
     function updateBubble(){
   	  d_bubble = [];
-	  for(var i = 0;i<bubble_global_data.length-13;i++)
+	  for(var i = 0;i<bubble_global_data.length-14;i++)
 	  {
 		 var temp=true;
 		for(var j=0;j<features.length;j++)
@@ -129,13 +127,10 @@ Slider.prototype.moveSliderTo = function (value) {
         maxScore_pc = -10000;
         minScore_pc =  10000;
         d3.select('g.active').selectAll('path')
-    .style('display', d=>(selected(d)?null:'none'));
-    d3.select('g.active').selectAll('path')
-
-    .style('display', d=>(selected1(d)?null:'none')).style("stroke", function(d){
-    console.log("cocor...", d);
+    .style('display', d=>(selected(d)?null:'none'))
+	.style("stroke", function(d){
     return(
-    myColor(d.score*10*3>10?10:d.score*10*3))} )
+    myColor(d.score*10*3>10?10:d.score*10*3))} );
 
     }
   function selected(d){
@@ -149,8 +144,7 @@ Slider.prototype.moveSliderTo = function (value) {
 				{
 					d['score'] += d[scoreFeatures[j]]/scoreFeatures.length;
 				}
-				maxScore_pc = Math.max(d_mds_orig[i]['score'],maxScore_pc);
-				minScore_pc = Math.min(d_mds_orig[i]['score'],minScore_pc);
+				d['score'] = (d['score']-minScore)/(maxScore-minScore);
 			}
 			var tmp = true;
 	        for(var j=0; j<parallel_slider.length;j++){
@@ -159,18 +153,6 @@ Slider.prototype.moveSliderTo = function (value) {
 	    return tmp;
   }
 
-    function selected1(d){
-    	  if(scoreFeatures.length>0)
-	  {
-			d['score'] = (d['score']-minScore)/(maxScore-minScore);
-
-	  }
-	  			var tmp = true;
-	        for(var j=0; j<parallel_slider.length;j++){
-	            tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
-	        }
-	    return tmp;
-  }
 
   if (this.minDomNode) {
 	  //console.log("max"+this.sliderNo)
@@ -181,7 +163,7 @@ Slider.prototype.moveSliderTo = function (value) {
 	  var maxScore = -10000;
 	  var minScore =  10000;
 	  
-	  for(var i = 0;i<d_mds_orig.length-13;i++)	  
+	  for(var i = 0;i<d_mds_orig.length-14;i++)	  
 	  {
 		    if(scoreFeatures.length==0)
 				d_mds_orig[i]['score'] = 1;
@@ -199,14 +181,14 @@ Slider.prototype.moveSliderTo = function (value) {
 	  
 	  if(scoreFeatures.length>0)
 	  {
-		for(var i = 0;i<d_mds_orig.length-13;i++)	  
+		for(var i = 0;i<d_mds_orig.length-14;i++)	  
 		{
 			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
 		}
 	  }
 	  
 	  
-	for(var i = 0;i<d_mds_orig.length-13;i++)
+	for(var i = 0;i<d_mds_orig.length-14;i++)
 	  {
 		 var temp=true;
 		for(var j=0;j<features.length;j++)
@@ -226,7 +208,7 @@ Slider.prototype.moveSliderTo = function (value) {
 	  d_line = [];
 
 		//console.log(d_line_graph[0][features[0]]);
-	  for(var i = 0;i<d_line_graph.length-13;i++)
+	  for(var i = 0;i<d_line_graph.length-14;i++)
 	  {
 		 var temp=true;
 		for(var j=0;j<features.length;j++)
@@ -256,7 +238,7 @@ Slider.prototype.moveSliderTo = function (value) {
 	  	  var maxScore = -10000;
 	  var minScore =  10000;
 
-	  for(var i = 0;i<d_mds_orig.length-13;i++)
+	  for(var i = 0;i<d_mds_orig.length-14;i++)
 	  {
 		    if(scoreFeatures.length==0)
 				d_mds_orig[i]['score'] = 1;
@@ -274,14 +256,14 @@ Slider.prototype.moveSliderTo = function (value) {
 
 	  if(scoreFeatures.length>0)
 	  {
-		for(var i = 0;i<d_mds_orig.length-13;i++)
+		for(var i = 0;i<d_mds_orig.length-14;i++)
 		{
 			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
 		}
 	  }
 
 
-	  for(var i = 0;i<d_mds_orig.length-13;i++)
+	  for(var i = 0;i<d_mds_orig.length-14;i++)
 	  {
 		 var temp=true;
 		for(var j=0;j<features.length;j++)
@@ -301,7 +283,7 @@ Slider.prototype.moveSliderTo = function (value) {
 	d_line = [];
 
 		//console.log(d_line_graph[0][features[0]]);
-	  for(var i = 0;i<d_line_graph.length-13;i++)
+	  for(var i = 0;i<d_line_graph.length-14;i++)
 	  {
 		 var temp=true;
 		for(var j=0;j<features.length;j++)
