@@ -24,7 +24,7 @@
       <div class="slider">
           <div class="slider-component">
               <div class="slider-text"><button onclick="myFunction('btn-OverallQual')" id="btn-OverallQual"
-                                               style="background:teal;">OverallQual</button></div>
+                                               style="background:grey;">OverallQual</button></div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
             <div class="rail" style="width: 160px;">
@@ -51,7 +51,7 @@
 
           <div class="slider-component">
               <div class="slider-text"><button onclick="myFunction('btn-SalePrice')" id="btn-SalePrice"
-                                               style="background:teal;">SalePrice</button></div>
+                                               style="background:grey;">SalePrice</button></div>
             <div class="aria-widget-slider">
             <div class="rail-label min">100</div>
 
@@ -78,7 +78,7 @@
         </div>
           <div class="slider-component">
                             <div class="slider-text"><button onclick="myFunction('btn-LotArea')" id="btn-LotArea"
-                                               style="background:teal;">Lot Area</button></div>
+                                               style="background:grey;">Lot Area</button></div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
 
@@ -105,7 +105,7 @@
           </div>
           <div class="slider-component">
               <div class="slider-text"><button onclick="myFunction('btn-GarageArea')" id="btn-GarageArea"
-                                               style="background:teal;">Garage Area</button></div>
+                                               style="background:grey;">Garage Area</button></div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
 
@@ -133,7 +133,7 @@
           </div>
           <div class="slider-component">
               <div class="slider-text"><button onclick="myFunction('btn-KitchenQual')" id="btn-KitchenQual"
-                                               style="background:teal;">KitchenQual</button></div>
+                                               style="background:grey;">KitchenQual</button></div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
             <div class="rail" style="width: 160px;">
@@ -160,7 +160,7 @@
           </div>
           <div class="slider-component">
               <div class="slider-text"><button onclick="myFunction('btn-YrSold')" id="btn-YrSold"
-                                               style="background:teal;">YrSold</button></div>
+                                               style="background:grey;">YrSold</button></div>
             <div class="aria-widget-slider">
             <div class="rail-label min">0</div>
 
@@ -211,7 +211,7 @@
 
                 <table class="table-left-bottom">
             <tr align="center">
-            <td class="lbl-number">243 </td>
+            <td class="lbl-number" id="total-houses"></td>
             </tr>
         </table>
 
@@ -231,19 +231,19 @@
 	  <td class="lbl">Neighborhood</td>
     </tr>
     <tr>
-      <td align="center" id="1">1</td>
-      <td align="center" id="2">2</td>
-	  <td align="center" id="3">3</td>
+      <td align="center" id="1"></td>
+      <td align="center" id="2"></td>
+	  <td align="center" id="3"></td>
     </tr>
     <tr>
-      <td align="center" id="4">4</td>
-      <td align="center" id="5">5</td>
-	  <td align="center" id="6">6</td>
+      <td align="center" id="4"></td>
+      <td align="center" id="5"></td>
+	  <td align="center" id="6"></td>
     </tr>
 	<tr>
-      <td align="center" id="7">7</td>
-      <td align="center" id="8">8</td>
-	  <td align="center" id="9">9</td>
+      <td align="center" id="7"></td>
+      <td align="center" id="8"></td>
+	  <td align="center" id="9"></td>
     </tr>
   </table>
         </div>
@@ -258,7 +258,6 @@
           bubble_test();
           drawMDSscatter("euclidean");
           drawInitialLineGraph();
-          addData();
       </script>
    </body>
 </html>

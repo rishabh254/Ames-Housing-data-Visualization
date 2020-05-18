@@ -26,6 +26,9 @@ function drawMDSscatter(type) {
         function(d) {
 
             d_mds_orig = (JSON.parse(d.mds_orig));
+//            currentHouses = d_mds_orig.length-19;
+//             var element = document.getElementById("total-houses");
+             //element.innerHTML = currentHouses;
             //d_mds_random = (JSON.parse(d.mds_random));
             //d_mds_stratified = (JSON.parse(d.mds_stratified));
 			console.log("hello "+(d_mds_orig.length))
@@ -153,9 +156,11 @@ function drawMDSscatter(type) {
 					div.transition()		
 						.duration(200)		
 						.style("opacity", .9);		
-					div.html("OverallQual : " + d["OverallQual1"] + "\nSalePrice : "+d["SalePrice1"] )	
-						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")		
-						.style("top", (height/4 + heightScale(d["dim1"])) + "px");	
+					div.html("OverallQual : " + d["OverallQual1"] + "<br>SalePrice : "+d["SalePrice1"] +
+							 "<br>Neighbourhood : "+d["NeighborhoodText"]+"<br>Lot Area : "+d["LotArea1"]+
+							 "<br>Garage Area : "+d["GarageArea1"]+"<br>Kitchen Quality : "+d["KitchenQual1"])
+						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")
+						.style("top", (height/4 + heightScale(d["dim1"])) + "px");
 					}
 					})					
 				.on("mouseout", function(d) {		

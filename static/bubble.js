@@ -1,6 +1,6 @@
-var myColor1= [d3.scaleLinear().domain([0,10]).range(["white", "teal"]), d3.scaleLinear().domain([0,10]).range(["#FF7F7F", "#FF7F7F"])];
+var myColor1= [d3.scaleLinear().domain([0,10]).range(["white","teal"]), d3.scaleLinear().domain([0,10]).range(["#FF7F7F", "#FF7F7F"])];
 
-var myColor = d3.scaleLinear().domain([0,10]).range(["white", "teal"]);
+var myColor = d3.scaleLinear().domain([0,10]).range(["white","teal"]);
 var diameter = 600;
 var width1= 420, height1 = 250;
 var bubble_global_data=[]
@@ -11,6 +11,25 @@ var svg_bubble = null;
         .size([width1, height1])
         .padding(1.5);
 
+
+function getItemScore(item){
+    var score=0;
+    if(scoreFeatures.length==0)
+        score = 0;
+    else{
+			score = 0;
+				for(var j=0;j<scoreFeatures.length;j++)
+				{
+				    if(scoreFeatures[j]=="SalePrice"){
+				        score += (1- item[scoreFeatures[j]])/scoreFeatures.length;
+				    } else{
+				        score += item[scoreFeatures[j]]/scoreFeatures.length;
+				    }
+				}
+			}
+	return score;
+}
+
 function getBubbleData(data){
 	for (var i=0;i<data.length;i++)
 	{
@@ -19,8 +38,16 @@ function getBubbleData(data){
 	    }
 		data[i] = {
 					NeighborhoodLabel:   data[i].Neighborhood1,
-					SalePrice:   data[i].SalePrice1,
-					NeighborhoodText : data[i].NeighborhoodText
+					NeighborhoodText : data[i].NeighborhoodText,
+					SalePrice:   data[i].SalePrice,
+					OverallQual:   data[i].OverallQual,
+					GarageArea: data[i].GarageArea,
+					GrLivArea: data[i].GrLivArea,
+					LotArea: data[i].LotArea,
+					KitchenQual: data[i].KitchenQual,
+					YrSold: data[i].YrSold,
+					SalePrice1:   data[i].SalePrice1,
+					OverallQual1:   data[i].OverallQual1,
 				   };
 	}
 	var result=[]
@@ -33,7 +60,7 @@ function getBubbleData(data){
 	{
 		if(i>=0)
 		{
-		 sp = groupData[i].reduce((accum,item) => accum + item.SalePrice, 0)/groupData[i].length;
+		 sp = groupData[i].reduce((accum,item) => accum + getItemScore(item), 0)/groupData[i].length;
 		 mean[i] = sp;
 		 if(sp > max){
 		    max = sp;
@@ -52,11 +79,17 @@ function getBubbleData(data){
 		    if(max!= min){
 		        value = (mean[i] - min) / (max - min);
 		    }
-		    result.push({Name: groupData[i][0]['NeighborhoodText'], Count:groupData[i].length, Scale:value});
+		    meanSalePrice = groupData[i].reduce((accum,item) => accum + item.SalePrice1, 0)/groupData[i].length;
+		    meanOverallQual = groupData[i].reduce((accum,item) => accum + item.OverallQual1, 0)/groupData[i].length;
+
+		    result.push({Name: groupData[i][0]['NeighborhoodText'], Count:groupData[i].length, Scale:value, MeanSalePrice:meanSalePrice,
+		     MeanOverallQual:meanOverallQual});
 		}
 	}
 	return result;
 }
+
+
 
 
 function bubble_test(){
@@ -135,7 +168,8 @@ if(svg_bubble != null){
 				tooltip.transition()
 				.duration(200)
 				.style("opacity", .9);
-				tooltip.html(d.data.Name+ ":"+ d.data.Count).style("top", (event.pageY)+"px").
+				tooltip.html(d.data.Name +  "<br>No of Houses : "+ d.data.Count +"<br>Mean OverallQual : " + d.data.MeanOverallQual.toFixed(2) + "<br>Mean SalePrice : "
+				+d.data.MeanSalePrice.toFixed(0)).style("top", (event.pageY)+"px").
 				style("left",(event.pageX)+"px")
 		}).
 		on("mouseout", function(d) {
