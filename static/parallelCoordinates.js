@@ -1,6 +1,6 @@
 var d_parallel_graph=[];
-var parallel_slider=['OverallQual1','SalePrice1','LotArea1','GarageArea1','KitchenQual1','YrSold1',
-'OverallQual1','SalePrice1','LotArea1','GarageArea1',"GrLivArea1"
+var parallel_slider=features = ['BsmtQual1','ExterQual1','BsmtFinSF11','FireplaceQu1','KitchenQual1','YrSold1',
+'SalePrice1','OverallQual1','LotArea1','GarageArea1',"GrLivArea1"
 ]
 
 const width = 600, height = 270, padding = 50, brush_width = 20;
@@ -50,18 +50,23 @@ const brushEventHandler = function(feature){
     if(feature in features_parallel)
       delete(features_parallel[feature]);
   }
-  console.log("features_parallel ",features_parallel);
+ // console.log("features_parallel ", ('GrLivArea1' in features_parallel));
 
-  for(var i=0; i<features_parallel.length; i++){
-    currMin[6+i] = features_parallel[i]["range"][0];
-    currMax[6+i] = features_parallel[i]["range"][1];
+  for(var i =0 ;i<features.length;i++){
+	
+	if(features[i] in features_parallel)
+	{
+		currMin[i] = features_parallel[features[i]][1];
+		currMax[i] = features_parallel[features[i]][0];
+	}
+    
   }
-   console.log("currMin,,,",currMin );
-   console.log("currMax,,,",currMax );
+   //console.log("currMin,,,",currMin );
+   //console.log("currMax,,,",currMax );
    updateDcm();
-//   applyFilters();
-//   updateBubble();
-//   updateLineData();
+   applyFilters();
+   updateBubble();
+   updateLineData();
 }
 
 const yBrushes = {};
@@ -79,8 +84,7 @@ d3.entries(yScales).map(x=>{
 //////
 
 const linePath = function(d){
-  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice" && x.key!= "YrSold1" && x.key!= "KitchenQual1"
-  && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea"&& x.key!= "YrSold" && x.key!= "KitchenQual" && x.key!= "NeighborhoodText");
+  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null  && (x.key=='SalePrice1' || x.key=='OverallQual1' || x.key == 'GarageArea1' || x.key=='LotArea1' || x.key=='GrLivArea1'));
   //console.log("_data...",_data);
   let points = _data.map(x=>(
 
@@ -91,6 +95,7 @@ const linePath = function(d){
 function getParallelData(data){
     for (var i=0;i<data.length;i++)
 	{
+		/*console.log("before",data[i]);
 		data[i] = {
 					SalePrice1:   data[i].SalePrice1,
 					OverallQual1:   data[i].OverallQual1,
@@ -107,8 +112,14 @@ function getParallelData(data){
 					score: data[i].score,
 					KitchenQual: data[i].KitchenQual,
 					YrSold: data[i].YrSold,
+					BsmtFinSF11 : data[i].BsmtFinSF11,
+					BsmtFinSF1 : data[i].BsmtFinSF1,
+					FireplaceQu1 : data[i].FireplaceQu1,
+					FireplaceQu : data[i].FireplaceQu,
+					FireplaceQu : data[i].FireplaceQu,
 					NeighborhoodText: data[i].NeighborhoodText
 				   };
+		console.log("after",data[i]);*/
 	}
 	return data;
 }

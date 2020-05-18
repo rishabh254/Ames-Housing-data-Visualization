@@ -173,11 +173,13 @@ function updateLineGraph(lineData)
 
 
         function mousemove() {
-            var x0 = x.invert(d3.mouse(this)[0]),
-                i = bisectDate(data, x0, 1),
-                d0 = data[i - 1],
-                d1 = data[i],
-                d = x0 - d0.age > d1.age - x0 ? d1 : d0;
+            var x0 = x.invert(d3.mouse(this)[0]);
+            var i = bisectDate(data, x0, 1);
+            var d0 = data[i - 1];
+            var d1 = data[i];
+            var  d = 0;
+			if(d1)
+			d = x0 - d0.age > d1.age - x0 ? d1 : d0;
 
            focusS.attr("transform", "translate(" + x(d.age) + "," + y1(d.SalePrice) + ")");
 			focusO.attr("transform", "translate(" + x(d.age) + "," + y(d.OverallQual) + ")");

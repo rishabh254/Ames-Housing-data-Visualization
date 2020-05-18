@@ -84,7 +84,7 @@ function updateLineData(){
 
 function updateDcm(){
 	  // for data context map
-	  console.log("Data",d_mds_orig);
+	  
 	   maxScore = -10000;
 	   minScore =  10000;
 	   currentHouses =0;
@@ -124,9 +124,9 @@ function updateDcm(){
 		 var temp=true;
 		for(var j=0;j<features.length;j++)
 		  {
-		    console.log("d_mds_orig[i][features[j]]...",d_mds_orig[i][features[j]]);
-		    console.log("min...", currMin[j]);
-		    console.log("min...", currMax[j]);
+		    //console.log("d_mds_orig[i][features[j]]...",d_mds_orig[i][features[j]]);
+		    //console.log("min...", currMin[j]);
+		    //console.log("min...", currMax[j]);
 			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
 
 		  }
@@ -136,7 +136,7 @@ function updateDcm(){
 		}
 		if(temp){
 		    currentHouses++;
-		    console.log("currentHouses...",currentHouses);
+		    //console.log("currentHouses...",currentHouses);
 		    scoreList.push(d_mds_orig[i]);
 			d3.select("#scatter_"+i).style("visibility", "visible").style("fill", function(d) {
                     return myColor1[d["dataType"]](d['score']*10>10?10:d['score']*10);
@@ -144,7 +144,7 @@ function updateDcm(){
         }else
 			d3.select("#scatter_"+i).style("visibility", "hidden");
 	  }
-	  console.log("after...",d_mds_orig);
+	  
 
 
 	  if(scoreList.length>0){
@@ -275,8 +275,8 @@ Slider.prototype.init = function () {
 
 };
 1300, 115149
-var currMax = [10,800000,50000,1400,5,2010,  800000,10, 50000, 1400,5000];
-var currMin = [1,30000,1000,0,1,2006,  30000,1, 1000,0,100];
+var currMax = [5,5,2500,5,5,2010, 800000,10, 50000, 1400,5000];
+var currMin = [1,  1,0,  1,1 ,2006,  30000,1, 1000,0,100];
 var maxScore = -10000;
 var minScore =  10000;
 var currentHouses=d_mds_orig.length;

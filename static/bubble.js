@@ -36,7 +36,7 @@ function getBubbleData(data){
 	    if(data[i].Neighborhood1 ==null || data[i].Neighborhood1<1){
 	        continue;
 	    }
-		data[i] = {
+		/*data[i] = {
 					NeighborhoodLabel:   data[i].Neighborhood1,
 					NeighborhoodText : data[i].NeighborhoodText,
 					SalePrice:   data[i].SalePrice,
@@ -48,11 +48,11 @@ function getBubbleData(data){
 					YrSold: data[i].YrSold,
 					SalePrice1:   data[i].SalePrice1,
 					OverallQual1:   data[i].OverallQual1,
-				   };
+				   };*/
 	}
 	var result=[]
 	var mean=[]
-	groupData = groupBy(data,'NeighborhoodLabel');
+	groupData = groupBy(data,'Neighborhood1');
     var min = Number.MAX_VALUE;
 	var max = 0;
 
@@ -125,6 +125,7 @@ if(svg_bubble != null){
 
 
       var text = svg_bubble.selectAll("text")
+				.style("pointer-events" ,"none")
           .data(pack(h).leaves(), function(d){ return d.data.Name; });
 
       //EXIT
@@ -201,6 +202,7 @@ if(svg_bubble != null){
 		 .attr("fill", "black")
           .attr("x", function(d){ return d.x-20; })
           .attr("y", function(d){ return d.y; })
+		  .style("pointer-events" ,"none")
           .attr("font-family", "sans-serif")
           .attr("font-size", function(d){ return d.r/2+"px";})
 		  //.attr("font-size", "7px")
