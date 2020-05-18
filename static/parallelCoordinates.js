@@ -1,5 +1,5 @@
 var d_parallel_graph=[];
-var parallel_slider=['OverallQual1','SalePrice1']
+var parallel_slider=['OverallQual1','SalePrice1','LotArea1','GarageArea1','KitchenQual1','YrSold1']
 
 const width = 600, height = 250, padding = 50;
 const lineGenerator = d3.line();
@@ -31,7 +31,7 @@ yScales.team = d3.scaleOrdinal()
 // Each axis generator
 const yAxis = {};
 d3.entries(yScales).map(x=>{
-console.log("x...",x);
+//console.log("x...",x);
 
   yAxis[x.key] = d3.axisLeft(x.value);
 });
@@ -39,9 +39,9 @@ console.log("x...",x);
 
 
 const linePath = function(d){
-  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice"
+  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice" && x.key!= "YrSold1" && x.key!= "KitchenQual1"
   && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea");
-  console.log("_data...",_data);
+  //console.log("_data...",_data);
   let points = _data.map(x=>(
 
   [xScale(x.key),yScales[x.key](x.value)]));
@@ -57,6 +57,8 @@ function getParallelData(data){
 					GarageArea1: data[i].GarageArea1,
 					GrLivArea1: data[i].GrLivArea1,
 					LotArea1: data[i].LotArea1,
+					YrSold1: data[i].YrSold1,
+					KitchenQual1: data[i].KitchenQual1,
 					SalePrice:   data[i].SalePrice,
 					OverallQual:   data[i].OverallQual,
 					GarageArea: data[i].GarageArea,
@@ -95,7 +97,7 @@ pcSvg.append('g').attr('class','active').selectAll('path')
   .enter()
     .append('path')
     .attr('d', d=>linePath(d)).style("stroke", function(d){
-    console.log("cocor...", d);
+    //console.log("cocor...", d);
     return(
     myColor(d.score*10))} )
 
