@@ -177,7 +177,7 @@ margin-left:70px
 .parallel-class{
     float:right;
     height:30%;
-    margin-top=-30px;
+    margin-top=10px;
 }
 .bubble-class{
 height:30%;
@@ -226,14 +226,13 @@ width: 100%;
 .table-left{
 height:100%;
 width:30%;
-margin-left:31px;
 float:left;
 background:teal;
 }
 
 .table-right{
 height:100%;
-width:60%;
+width:50%;
 display: inline-block;
 background:#65B3b3;
 }
