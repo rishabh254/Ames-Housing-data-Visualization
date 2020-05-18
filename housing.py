@@ -42,11 +42,11 @@ def preprocess(df,norm):
         if train_encoded[feature].dtype=='object':
             # manual encoding to maintain original value of these features
             if feature in feature_rated:
-                train_encoded[feature] = train_encoded[feature].map({'Ex': 4,
-                                                               'Gd': 3, 
-                                                               'TA': 2,
-                                                               'Fa': 1, 
-                                                               'Po': 0}).fillna(-1)
+                train_encoded[feature] = train_encoded[feature].map({'Ex': 5,
+                                                               'Gd': 4, 
+                                                               'TA': 3,
+                                                               'Fa': 2, 
+                                                               'Po': 1}).fillna(2)
             # otherwise use label encoder
             else:
                 lbl = preprocessing.LabelEncoder()
