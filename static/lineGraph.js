@@ -126,14 +126,14 @@ function updateLineGraph(lineData)
         .x(function(d) { return x(d.age) })
         .y(function(d) { return y1(d.SalePrice) })
         );
-		
+
 		var focusS = svgLineGraph.select(".focusS")
             .style("display", "none");
-			
+
 		var focusO = svgLineGraph.select(".focusO")
             .style("display", "none");
 
-        
+
 
         focusS.select(".tooltip")
             .attr("width", 100)
@@ -141,7 +141,7 @@ function updateLineGraph(lineData)
             .attr("x", 10)
             .attr("y", -22)
             .attr("rx", 4)
-            .attr("ry", 4);	
+            .attr("ry", 4);
 
 		focusO.select(".tooltip")
             .attr("width", 100)
@@ -149,45 +149,44 @@ function updateLineGraph(lineData)
             .attr("x", 10)
             .attr("y", -22)
             .attr("rx", 4)
-            .attr("ry", 4);	
+            .attr("ry", 4);
 
  /*       focusS.select(".tooltip-likesS")
 			.datum(data)
             .attr("x", function(d) { return x(d.age) })
             .attr("y", function(d) { return y1(d.SalePrice) });
-			
+
 		  focusO.select(".tooltip-likesO")
 			.datum(data)
             .attr("x", function(d) { return x(d.age) })
             .attr("y", function(d) { return y(d.OverallQual) });
-	*/		
+	*/
 		 svgLineGraph.select(".overlay")
             .attr("width", width)
             .attr("height", height)
             .on("mouseover", function() { focusS.style("display", null); focusO.style("display", null); })
             .on("mouseout", function() { focusS.style("display", "none"); focusO.style("display", "none"); })
             .on("mousemove", mousemove);
-			
+
 			var bisectDate = d3.bisector(function(d) { return d.age; }).left;
-			
-		
-			
+
+
+
         function mousemove() {
             var x0 = x.invert(d3.mouse(this)[0]),
                 i = bisectDate(data, x0, 1),
                 d0 = data[i - 1],
                 d1 = data[i],
                 d = x0 - d0.age > d1.age - x0 ? d1 : d0;
-				
+
            focusS.attr("transform", "translate(" + x(d.age) + "," + y1(d.SalePrice) + ")");
 			focusO.attr("transform", "translate(" + x(d.age) + "," + y(d.OverallQual) + ")");
-			
+
             focusS.select(".tooltip-likesS").html((d.SalePrice/1000).toFixed(2)+"k")
 			.attr("fill", "#6EC6BA");
-			
+
 			focusO.select(".tooltip-likesO").html((d.OverallQual).toFixed(2)).attr("fill", "#FF7F7F");
         }
->>>>>>> 1ae61c9658ec1264a8e616458b6ba75c92284c52
 
 	}
 }
@@ -292,20 +291,18 @@ function drawLineGraph(lineData) {
         .x(function(d) { return x(d.age) })
         .y(function(d) { return y(d.OverallQual) })
         )
-<<<<<<< HEAD
-=======
-		
+
 	var focusS = svgLineGraph.append("g")
             .attr("class", "focusS")
             .style("display", "none");
-			
+
 	var focusO = svgLineGraph.append("g")
             .attr("class", "focusO")
             .style("display", "none");
 
         focusS.append("circle")
             .attr("r", 5);
-			
+
 		focusO.append("circle")
             .attr("r", 5);
 
@@ -316,7 +313,7 @@ function drawLineGraph(lineData) {
             .attr("x", 10)
             .attr("y", -22)
             .attr("rx", 4)
-            .attr("ry", 4);	
+            .attr("ry", 4);
 
 		focusO.append("rect")
             .attr("class", "tooltip")
@@ -325,7 +322,7 @@ function drawLineGraph(lineData) {
             .attr("x", 10)
             .attr("y", -22)
             .attr("rx", 4)
-            .attr("ry", 4);	
+            .attr("ry", 4);
 
         focusS.append("text")
 		//	.datum(data)
@@ -333,14 +330,14 @@ function drawLineGraph(lineData) {
         //    .attr("x", function(d) { return x(d.age) })
           //  .attr("y", function(d) { return y1(d.SalePrice) });
 		  ;
-			
+
 		  focusO.append("text")
           //  .datum(data)
 			.attr("class", "tooltip-likesO")
         //    .attr("x", function(d) { return x(d.age) })
           //  .attr("y", function(d) { return y(d.OverallQual) })
 		  ;
-			
+
 		 svgLineGraph.append("rect")
             .attr("class", "overlay")
             .attr("width", width)
@@ -348,26 +345,28 @@ function drawLineGraph(lineData) {
             .on("mouseover", function() { focusS.style("display", null); focusO.style("display", null); })
             .on("mouseout", function() { focusS.style("display", "none"); focusO.style("display", "none"); })
             .on("mousemove", mousemove);
-			
+
 			var bisectDate = d3.bisector(function(d) { return d.age; }).left;
-			
-		
-			
+
+
+
         function mousemove() {
             var x0 = x.invert(d3.mouse(this)[0]);
             var i = bisectDate(data, x0, 1);
             var d0 = (i>0) ? data[i - 1] : 0;
             var d1 = data[i];
             var d = x0 - d0.age > d1.age - x0 ? d1 : d0;
-				
+
            focusS.attr("transform", "translate(" + x(d.age) + "," + y1(d.SalePrice) + ")");
 			focusO.attr("transform", "translate(" + x(d.age) + "," + y(d.OverallQual) + ")");
-			
+
             focusS.select(".tooltip-likesS").html((d.SalePrice/1000).toFixed(2)+"k")
 			.attr("fill", "#6EC6BA");
-			
+
 			focusO.select(".tooltip-likesO").html((d.OverallQual).toFixed(2)).attr("fill", "#FF7F7F");
         }
+
+
 
 
 	svgLineGraph.append("path")
