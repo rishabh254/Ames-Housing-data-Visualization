@@ -339,7 +339,8 @@ color:black;
 }
 
 .pc-name{
- color: white;
-    text-align: center;
+    color: white;
+    text-align: right;
     font-size: 22px;
+    margin-right: 213px;
 }
