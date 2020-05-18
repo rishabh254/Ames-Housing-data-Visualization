@@ -151,7 +151,7 @@ function updateLineGraph(lineData)
             .attr("rx", 4)
             .attr("ry", 4);	
 
-        focusS.select(".tooltip-likesS")
+ /*       focusS.select(".tooltip-likesS")
 			.datum(data)
             .attr("x", function(d) { return x(d.age) })
             .attr("y", function(d) { return y1(d.SalePrice) });
@@ -160,7 +160,7 @@ function updateLineGraph(lineData)
 			.datum(data)
             .attr("x", function(d) { return x(d.age) })
             .attr("y", function(d) { return y(d.OverallQual) });
-			
+	*/		
 		 svgLineGraph.select(".overlay")
             .attr("width", width)
             .attr("height", height)
@@ -325,16 +325,18 @@ function drawLineGraph(lineData) {
             .attr("ry", 4);	
 
         focusS.append("text")
-			.datum(data)
+		//	.datum(data)
             .attr("class", "tooltip-likesS")
-            .attr("x", function(d) { return x(d.age) })
-            .attr("y", function(d) { return y1(d.SalePrice) });
+        //    .attr("x", function(d) { return x(d.age) })
+          //  .attr("y", function(d) { return y1(d.SalePrice) });
+		  ;
 			
 		  focusO.append("text")
-            .datum(data)
+          //  .datum(data)
 			.attr("class", "tooltip-likesO")
-            .attr("x", function(d) { return x(d.age) })
-            .attr("y", function(d) { return y(d.OverallQual) });
+        //    .attr("x", function(d) { return x(d.age) })
+          //  .attr("y", function(d) { return y(d.OverallQual) })
+		  ;
 			
 		 svgLineGraph.append("rect")
             .attr("class", "overlay")
@@ -349,11 +351,11 @@ function drawLineGraph(lineData) {
 		
 			
         function mousemove() {
-            var x0 = x.invert(d3.mouse(this)[0]),
-                i = bisectDate(data, x0, 1),
-                d0 = data[i - 1],
-                d1 = data[i],
-                d = x0 - d0.age > d1.age - x0 ? d1 : d0;
+            var x0 = x.invert(d3.mouse(this)[0]);
+            var i = bisectDate(data, x0, 1);
+            var d0 = (i>0) ? data[i - 1] : 0;
+            var d1 = data[i];
+            var d = x0 - d0.age > d1.age - x0 ? d1 : d0;
 				
            focusS.attr("transform", "translate(" + x(d.age) + "," + y1(d.SalePrice) + ")");
 			focusO.attr("transform", "translate(" + x(d.age) + "," + y(d.OverallQual) + ")");
