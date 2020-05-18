@@ -88,6 +88,8 @@ Slider.prototype.init = function () {
 
 var currMax = [10,500000];
 var currMin = [1,1];
+var maxScore_pc = -10000;
+var minScore_pc =  10000;
 
 Slider.prototype.moveSliderTo = function (value) {
   var valueMax = parseInt(this.domNode.getAttribute('aria-valuemax'));
@@ -124,14 +126,49 @@ Slider.prototype.moveSliderTo = function (value) {
   }
 
     const applyFilters = function(){
+        maxScore_pc = -10000;
+        minScore_pc =  10000;
         d3.select('g.active').selectAll('path')
     .style('display', d=>(selected(d)?null:'none'));
+    d3.select('g.active').selectAll('path')
+
+    .style('display', d=>(selected1(d)?null:'none')).style("stroke", function(d){
+    console.log("cocor...", d);
+    return(
+    myColor(d.score*10*3>10?10:d.score*10*3))} )
+
     }
   function selected(d){
-	    var tmp = true;
-	    for(var j=0; j<parallel_slider.length;j++){
-	        tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
-	    }
+
+		    if(scoreFeatures.length==0)
+				d['score'] = 1;
+			else
+			{
+				d['score'] = 0;
+				for(var j=0;j<scoreFeatures.length;j++)
+				{
+					d['score'] += d[scoreFeatures[j]]/scoreFeatures.length;
+				}
+				maxScore_pc = Math.max(d_mds_orig[i]['score'],maxScore_pc);
+				minScore_pc = Math.min(d_mds_orig[i]['score'],minScore_pc);
+			}
+			var tmp = true;
+	        for(var j=0; j<parallel_slider.length;j++){
+	            tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
+	        }
+	    return tmp;
+  }
+
+    function selected1(d){
+    	  if(scoreFeatures.length>0)
+	  {
+			d['score'] = (d['score']-minScore)/(maxScore-minScore);
+
+	  }
+	  			var tmp = true;
+	        for(var j=0; j<parallel_slider.length;j++){
+	            tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
+	        }
 	    return tmp;
   }
 
@@ -177,7 +214,10 @@ Slider.prototype.moveSliderTo = function (value) {
 			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
 		  }
 		if(temp)
-			d3.select("#scatter_"+i).style("visibility", "visible");
+			d3.select("#scatter_"+i).style("visibility", "visible").style("fill", function(d) {
+                    return myColor1[d["dataType"]](d['score']*10*3>10?10:d['score']*10*3);
+                });
+
 		else
 			d3.select("#scatter_"+i).style("visibility", "hidden");
 	  }
@@ -213,6 +253,34 @@ Slider.prototype.moveSliderTo = function (value) {
 
 	  currMin[this.sliderNo/2] = this.valueNow;
 
+	  	  var maxScore = -10000;
+	  var minScore =  10000;
+
+	  for(var i = 0;i<d_mds_orig.length-13;i++)
+	  {
+		    if(scoreFeatures.length==0)
+				d_mds_orig[i]['score'] = 1;
+			else
+			{
+				d_mds_orig[i]['score'] = 0;
+				for(var j=0;j<scoreFeatures.length;j++)
+				{
+					d_mds_orig[i]['score'] += d_mds_orig[i][scoreFeatures[j]]/scoreFeatures.length;
+				}
+				maxScore = Math.max(d_mds_orig[i]['score'],maxScore);
+				minScore = Math.min(d_mds_orig[i]['score'],minScore);
+			}
+	  }
+
+	  if(scoreFeatures.length>0)
+	  {
+		for(var i = 0;i<d_mds_orig.length-13;i++)
+		{
+			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
+		}
+	  }
+
+
 	  for(var i = 0;i<d_mds_orig.length-13;i++)
 	  {
 		 var temp=true;
@@ -221,7 +289,9 @@ Slider.prototype.moveSliderTo = function (value) {
 			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
 		  }
 		if(temp)
-			d3.select("#scatter_"+i).style("visibility", "visible");
+			d3.select("#scatter_"+i).style("visibility", "visible").style("fill", function(d) {
+                    return myColor1[d["dataType"]](d['score']*10*3>10?10:d['score']*10*3);
+                });
 		else
 			d3.select("#scatter_"+i).style("visibility", "hidden");
 

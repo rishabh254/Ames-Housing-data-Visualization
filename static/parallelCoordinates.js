@@ -1,16 +1,16 @@
 var d_parallel_graph=[];
-var parallel_slider=['OverallQual','SalePrice']
+var parallel_slider=['OverallQual1','SalePrice1']
 
 const width = 600, height = 250, padding = 50;
 const lineGenerator = d3.line();
 var pcSvg=null;
 
 const features_parallel = [
-  {name: 'SalePrice', range: [34900,755000]},
-  {name: 'OverallQual', range: [1,10]},
-  {name: 'LotArea', range: [1300,115149]},
-  {name: 'GarageArea', range: [0,1418]},
-  {name: 'GrLivArea', range: [334,5642]}
+  {name: 'SalePrice1', range: [34900,755000]},
+  {name: 'OverallQual1', range: [1,10]},
+  {name: 'LotArea1', range: [1300,115149]},
+  {name: 'GarageArea1', range: [0,1418]},
+  {name: 'GrLivArea1', range: [334,5642]}
 ];
 const xScale = d3.scalePoint()
   .domain(features_parallel.map(x=>x.name))
@@ -31,14 +31,20 @@ yScales.team = d3.scaleOrdinal()
 // Each axis generator
 const yAxis = {};
 d3.entries(yScales).map(x=>{
+console.log("x...",x);
+
   yAxis[x.key] = d3.axisLeft(x.value);
 });
 
 
 
 const linePath = function(d){
-  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null);
-  let points = _data.map(x=>([xScale(x.key),yScales[x.key](x.value)]));
+  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice"
+  && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea");
+  console.log("_data...",_data);
+  let points = _data.map(x=>(
+
+  [xScale(x.key),yScales[x.key](x.value)]));
   return(lineGenerator(points));
 }
 
@@ -46,11 +52,17 @@ function getParallelData(data){
     for (var i=0;i<data.length;i++)
 	{
 		data[i] = {
-					SalePrice:   data[i].SalePrice1,
-					OverallQual:   data[i].OverallQual1,
-					GarageArea: data[i].GarageArea1,
-					GrLivArea: data[i].GrLivArea1,
-					LotArea: data[i].LotArea1
+					SalePrice1:   data[i].SalePrice1,
+					OverallQual1:   data[i].OverallQual1,
+					GarageArea1: data[i].GarageArea1,
+					GrLivArea1: data[i].GrLivArea1,
+					LotArea1: data[i].LotArea1,
+					SalePrice:   data[i].SalePrice,
+					OverallQual:   data[i].OverallQual,
+					GarageArea: data[i].GarageArea,
+					GrLivArea: data[i].GrLivArea,
+					LotArea: data[i].LotArea,
+					score: data[i].score
 				   };
 	}
 	return data;
@@ -82,7 +94,10 @@ pcSvg.append('g').attr('class','active').selectAll('path')
   .data(data)
   .enter()
     .append('path')
-    .attr('d', d=>linePath(d)).style("stroke", function(d){ return( myColor(d.score*10))} )
+    .attr('d', d=>linePath(d)).style("stroke", function(d){
+    console.log("cocor...", d);
+    return(
+    myColor(d.score*10))} )
 
 // Vertical axis for the features
 const featureAxisG = pcSvg.selectAll('g.feature')
@@ -105,6 +120,6 @@ featureAxisG
   .attr("text-anchor", "middle")
   .attr('y', padding/2)
   .attr("fill", textColor)
-  .text(d=>d.name);
+  .text(d=>d.name.substring(0, d.name.length-1));
 
 }
