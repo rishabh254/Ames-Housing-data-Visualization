@@ -41,6 +41,85 @@ var Slider = function (domNode,sliderNo)  {
   });
 };
 
+function updateDcm(){
+	  // for data context map
+	   maxScore = -10000;
+	   minScore =  10000;
+
+	  for(var i = 0;i<d_mds_orig.length-14;i++)
+	  {
+		    if(scoreFeatures.length==0)
+				d_mds_orig[i]['score'] = 1;
+			else
+			{
+				d_mds_orig[i]['score'] = 0;
+				for(var j=0;j<scoreFeatures.length;j++)
+				{
+					d_mds_orig[i]['score'] += d_mds_orig[i][scoreFeatures[j]]/scoreFeatures.length;
+				}
+				maxScore = Math.max(d_mds_orig[i]['score'],maxScore);
+				minScore = Math.min(d_mds_orig[i]['score'],minScore);
+			}
+	  }
+
+	  if(scoreFeatures.length>0)
+	  {
+		for(var i = 0;i<d_mds_orig.length-14;i++)
+		{
+			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
+		}
+	  }
+
+
+	for(var i = 0;i<d_mds_orig.length-14;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
+		  }
+		if(temp)
+			d3.select("#scatter_"+i).style("visibility", "visible").style("fill", function(d) {
+                    return myColor1[d["dataType"]](d['score']*10>10?10:d['score']*10);
+                });
+
+		else
+			d3.select("#scatter_"+i).style("visibility", "hidden");
+	  }
+
+
+}
+
+
+    const applyFilters = function(){
+        d3.select('g.active').selectAll('path')
+    .style('display', d=>(selected(d)?null:'none'))
+	.style("stroke", function(d){
+	    console.log("score",d.score*10);
+    return(
+    myColor(d.score*10>10?10:d.score*10))} );
+
+    }
+  function selected(d){
+
+		    if(scoreFeatures.length==0)
+				d['score'] = 1;
+			else
+			{
+				d['score'] = 0;
+				for(var j=0;j<scoreFeatures.length;j++)
+				{
+					d['score'] += d[scoreFeatures[j]]/scoreFeatures.length;
+				}
+				d['score'] = (d['score']-minScore)/(maxScore-minScore);
+			}
+			var tmp = true;
+	        for(var j=0; j<parallel_slider.length;j++){
+	            tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
+	        }
+	    return tmp;
+  }
+
 // Initialize slider
 Slider.prototype.init = function () {
 
@@ -88,6 +167,9 @@ Slider.prototype.init = function () {
 
 var currMax = [10,800000,50000,1400,5,2010];
 var currMin = [1,30000,1000,0,1,2006];
+var maxScore = -10000;
+var minScore =  10000;
+
 
 Slider.prototype.moveSliderTo = function (value) {
   var valueMax = parseInt(this.domNode.getAttribute('aria-valuemax'));
@@ -123,86 +205,14 @@ Slider.prototype.moveSliderTo = function (value) {
 	  updateBubbleGraph(getBubbleData(d_bubble));
   }
 
-    const applyFilters = function(){
-        maxScore_pc = -10000;
-        minScore_pc =  10000;
-        d3.select('g.active').selectAll('path')
-    .style('display', d=>(selected(d)?null:'none'))
-	.style("stroke", function(d){
-    return(
-    myColor(d.score*10*3>10?10:d.score*10*3))} );
-
-    }
-  function selected(d){
-
-		    if(scoreFeatures.length==0)
-				d['score'] = 1;
-			else
-			{
-				d['score'] = 0;
-				for(var j=0;j<scoreFeatures.length;j++)
-				{
-					d['score'] += d[scoreFeatures[j]]/scoreFeatures.length;
-				}
-				d['score'] = (d['score']-minScore)/(maxScore-minScore);
-			}
-			var tmp = true;
-	        for(var j=0; j<parallel_slider.length;j++){
-	            tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
-	        }
-	    return tmp;
-  }
 
 
   if (this.minDomNode) {
 	  //console.log("max"+this.sliderNo)
 	  currMax[(this.sliderNo-1)/2] = this.valueNow;
 	  //d3.select("svg").select("g").style("visibility", "hidden");
+	  updateDcm();
 
-	  // for data context map
-	  var maxScore = -10000;
-	  var minScore =  10000;
-	  
-	  for(var i = 0;i<d_mds_orig.length-14;i++)	  
-	  {
-		    if(scoreFeatures.length==0)
-				d_mds_orig[i]['score'] = 1;
-			else
-			{
-				d_mds_orig[i]['score'] = 0;
-				for(var j=0;j<scoreFeatures.length;j++)
-				{
-					d_mds_orig[i]['score'] += d_mds_orig[i][scoreFeatures[j]]/scoreFeatures.length;
-				}
-				maxScore = Math.max(d_mds_orig[i]['score'],maxScore);
-				minScore = Math.min(d_mds_orig[i]['score'],minScore);
-			}
-	  }
-	  
-	  if(scoreFeatures.length>0)
-	  {
-		for(var i = 0;i<d_mds_orig.length-14;i++)	  
-		{
-			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
-		}
-	  }
-	  
-	  
-	for(var i = 0;i<d_mds_orig.length-14;i++)
-	  {
-		 var temp=true;
-		for(var j=0;j<features.length;j++)
-		  {
-			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
-		  }
-		if(temp)
-			d3.select("#scatter_"+i).style("visibility", "visible").style("fill", function(d) {
-                    return myColor1[d["dataType"]](d['score']*10*3>10?10:d['score']*10*3);
-                });
-
-		else
-			d3.select("#scatter_"+i).style("visibility", "hidden");
-	  }
 
 	  //// for line graph
 	  d_line = [];
@@ -234,51 +244,8 @@ Slider.prototype.moveSliderTo = function (value) {
   if (this.maxDomNode) {
 
 	  currMin[this.sliderNo/2] = this.valueNow;
-
-	  	  var maxScore = -10000;
-	  var minScore =  10000;
-
-	  for(var i = 0;i<d_mds_orig.length-14;i++)
-	  {
-		    if(scoreFeatures.length==0)
-				d_mds_orig[i]['score'] = 1;
-			else
-			{
-				d_mds_orig[i]['score'] = 0;
-				for(var j=0;j<scoreFeatures.length;j++)
-				{
-					d_mds_orig[i]['score'] += d_mds_orig[i][scoreFeatures[j]]/scoreFeatures.length;
-				}
-				maxScore = Math.max(d_mds_orig[i]['score'],maxScore);
-				minScore = Math.min(d_mds_orig[i]['score'],minScore);
-			}
-	  }
-
-	  if(scoreFeatures.length>0)
-	  {
-		for(var i = 0;i<d_mds_orig.length-14;i++)
-		{
-			d_mds_orig[i]['score'] = (d_mds_orig[i]['score']-minScore)/(maxScore-minScore);
-		}
-	  }
-
-
-	  for(var i = 0;i<d_mds_orig.length-14;i++)
-	  {
-		 var temp=true;
-		for(var j=0;j<features.length;j++)
-		  {
-			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
-		  }
-		if(temp)
-			d3.select("#scatter_"+i).style("visibility", "visible").style("fill", function(d) {
-                    return myColor1[d["dataType"]](d['score']*10*3>10?10:d['score']*10*3);
-                });
-		else
-			d3.select("#scatter_"+i).style("visibility", "hidden");
-
-	  }
-
+	  //for dcm
+	  updateDcm();
 
 	d_line = [];
 
@@ -441,3 +408,36 @@ window.addEventListener('load', function () {
   console.log(sliders.length);
 
 });
+
+
+function addData(){
+for(i=1; i<=9;i++){
+var element = document.getElementById(i);
+element.innerHTML = i+"12";
+
+}
+
+
+
+
+}
+
+
+function myFunction(id){
+
+  var x = document.getElementById(id);
+  console.log("id,,",x.style.backgroundColor);
+
+  if (x.style.backgroundColor === "teal") {
+  //on
+    x.style.backgroundColor="#C8E3E3";
+    scoreFeatures.push(id.substring(4, id.length));
+  } else {
+    x.style.backgroundColor="teal";
+    var index = scoreFeatures.indexOf(id.substring(4, id.length));
+    scoreFeatures.splice(index,1);
+  }
+  updateDcm();
+  applyFilters();
+      console.log("scoreFeatures ",scoreFeatures);
+}

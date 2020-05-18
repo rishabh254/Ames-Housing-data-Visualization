@@ -11,6 +11,9 @@ const features_parallel = [
   {name: 'LotArea1', range: [1300,115149]},
   {name: 'GarageArea1', range: [0,1418]},
   {name: 'GrLivArea1', range: [334,5642]}
+//  {name: 'KitchenQual1', range: [1,5]},
+//  {name: 'YrSold1', range: [2006,2010]}
+
 ];
 const xScale = d3.scalePoint()
   .domain(features_parallel.map(x=>x.name))
@@ -40,7 +43,7 @@ d3.entries(yScales).map(x=>{
 
 const linePath = function(d){
   const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice" && x.key!= "YrSold1" && x.key!= "KitchenQual1"
-  && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea");
+  && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea"&& x.key!= "YrSold" && x.key!= "KitchenQual");
   //console.log("_data...",_data);
   let points = _data.map(x=>(
 
@@ -64,7 +67,9 @@ function getParallelData(data){
 					GarageArea: data[i].GarageArea,
 					GrLivArea: data[i].GrLivArea,
 					LotArea: data[i].LotArea,
-					score: data[i].score
+					score: data[i].score,
+					KitchenQual: data[i].KitchenQual,
+					YrSold: data[i].YrSold,
 				   };
 	}
 	return data;
