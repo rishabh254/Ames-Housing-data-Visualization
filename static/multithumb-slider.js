@@ -52,6 +52,10 @@ function updateBubble(){
 		  {
 			  temp = temp & ((bubble_global_data[i][features[j]]>=currMin[j] && bubble_global_data[i][features[j]]<=currMax[j]));
 		  }
+		  if(selectedNeigh != null){
+		    temp = temp & (bubble_global_data[i]['NeighborhoodText'] == selectedNeigh);
+		}
+
 		if(temp)
 			d_bubble.push(bubble_global_data[i]);
 	  }
@@ -59,6 +63,24 @@ function updateBubble(){
   }
 
 
+
+function updateLineData(){
+	  d_line = [];
+	  for(var i = 0;i<d_line_graph.length-14;i++)
+	  {
+		 var temp=true;
+		for(var j=0;j<features.length;j++)
+		  {
+			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
+		  }
+		 if(selectedNeigh != null){
+		    temp = temp & (d_line_graph[i]['NeighborhoodText'] == selectedNeigh);
+		    }
+		if(temp)
+			d_line.push(d_line_graph[i]);
+	  }
+	  updateLineGraph(d_line);
+}
 
 function updateDcm(){
 	  // for data context map
@@ -103,6 +125,9 @@ function updateDcm(){
 		  {
 			  temp = temp & ((d_mds_orig[i][features[j]]>=currMin[j] && d_mds_orig[i][features[j]]<=currMax[j]));
 		  }
+		if(selectedNeigh != null){
+		    temp = temp & (d_mds_orig[i]['NeighborhoodText'] == selectedNeigh);
+		}
 		if(temp){
 		    currentHouses++;
 		    scoreList.push(d_mds_orig[i]);
@@ -184,12 +209,17 @@ function addValueToHTML(id, value){
 				        d['score'] += d[scoreFeatures[j]]/scoreFeatures.length;
 				    }
 				}
+
 				d['score'] = (d['score']-minScore)/(maxScore-minScore);
 			}
 			var tmp = true;
 	        for(var j=0; j<parallel_slider.length;j++){
 	            tmp = tmp & ((d[parallel_slider[j]]>=currMin[j] && d[parallel_slider[j]]<=currMax[j]));
 	        }
+	        if(selectedNeigh != null){
+		        tmp = tmp & (d['NeighborhoodText'] == selectedNeigh);
+		    }
+
 	    return tmp;
   }
 
@@ -244,6 +274,7 @@ var maxScore = -10000;
 var minScore =  10000;
 var currentHouses=d_mds_orig.length;
 var scoreList=[];
+var selectedNeigh=null;
 
 
 
@@ -276,27 +307,8 @@ Slider.prototype.moveSliderTo = function (value) {
 	  currMax[(this.sliderNo-1)/2] = this.valueNow;
 	  //d3.select("svg").select("g").style("visibility", "hidden");
 	  updateDcm();
-
-
 	  //// for line graph
-	  d_line = [];
-
-		//console.log(d_line_graph[0][features[0]]);
-	  for(var i = 0;i<d_line_graph.length-14;i++)
-	  {
-		 var temp=true;
-		for(var j=0;j<features.length;j++)
-		  {
-			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
-		  }
-		if(temp)
-			d_line.push(d_line_graph[i]);
-
-	  }
-
-	  //console.log(d_line_graph.length + " , "+d_line.length);
-	  updateLineGraph(d_line);
-
+	  updateLineData();
 	  //For parallel graph
 	  applyFilters();
 	  //for bubble chart
@@ -310,23 +322,8 @@ Slider.prototype.moveSliderTo = function (value) {
 	  currMin[this.sliderNo/2] = this.valueNow;
 	  //for dcm
 	  updateDcm();
-
-	d_line = [];
-
-		//console.log(d_line_graph[0][features[0]]);
-	  for(var i = 0;i<d_line_graph.length-14;i++)
-	  {
-		 var temp=true;
-		for(var j=0;j<features.length;j++)
-		  {
-			  temp = temp & ((d_line_graph[i][features[j]]>=currMin[j] && d_line_graph[i][features[j]]<=currMax[j]));
-		  }
-		if(temp)
-			d_line.push(d_line_graph[i]);
-
-	  }
-	   updateLineGraph(d_line);
-	  //console.log(d_line_graph.length + " , "+d_line.length);
+	  //for line
+	  updateLineData();
 	    //for parallel
         applyFilters();
         //for bubble
@@ -488,4 +485,5 @@ function myFunction(id){
   updateDcm();
   applyFilters();
   updateBubble();
+  updateLineData();
 }

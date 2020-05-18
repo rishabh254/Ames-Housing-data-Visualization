@@ -160,10 +160,23 @@ if(svg_bubble != null){
       //ENTER
       circle.enter().append("circle")
           .attr("r", 1e-6)
+          .attr("id", function(d){
+
+            return d.data.Name;})
           .attr("cx", function(d){
           return d.x; })
           .attr("cy", function(d){ return d.y; })
-          .style("fill", "#fff").
+          .style("fill", "#fff").on('click', d => {
+            if(selectedNeigh == null){
+                selectedNeigh = d.data.Name;
+            }else{
+                selectedNeigh = null;
+            }
+              updateDcm();
+              applyFilters();
+              updateBubble();
+              updateLineData();
+            }).
           on("mouseover", function(d) {
 				tooltip.transition()
 				.duration(200)
@@ -191,7 +204,18 @@ if(svg_bubble != null){
           .attr("font-family", "sans-serif")
           .attr("font-size", function(d){ return d.r/2+"px";})
 		  //.attr("font-size", "7px")
-          .text(function(d){ return d.data.Name; }).on("mouseover", function(d) {
+          .text(function(d){ return d.data.Name; }).on('click', d => {
+            if(selectedNeigh == null){
+                selectedNeigh = d.data.Name;
+            }else{
+                selectedNeigh = null;
+            }
+              updateDcm();
+              applyFilters();
+              updateBubble();
+              updateLineData();
+            })
+          .on("mouseover", function(d) {
 				tooltip.transition()
 				.duration(200)
 				.style("opacity", .9);

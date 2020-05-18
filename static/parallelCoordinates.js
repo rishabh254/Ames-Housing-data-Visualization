@@ -43,7 +43,7 @@ d3.entries(yScales).map(x=>{
 
 const linePath = function(d){
   const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice" && x.key!= "YrSold1" && x.key!= "KitchenQual1"
-  && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea"&& x.key!= "YrSold" && x.key!= "KitchenQual");
+  && x.key!= "OverallQual" && x.key!="GarageArea" && x.key!="GrLivArea" && x.key!= "LotArea"&& x.key!= "YrSold" && x.key!= "KitchenQual" && x.key!= "NeighborhoodText");
   //console.log("_data...",_data);
   let points = _data.map(x=>(
 
@@ -70,6 +70,7 @@ function getParallelData(data){
 					score: data[i].score,
 					KitchenQual: data[i].KitchenQual,
 					YrSold: data[i].YrSold,
+					NeighborhoodText: data[i].NeighborhoodText
 				   };
 	}
 	return data;
