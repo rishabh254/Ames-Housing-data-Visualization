@@ -169,7 +169,7 @@ if(svg_bubble != null){
 				.duration(200)
 				.style("opacity", .9);
 				tooltip.html(d.data.Name +  "<br>No of Houses : "+ d.data.Count +"<br>Mean OverallQual : " + d.data.MeanOverallQual.toFixed(2) + "<br>Mean SalePrice : "
-				+d.data.MeanSalePrice.toFixed(0)).style("top", (event.pageY)+"px").
+				+(d.data.MeanSalePrice/1000).toFixed(2)+"k").style("top", (event.pageY)+"px").
 				style("left",(event.pageX)+"px")
 		}).
 		on("mouseout", function(d) {

@@ -156,7 +156,7 @@ function drawMDSscatter(type) {
 					div.transition()		
 						.duration(200)		
 						.style("opacity", .9);		
-					div.html("OverallQual : " + d["OverallQual1"] + "<br>SalePrice : "+d["SalePrice1"] +
+					div.html("OverallQual : " + d["OverallQual1"] + "<br>SalePrice : "+(d["SalePrice1"]/1000).toFixed(1)+"k" +
 							 "<br>Neighbourhood : "+d["NeighborhoodText"]+"<br>Lot Area : "+d["LotArea1"]+
 							 "<br>Garage Area : "+d["GarageArea1"]+"<br>Kitchen Quality : "+d["KitchenQual1"])
 						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")

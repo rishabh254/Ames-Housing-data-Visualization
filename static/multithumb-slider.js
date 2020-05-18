@@ -260,7 +260,10 @@ Slider.prototype.moveSliderTo = function (value) {
   }
 
   this.valueNow = value;
-  this.dolValueNow = value;
+  if(value>=10000)
+	this.dolValueNow = (value/1000).toFixed(1)+"k";
+  else
+	this.dolValueNow = value;  
 
 
   this.domNode.setAttribute('aria-valuenow', this.valueNow);
