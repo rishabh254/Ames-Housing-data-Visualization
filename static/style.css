@@ -27,8 +27,6 @@ li {
      margin-right: 80px;
      margin-left: 80px;
      background: #323F4B;
-     overflow-y: hidden; /* Hide vertical scrollbar */
-  overflow-x: hidden;
 }
  .tooltip-donut {
      position: absolute;
@@ -306,27 +304,16 @@ color:black;
 
     
 
-.dcm-name{
+.dcm-name, .linegraph-name, .bubble-name{
     color: white;
     text-align: center;
-    font-size: 22px;
-}
-.linegraph-name{
- color: white;
-    text-align: center;
-    font-size: 22px;
-
+    font-size: 12px;
 }
 
-.bubble-name{
- color: white;
-    text-align: center;
-    font-size: 22px;
-}
 
 .pc-name{
     color: white;
     text-align: right;
-    font-size: 22px;
+    font-size: 12px;
     margin-right: 213px;
 }
