@@ -159,8 +159,10 @@ function drawMDSscatter(type) {
 					div.html("OverallQual : " + d["OverallQual1"] + "<br>SalePrice : "+(d["SalePrice1"]/1000).toFixed(1)+"k" +
 							 "<br>Neighbourhood : "+d["NeighborhoodText"]+"<br>Lot Area : "+d["LotArea1"]+
 							 "<br>Garage Area : "+d["GarageArea1"]+"<br>Kitchen Quality : "+d["KitchenQual1"])
-						.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")
-						.style("top", (height/4 + heightScale(d["dim1"])) + "px");
+							.style("top", (event.pageY)+"px").
+				style("left",(event.pageX)+"px");
+					//.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")
+						//.style("top", (height/4 + heightScale(d["dim1"])) + "px");
 					}
 					})					
 				.on("mouseout", function(d) {		

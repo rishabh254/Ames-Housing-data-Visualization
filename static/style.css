@@ -303,22 +303,7 @@ color:black;
 
    
 
-    .tooltip-date, .tooltip-likesS , .tooltip-likesO {
-        font-weight: bold;
-			
-    }
-	
-	.tooltip, tooltip.tooltip {
-    position: absolute;			
-    text-align: center;								
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: solid;		
-    border-radius: 8px;
-	cursor:pointer;
-    pointer-events: auto;	
-}
+    
 
 .dcm-name{
     color: white;

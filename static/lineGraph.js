@@ -355,7 +355,9 @@ function drawLineGraph(lineData) {
             var i = bisectDate(data, x0, 1);
             var d0 = (i>0) ? data[i - 1] : 0;
             var d1 = data[i];
-            var d = x0 - d0.age > d1.age - x0 ? d1 : d0;
+            var d = d0;
+			if(d1)
+				d = x0 - d0.age > d1.age - x0 ? d1 : d0;
 
            focusS.attr("transform", "translate(" + x(d.age) + "," + y1(d.SalePrice) + ")");
 			focusO.attr("transform", "translate(" + x(d.age) + "," + y(d.OverallQual) + ")");
