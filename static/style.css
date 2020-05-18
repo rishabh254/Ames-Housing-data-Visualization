@@ -262,5 +262,62 @@ color:black;
 color:black;
 }
 
+ .overlay {
+        fill: none;
+        pointer-events: all;
+    }
+	
+	  .focusS circle {
+        fill: steelblue;
+    }
+
+    .focusS text {
+        font-size: 14px;
+		position: absolute;			
+    text-align: center;								
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: solid;		
+    border-radius: 8px;
+	cursor:pointer;
+    pointer-events: auto;
+    }
+	
+	  .focusO circle {
+        fill: steelblue;
+    }
+
+    .focusO text {
+        font-size: 14px;
+		position: absolute;			
+    text-align: center;								
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: solid;		
+    border-radius: 8px;
+	cursor:pointer;
+    pointer-events: auto;
+    }
+
+   
+
+    .tooltip-date, .tooltip-likesS , .tooltip-likesO {
+        font-weight: bold;
+			
+    }
+	
+	.tooltip, tooltip.tooltip {
+    position: absolute;			
+    text-align: center;								
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: solid;		
+    border-radius: 8px;
+	cursor:pointer;
+    pointer-events: auto;	
+}
 
 
