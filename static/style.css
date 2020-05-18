@@ -27,6 +27,8 @@ li {
      margin-right: 80px;
      margin-left: 80px;
      background: #323F4B;
+     overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden;
 }
  .tooltip-donut {
      position: absolute;
