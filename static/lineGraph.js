@@ -55,7 +55,7 @@ function updateLineGraph(lineData)
 	if(svgLineGraph!=null)
 	{
 	data = getLineData(lineData);
-	console.log("dataupdate.",data);
+	//console.log("dataupdate.",data);
 
 
 	// Add X axis --> it is a date format

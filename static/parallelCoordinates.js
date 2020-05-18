@@ -1,7 +1,9 @@
 var d_parallel_graph=[];
-var parallel_slider=['OverallQual1','SalePrice1','LotArea1','GarageArea1','KitchenQual1','YrSold1']
+var parallel_slider=['OverallQual1','SalePrice1','LotArea1','GarageArea1','KitchenQual1','YrSold1',
+'OverallQual1','SalePrice1','LotArea1','GarageArea1',"GrLivArea1"
+]
 
-const width = 600, height = 270, padding = 50;
+const width = 600, height = 270, padding = 50, brush_width = 20;
 const lineGenerator = d3.line();
 var pcSvg=null;
 
@@ -38,8 +40,43 @@ d3.entries(yScales).map(x=>{
 
   yAxis[x.key] = d3.axisLeft(x.value);
 });
+//////////
+const brushEventHandler = function(feature){
+  if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom")
+    return; // ignore brush-by-zoom
+  if(d3.event.selection != null){
+    features_parallel[feature] = d3.event.selection.map(d=>yScales[feature].invert(d));
+  }else{
+    if(feature in features_parallel)
+      delete(features_parallel[feature]);
+  }
+  console.log("features_parallel ",features_parallel);
 
+  for(var i=0; i<features_parallel.length; i++){
+    currMin[6+i] = features_parallel[i]["range"][0];
+    currMax[6+i] = features_parallel[i]["range"][1];
+  }
+   console.log("currMin,,,",currMin );
+   console.log("currMax,,,",currMax );
+   updateDcm();
+//   applyFilters();
+//   updateBubble();
+//   updateLineData();
+}
 
+const yBrushes = {};
+d3.entries(yScales).map(x=>{
+  let extent = [
+    [-(brush_width/2), padding],
+    [brush_width/2, height-padding]
+  ];
+  yBrushes[x.key]= d3.brushY()
+    .extent(extent)
+    .on('brush', ()=>brushEventHandler(x.key))
+    .on('end', ()=>brushEventHandler(x.key));
+});
+
+//////
 
 const linePath = function(d){
   const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null && x.key!="score" && x.key!="SalePrice" && x.key!= "YrSold1" && x.key!= "KitchenQual1"
@@ -123,11 +160,23 @@ featureAxisG
 		call(yAxis[d.name]);
       });
 
+        featureAxisG
+  .each(function(d){
+    d3.select(this)
+      .append('g')
+      .attr('class','brush')
+      .call(yBrushes[d.name]);
+  });
+
 featureAxisG
   .append("text")
   .attr("text-anchor", "middle")
   .attr('y', padding/2)
   .attr("fill", textColor)
   .text(d=>d.name.substring(0, d.name.length-1));
+
+
+
+
 
 }
