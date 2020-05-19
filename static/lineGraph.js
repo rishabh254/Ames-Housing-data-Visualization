@@ -197,7 +197,7 @@ function drawLineGraph(lineData) {
 
 
 	data = getLineData(lineData);
-	console.log("data..",data);
+	//console.log("data..",data);
 
 	// set the dimensions and marginLineGraphs of the graph
      marginLineGraph = {top: 10, right: 30, bottom: 30, left: 60},
@@ -218,8 +218,8 @@ function drawLineGraph(lineData) {
       .domain(d3.extent(data, function(d) { return d.age; }))
       .range([ 0, widthLineGraph ]);
 
-	console.log("min" +d3.min(data, function(d) { return +d.OverallQual; }));
-	console.log("max" +d3.max(data, function(d) { return +d.OverallQual; }));
+	//console.log("min" +d3.min(data, function(d) { return +d.OverallQual; }));
+	//console.log("max" +d3.max(data, function(d) { return +d.OverallQual; }));
 
     // Add Y axis
     var y = d3.scaleLinear()
