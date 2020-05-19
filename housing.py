@@ -143,7 +143,6 @@ def get_MDS(df_norm,df_orig,distType):
         embedding = MDS(n_init=1 , n_components=2, dissimilarity = 'precomputed', random_state=1)
         X_transformed = embedding.fit_transform(pow(2*(1-df_norm.T.corr()),0.5))
         X_transformed1 = embedding.fit_transform(pow(2*(1-df_norm.corr()),0.5))
-
     
     mds_df = pd.DataFrame(np.concatenate((X_transformed,X_transformed1),0), columns=['dim0','dim1'])
     # datatype 0 : datapoint , 1 : feature

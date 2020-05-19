@@ -1,3 +1,14 @@
+/*html { overflow-y: hidden; }*/
+
+
+body {
+    border: 1px solid transparent;
+}
+
+body {
+    padding-bottom: 20px;
+}
+
 li {
      cursor: pointer;
 }
@@ -29,7 +40,7 @@ li {
     padding-left: 80px;
     background: #323F4B;
     min-height: 100vh;
-    overflow: hidden;
+    
 
 }
  .tooltip-donut {

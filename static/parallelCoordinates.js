@@ -185,9 +185,30 @@ featureAxisG
   .append("text")
   .attr("width",60)
   .attr("height",20)
+  .style("cursor" ,"pointer")
   .attr("id",d=>"btn-"+d.name.substring(0, d.name.length-1))
   .on('click', d => {
-			myFunction("btn-"+d.name.substring(0, d.name.length-1));
+	  
+	  if(!scoreFeatures.includes(d.name.substring(0, d.name.length-1)))
+	  {
+		d3.select("#"+"btn-"+d.name.substring(0, d.name.length-1))
+	  .style("fill","#65B3b3");
+		scoreFeatures.push(d.name.substring(0, d.name.length-1));	  
+	  }
+	  else
+	  {
+		  d3.select("#"+"btn-"+d.name.substring(0, d.name.length-1))
+	  .style("fill","#e3e3e3");  
+	   var index = scoreFeatures.indexOf(d.name.substring(0,d.name.length-1));
+		scoreFeatures.splice(index,1);
+	  }
+	  
+	  updateDcm();
+  applyFilters();
+  updateBubble();
+  updateLineData();
+  
+			
             })
   .attr("text-anchor", "middle")
   .attr('y', padding/2)

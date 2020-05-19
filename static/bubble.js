@@ -144,6 +144,7 @@ if(svg_bubble != null){
       //UPDATE
       circle
         .transition(t)
+		.duration(400)
           .style("fill", function(d) {
          return myColor(d.data.Scale*10);
             })
@@ -156,6 +157,7 @@ if(svg_bubble != null){
 
       text
 		  .transition(t)
+		  .duration(400)
           .attr("x", function(d){if(selectedNeigh!=null) return d.x-120; else return d.x-25; })
 		  .attr("font-size", function(d){ return (d.r/2>30?15:d.r/2)+"px";})
           .attr("y", function(d){ return d.y; })
@@ -165,6 +167,7 @@ if(svg_bubble != null){
       //ENTER
       circle.enter().append("circle")
           .attr("r", 1e-6)
+		  .style("cursor","pointer")
           .attr("id", function(d){
 
             return d.data.Name;})
@@ -206,7 +209,7 @@ if(svg_bubble != null){
 		 .attr("fill", "black")
           .attr("x", function(d){ return d.x-20; })
           .attr("y", function(d){ return d.y; })
-		  .style("pointer-events" ,"none")
+		  .style("cursor","pointer")
           .attr("font-family", "sans-serif")
           .attr("font-size", function(d){ return (d.r/2>30?30:d.r/2)+"px";})
 		  //.attr("font-size", "7px")
