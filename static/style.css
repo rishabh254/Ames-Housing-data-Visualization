@@ -6,6 +6,9 @@ li {
      // background-color: #d5d5d5;
      letter-spacing: .05em;
      text-shadow: 4px 4px 0px #d5d5d5, 4px 4px 0px rgba(0, 0, 0, 0.2);
+     font-size: 40px;
+    text-align: center;
+    margin-bottom: 25px;
 }
 
  .dotScreePlot {
@@ -22,11 +25,12 @@ li {
      text-rendering: optimizeLegibility;
 }
  body {
-     margin-top: 15px;
-     margin-bottom: 15px;
-     margin-right: 80px;
-     margin-left: 80px;
-     background: #323F4B;
+     padding-right: 80px;
+    padding-left: 80px;
+    background: #323F4B;
+    min-height: 100vh;
+    overflow: hidden;
+
 }
  .tooltip-donut {
      position: absolute;
