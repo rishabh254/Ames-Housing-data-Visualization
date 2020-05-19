@@ -156,10 +156,10 @@ if(svg_bubble != null){
 
       text
 		  .transition(t)
-          .attr("x", function(d){ return d.x-25; })
-		  .attr("font-size", function(d){ return (d.r/2>30?10:d.r/2)+"px";})
+          .attr("x", function(d){if(selectedNeigh!=null) return d.x-120; else return d.x-25; })
+		  .attr("font-size", function(d){ return (d.r/2>30?15:d.r/2)+"px";})
           .attr("y", function(d){ return d.y; })
-		  .text(function(d){if(selectedNeigh!=null)  return "Mean SalePrice in" + d.data.Name+(d.data.MeanSalePrice/1000).toFixed(2)+"k"; else return d.data.Name;})
+		  .text(function(d){if(selectedNeigh!=null)  return "Mean SalePrice in " + d.data.Name+" "+(d.data.MeanSalePrice/1000).toFixed(2)+"k"; else return d.data.Name;})
 		  ;
 
       //ENTER
