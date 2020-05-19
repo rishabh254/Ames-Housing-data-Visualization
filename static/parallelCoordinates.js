@@ -1,6 +1,6 @@
 var d_parallel_graph=[];
-var parallel_slider=features = ['BsmtQual1','ExterQual1','BsmtFinSF11','FireplaceQu1','KitchenQual1','YrSold1',
-'SalePrice1','OverallQual1','LotArea1','GarageArea1',"GrLivArea1"
+var parallel_slider=features = ['LotArea1','ExterQual1','BsmtFinSF11','FireplaceQu1','KitchenQual1','YrSold1',
+'SalePrice1','OverallQual1','BsmtQual1','GarageArea1',"GrLivArea1"
 ]
 
 const width = 600, height = 270, padding = 50, brush_width = 20;
@@ -10,7 +10,7 @@ var pcSvg=null;
 const features_parallel = [
   {name: 'SalePrice1', range: [34900,755000]},
   {name: 'OverallQual1', range: [1,10]},
-  {name: 'LotArea1', range: [1300,115149]},
+  {name: 'BsmtQual1', range: [1,5]},
   {name: 'GarageArea1', range: [0,1418]},
   {name: 'GrLivArea1', range: [334,5642]}
 //  {name: 'KitchenQual1', range: [1,5]},
@@ -84,7 +84,7 @@ d3.entries(yScales).map(x=>{
 //////
 
 const linePath = function(d){
-  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null  && (x.key=='SalePrice1' || x.key=='OverallQual1' || x.key == 'GarageArea1' || x.key=='LotArea1' || x.key=='GrLivArea1'));
+  const _data = d3.entries(d).filter(x=>x!=null && x.key!=null && x.value!= null  && (x.key=='SalePrice1' || x.key=='OverallQual1' || x.key == 'GarageArea1' || x.key=='BsmtQual1' || x.key=='GrLivArea1'));
   //console.log("_data...",_data);
   let points = _data.map(x=>(
 

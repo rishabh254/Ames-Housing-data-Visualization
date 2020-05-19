@@ -275,8 +275,8 @@ Slider.prototype.init = function () {
 
 };
 1300, 115149
-var currMax = [5,5,2500,5,5,2010, 800000,10, 50000, 1400,5000];
-var currMin = [1,  1,0,  1,1 ,2006,  30000,1, 1000,0,100];
+var currMax = [80000,5,2500,5,5,2010, 800000,10, 5, 1400,5000];
+var currMin = [1000,  1,0,  1,1 ,2006,  30000,1, 1,0,100];
 var maxScore = -10000;
 var minScore =  10000;
 var currentHouses=d_mds_orig.length;

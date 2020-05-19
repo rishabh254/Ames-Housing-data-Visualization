@@ -17,8 +17,8 @@ function getMin(arr, prop) {
 }
 
 d_mds_orig = [];
-features = ['BsmtQual1','ExterQual1','BsmtFinSF11','FireplaceQu1','KitchenQual1','YrSold1',
-'SalePrice1','OverallQual1','LotArea1','GarageArea1',"GrLivArea1"
+features = ['LotArea1','ExterQual1','BsmtFinSF11','FireplaceQu1','KitchenQual1','YrSold1',
+'SalePrice1','OverallQual1','BsmtQual1','GarageArea1',"GrLivArea1"
 ]
 
 function drawMDSscatter(type) {
