@@ -151,12 +151,16 @@ if(svg_bubble != null){
           return d.r })
           .attr("cx", function(d){ return d.x; })
           .attr("cy", function(d){ return d.y; })
+		  
+		  
 
       text
-        .transition(t)
-          .attr("x", function(d){ return d.x-20; })
-		  .attr("font-size", function(d){ return d.r/2+"px";})
-          .attr("y", function(d){ return d.y; });
+		  .transition(t)
+          .attr("x", function(d){ return d.x-25; })
+		  .attr("font-size", function(d){ return (d.r/2>30?10:d.r/2)+"px";})
+          .attr("y", function(d){ return d.y; })
+		  .text(function(d){if(selectedNeigh!=null)  return "Mean SalePrice in" + d.data.Name+(d.data.MeanSalePrice/1000).toFixed(2)+"k"; else return d.data.Name;})
+		  ;
 
       //ENTER
       circle.enter().append("circle")
@@ -177,8 +181,8 @@ if(svg_bubble != null){
               applyFilters();
               updateBubble();
               updateLineData();
-            }).
-          on("mouseover", function(d) {
+            })
+			/*.on("mouseover", function(d) {
 				tooltip.transition()
 				.duration(200)
 				.style("opacity", .9);
@@ -190,7 +194,7 @@ if(svg_bubble != null){
 		    tooltip.transition()
 			.duration(500)
 			.style("opacity", 0);
-			})
+			})*/
         .transition(t)
           .style("fill", function(d) {
          return myColor(d.data.Scale*10);
@@ -204,9 +208,10 @@ if(svg_bubble != null){
           .attr("y", function(d){ return d.y; })
 		  .style("pointer-events" ,"none")
           .attr("font-family", "sans-serif")
-          .attr("font-size", function(d){ return d.r/2+"px";})
+          .attr("font-size", function(d){ return (d.r/2>30?30:d.r/2)+"px";})
 		  //.attr("font-size", "7px")
-          .text(function(d){ return d.data.Name; }).on('click', d => {
+		  .text(function(d){ return d.data.Name; })
+		  .on('click', d => {
             if(selectedNeigh == null){
                 selectedNeigh = d.data.Name;
             }else{
@@ -217,27 +222,30 @@ if(svg_bubble != null){
               updateBubble();
               updateLineData();
             })
-          .on("mouseover", function(d) {
+			  .transition(t)
+          .attr("opacity", 1);
+		  
+		  
+          /*.on("mouseover", function(d) {
 				tooltip.transition()
 				.duration(200)
-				.style("opacity", .9);
+				.style("opacity", 0);
 				tooltip.html(d.data.Name +  "<br>No of Houses : "+ d.data.Count +"<br>Mean OverallQual : " + d.data.MeanOverallQual.toFixed(2) + "<br>Mean SalePrice : "
 				+(d.data.MeanSalePrice/1000).toFixed(2)+"k").style("top", (event.pageY)+"px").
 				style("left",(event.pageX)+"px")
 		}).
 		on("mouseout", function(d) {
 		    tooltip.transition()
-			.duration(500)
+			.duration(200)
 			.style("opacity", 0);
-			})
-        .transition(t)
-          .attr("opacity", 1);
+			})*/
+      
 
 
-     var tooltip = d3.select("body")
+    /* var tooltip = d3.select("body")
     .append("div")
       .style("opacity", 0)
-      .attr("class", "tooltip");
+      .attr("class", "tooltip");*/
 
 }
 

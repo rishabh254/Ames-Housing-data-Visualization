@@ -179,8 +179,16 @@ featureAxisG
       .call(yBrushes[d.name]);
   });
 
+
+  
 featureAxisG
   .append("text")
+  .attr("width",60)
+  .attr("height",20)
+  .attr("id",d=>"btn-"+d.name.substring(0, d.name.length-1))
+  .on('click', d => {
+			myFunction("btn-"+d.name.substring(0, d.name.length-1));
+            })
   .attr("text-anchor", "middle")
   .attr('y', padding/2)
   .attr("fill", textColor)

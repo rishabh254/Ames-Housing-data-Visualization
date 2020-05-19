@@ -33,7 +33,7 @@ function drawMDSscatter(type) {
              //element.innerHTML = currentHouses;
             //d_mds_random = (JSON.parse(d.mds_random));
             //d_mds_stratified = (JSON.parse(d.mds_stratified));
-			console.log("hello "+(d_mds_orig.length))
+			//console.log("hello "+(d_mds_orig.length))
 
             var leftMargin = 10;
             var rightMargin = 10;
