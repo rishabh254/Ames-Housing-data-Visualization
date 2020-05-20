@@ -36,19 +36,6 @@ function getBubbleData(data){
 	    if(data[i].Neighborhood1 ==null || data[i].Neighborhood1<1){
 	        continue;
 	    }
-		/*data[i] = {
-					NeighborhoodLabel:   data[i].Neighborhood1,
-					NeighborhoodText : data[i].NeighborhoodText,
-					SalePrice:   data[i].SalePrice,
-					OverallQual:   data[i].OverallQual,
-					GarageArea: data[i].GarageArea,
-					GrLivArea: data[i].GrLivArea,
-					LotArea: data[i].LotArea,
-					KitchenQual: data[i].KitchenQual,
-					YrSold: data[i].YrSold,
-					SalePrice1:   data[i].SalePrice1,
-					OverallQual1:   data[i].OverallQual1,
-				   };*/
 	}
 	var result=[]
 	var mean=[]
@@ -133,12 +120,10 @@ if(svg_bubble != null){
          return myColor(d.data.Scale*10);
             })
         .transition(t)
-          //.attr("r", 1e-6)
           .remove();
 
       text.exit()
         .transition(t)
-          //.attr("opacity", 1e-6)
           .remove();
 
       //UPDATE
@@ -185,19 +170,6 @@ if(svg_bubble != null){
               updateBubble();
               updateLineData();
             })
-			/*.on("mouseover", function(d) {
-				tooltip.transition()
-				.duration(200)
-				.style("opacity", .9);
-				tooltip.html(d.data.Name +  "<br>No of Houses : "+ d.data.Count +"<br>Mean OverallQual : " + d.data.MeanOverallQual.toFixed(2) + "<br>Mean SalePrice : "
-				+(d.data.MeanSalePrice/1000).toFixed(2)+"k").style("top", (event.pageY)+"px").
-				style("left",(event.pageX)+"px")
-		}).
-		on("mouseout", function(d) {
-		    tooltip.transition()
-			.duration(500)
-			.style("opacity", 0);
-			})*/
         .transition(t)
           .style("fill", function(d) {
          return myColor(d.data.Scale*10);
@@ -205,14 +177,12 @@ if(svg_bubble != null){
           .attr("r", function(d){ return d.r});
 
       text.enter().append("text")
-         //.attr("opacity", 1e-1)
 		 .attr("fill", "black")
           .attr("x", function(d){ return d.x-20; })
           .attr("y", function(d){ return d.y; })
 		  .style("cursor","pointer")
           .attr("font-family", "sans-serif")
           .attr("font-size", function(d){ return (d.r/2>30?30:d.r/2)+"px";})
-		  //.attr("font-size", "7px")
 		  .text(function(d){ return d.data.Name; })
 		  .on('click', d => {
             if(selectedNeigh == null){
@@ -228,28 +198,6 @@ if(svg_bubble != null){
 			  .transition(t)
           .attr("opacity", 1);
 		  
-		  
-          /*.on("mouseover", function(d) {
-				tooltip.transition()
-				.duration(200)
-				.style("opacity", 0);
-				tooltip.html(d.data.Name +  "<br>No of Houses : "+ d.data.Count +"<br>Mean OverallQual : " + d.data.MeanOverallQual.toFixed(2) + "<br>Mean SalePrice : "
-				+(d.data.MeanSalePrice/1000).toFixed(2)+"k").style("top", (event.pageY)+"px").
-				style("left",(event.pageX)+"px")
-		}).
-		on("mouseout", function(d) {
-		    tooltip.transition()
-			.duration(200)
-			.style("opacity", 0);
-			})*/
-      
-
-
-    /* var tooltip = d3.select("body")
-    .append("div")
-      .style("opacity", 0)
-      .attr("class", "tooltip");*/
-
 }
 
 }

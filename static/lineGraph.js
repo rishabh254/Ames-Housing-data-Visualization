@@ -15,8 +15,7 @@ function getLineData(data) {
             OverallQual: data[i].OverallQual1
         };
     }
-    var result = []
-
+    var result = [];
 
     groupData = groupBy(data, 'age');
 
@@ -138,8 +137,6 @@ function updateLineGraph(lineData) {
 
         var focusO = svgLineGraph.select(".focusO")
             .style("display", "none");
-
-
 
         focusS.select(".tooltip")
             .attr("width", 100)
@@ -387,8 +384,6 @@ function drawLineGraph(lineData) {
 
         focusO.select(".tooltip-likesO").html((d.OverallQual).toFixed(2)).attr("fill", "#FF7F7F");
     }
-
-
 
 
     svgLineGraph.append("path")

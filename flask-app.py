@@ -25,7 +25,7 @@ def get_pcs():
     print(data)
     return (data)
 
-@app.route('/get_mds')
+@app.route('/get_mds/euclidean')
 def get_mdsE():
     data = {"mds_orig": mds_origE}
     return (data)
@@ -33,5 +33,5 @@ def get_mdsE():
 if __name__ == '__main__':
     df_orig = pd.read_csv('df_orig.csv')
     df_norm = pd.read_csv('df_norm.csv')
-    mds_origE = housing.get_MDS(df_norm,df_orig,'euclidean')
+    mds_origE = housing.get_MDS(df_norm,df_orig)
     app.run(host='0.0.0.0',debug=True)
