@@ -17,23 +17,17 @@ function getMin(arr, prop) {
 }
 
 d_mds_orig = [];
-features = ['LotArea1','ExterQual1','BsmtFinSF11','FireplaceQu1','KitchenQual1','YrSold1',
-'SalePrice1','OverallQual1','BsmtQual1','GarageArea1',"GrLivArea1"
+features = ['LotArea1', 'ExterQual1', 'BsmtFinSF11', 'FireplaceQu1', 'KitchenQual1', 'YrSold1',
+    'SalePrice1', 'OverallQual1', 'BsmtQual1', 'GarageArea1', "GrLivArea1"
 ]
 
 function drawMDSscatter(type) {
-	
-	
+
+
     d3.json("/get_mds/" + type,
         function(d) {
 
             d_mds_orig = (JSON.parse(d.mds_orig));
-//            currentHouses = d_mds_orig.length-19;
-//             var element = document.getElementById("total-houses");
-             //element.innerHTML = currentHouses;
-            //d_mds_random = (JSON.parse(d.mds_random));
-            //d_mds_stratified = (JSON.parse(d.mds_stratified));
-			//console.log("hello "+(d_mds_orig.length))
 
             var leftMargin = 10;
             var rightMargin = 10;
@@ -44,7 +38,7 @@ function drawMDSscatter(type) {
 
             // x axis scale
             var widthScale = d3.scaleLinear()
-                .domain([Math.round(getMin(d_mds_orig, "dim0"))-0.3, Math.round(getMax(d_mds_orig, "dim0"))+0.3])
+                .domain([Math.round(getMin(d_mds_orig, "dim0")) - 0.3, Math.round(getMax(d_mds_orig, "dim0")) + 0.3])
                 .range([0, width - leftMargin - rightMargin]);
 
             if (type == 'correlation')
@@ -52,30 +46,20 @@ function drawMDSscatter(type) {
 
             // y axis scale
             var heightScale = d3.scaleLinear()
-                .domain([Math.round(getMin(d_mds_orig, "dim1"))-0.3 , Math.round(getMax(d_mds_orig, "dim1"))+0.3])
+                .domain([Math.round(getMin(d_mds_orig, "dim1")) - 0.3, Math.round(getMax(d_mds_orig, "dim1")) + 0.3])
                 .range([height - topMargin - bottomMargin, 0]);
 
             if (type == 'correlation')
                 heightScale.domain([-1.5, 1.5]);
 
             var colorScale = ["teal", "#FF7F7F"];
-			var borderScale = ["black", "black"];
+            var borderScale = ["black", "black"];
 
             // color scale
             var color = d3.scaleLinear()
                 .domain([0, 100])
                 .range(["red", "blue"]);
 
-            // x axis
-            /*var x_axis = d3.axisBottom(widthScale)
-                .ticks(10)
-                .tickSize(10);
-
-            // x axis
-            var y_axis = d3.axisLeft(heightScale)
-                .ticks(10)
-                .tickSize(10);
-*/
             // container for svg graph
             var container = d3.select("#dcm-div")
                 .append("svg")
@@ -89,131 +73,102 @@ function drawMDSscatter(type) {
             var canvas = container.append("g")
                 .attr("transform", "translate(" + leftMargin + "," + topMargin + ")");
 
-  /*          canvas.append("g")
-				.attr("class", "axisWhite")
-                .attr("transform", "translate(0," + (height - topMargin - bottomMargin) + ")")
-                .call(x_axis);
-
-            // add the y Axis
-            canvas.append("g")
-                .attr("class", "axisWhite")
-				.call(y_axis);
-
-            // x axis label
-            canvas.append("text")
-                .attr("transform", "translate(" + (width +leftMargin +rightMargin) + " ," + (height - topMargin) + ")")
-                .attr("dx", "-25.6em")
-                .attr("dy", "-0.6em")
-				.attr("fill", textColor)
-                .style("text-anchor", "end")
-                .text("Dimension 1");
-
-            // y axis label
-            canvas.append("text")
-                .attr("transform", "translate(" + (-5 * leftMargin) + " ," + -90 + ")" + " rotate(-90)")
-                .attr("dx", "-15.7em")
-                .attr("dy", "1.0em")
-				.attr("fill", textColor)
-                .style("text-anchor", "end")
-                .text("Dimension 2");
-			*/	
-			// Define the div for the tooltip
-			var div = d3.select("body").append("div")	
-				.attr("class", "tooltip")
-				.style("opacity", 0);
+        
+            // Define the div for the tooltip
+            var div = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
 
             canvas.append('g')
                 .selectAll("dot")
                 .data(d_mds_orig)
                 .enter()
                 .append("circle")
-                .attr("id", function(d,i) {
-                    return "scatter_"+i;
+                .attr("id", function(d, i) {
+                    return "scatter_" + i;
                 })
-				.attr("class","scatter_o")
+                .attr("class", "scatter_o")
                 .attr("cx", function(d) {
                     return widthScale(d["dim0"]);
                 })
                 .attr("cy", function(d) {
                     return heightScale(d["dim1"]);
                 })
-				.attr("r", function(d) {
-                    return 4*(d["dataType"]+1);
+                .attr("r", function(d) {
+                    return 4 * (d["dataType"] + 1);
                 })
                 .attr("opacity", "1")
-				.style("stroke", function(d) {
+                .style("stroke", function(d) {
                     return borderScale[d["dataType"]];
                 })
                 .style("fill", function(d) {
-                    return myColor1[d["dataType"]](d['score']*10);
+                    return myColor1[d["dataType"]](d['score'] * 10);
                 })
-				.on("mouseover", function(d) {
-					
-					if(d["dataType"]==0)
-					{
-					d3.select(this).transition()
-                .duration('300')
-                .attr("r",10);
-						
-					div.transition()		
-						.duration(200)		
-						.style("opacity", .9);		
-					div.html("OverallQual : " + d["OverallQual1"] + "<br>SalePrice : "+(d["SalePrice1"]/1000).toFixed(1)+"k" +
-							 "<br>Neighbourhood : "+d["NeighborhoodText"]+"<br>Lot Area : "+d["LotArea1"]+
-							 "<br>Garage Area : "+d["GarageArea1"]+"<br>Kitchen Quality : "+d["KitchenQual1"])
-							.style("top", (event.pageY)+"px").
-				style("left",(event.pageX)+"px");
-					//.style("left", (width/2+leftMargin + rightMargin + widthScale(d["dim0"])) + "px")
-						//.style("top", (height/4 + heightScale(d["dim1"])) + "px");
-					}
-					})					
-				.on("mouseout", function(d) {		
-					
-					d3.select(this).transition()
-                .duration('300')
-                .attr("r", function(d) {
-                    return 4*(d["dataType"]+1);
+                .on("mouseover", function(d) {
+
+                    if (d["dataType"] == 0) {
+                        d3.select(this).transition()
+                            .duration('300')
+                            .attr("r", 10);
+
+                        div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        div.html("OverallQual : " + d["OverallQual1"] + "<br>SalePrice : " + (d["SalePrice1"] / 1000).toFixed(1) + "k" +
+                                "<br>Neighbourhood : " + d["NeighborhoodText"] + "<br>Lot Area : " + d["LotArea1"] +
+                                "<br>Garage Area : " + d["GarageArea1"] + "<br>Fireplace Quality : " + d["FireplaceQu1"])
+                            .style("top", (event.pageY) + "px").
+                        style("left", (event.pageX) + "px");
+                    }
+                })
+                .on("mouseout", function(d) {
+
+                    d3.select(this).transition()
+                        .duration('300')
+                        .attr("r", function(d) {
+                            return 4 * (d["dataType"] + 1);
+                        });
+
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
                 });
-					
-					div.transition()		
-						.duration(500)		
-						.style("opacity", 0);	
-				});
-				canvas.append('g')
+            canvas.append('g')
                 .selectAll("dot")
-				.data(d_mds_orig)
-				.enter()
+                .data(d_mds_orig)
+                .enter()
                 .append("rect")
-				 .attr("height", function(d) {
-                    return (d["dataType"])*15;
+                .attr("height", function(d) {
+                    return (d["dataType"]) * 15;
                 })
-				.attr("width", function(d) {
-                    return (d["dataType"])*(d["label"].length)*8;
+                .attr("width", function(d) {
+                    return (d["dataType"]) * (d["label"].length) * 8;
                 })
-				.attr("fill", "#FF7F7F")
+                .attr("fill", "#FF7F7F")
                 .attr("class", "scatter_o")
                 .attr("x", function(d) {
-                    return widthScale(d["dim0"])-30;
+                    return widthScale(d["dim0"]) - 30;
                 })
                 .attr("y", function(d) {
-                    return heightScale(d["dim1"])-24;
+                    return heightScale(d["dim1"]) - 24;
                 })
                 .attr("opacity", "1");
 
-				canvas.append('g')
+            canvas.append('g')
                 .selectAll("dot")
-				.data(d_mds_orig)
-				.enter()
+                .data(d_mds_orig)
+                .enter()
                 .append("text")
-				.attr("fill", "black")
+                .style("pointer-events", "none")
+                .attr("fill", "black")
                 .attr("class", "scatter_o")
                 .attr("x", function(d) {
-                    return widthScale(d["dim0"])-30;
+                    return widthScale(d["dim0"]) - 30;
                 })
                 .attr("y", function(d) {
-                    return heightScale(d["dim1"])-10;
+                    return heightScale(d["dim1"]) - 10;
                 })
-				.text(function(d) {
+                .text(function(d) {
                     return d["label"];
                 })
                 .attr("opacity", "1");

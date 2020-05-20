@@ -1,268 +1,179 @@
 <!DOCTYPE html>
-<html lang = "en">
-   <head>
-      <script src = "../static/d3/d3.min.js"></script>
-	  <script src="../static/d3/d3v4.js"></script>
-	  <script src="../static/d3/jquery-3.2.1.min.js"></script>
-	  <script src="../static/lineGraph.js"></script>
-	   <script src="../static/parallelCoordinates.js"></script>
-	   <script src="../static/bubble.js"></script>
-	  <script src="../static/mdsScatter.js"></script>
-	  <script src="../static/multithumb-slider.js"></script>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	  <link rel="icon" 
-      type="image/png" 
-      href="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png">
-      <link rel="stylesheet" type="text/css" href="../static/style.css" media="screen"/>
-	  <link rel="stylesheet" type="text/css" href="../static/multithumb-slider.css" media="screen"/>
+<html lang="en">
 
-   </head>
-   <body >
-      <div class = "retroshadow"> Ames Housing Dataset</div>
-      <div class="slider">
-          <div class="slider-component">
-              <div class="slider-text"><button onclick="myFunction('btn-LotArea')" id="btn-LotArea"
-                                               style="background:grey;">LotArea</button></div>
+<head>
+    <script src="../static/d3/d3.min.js"></script>
+    <script src="../static/d3/d3v4.js"></script>
+    <script src="../static/d3/jquery-3.2.1.min.js"></script>
+    <script src="../static/lineGraph.js"></script>
+    <script src="../static/parallelCoordinates.js"></script>
+    <script src="../static/bubble.js"></script>
+    <script src="../static/mdsScatter.js"></script>
+    <script src="../static/multithumb-slider.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="icon" type="image/png" href="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png">
+    <link rel="stylesheet" type="text/css" href="../static/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../static/multithumb-slider.css" media="screen" />
+
+</head>
+
+<body>
+    <div class="retroshadow"> Ames Housing Sale Analysis</div>
+    <div class="slider">
+        <div class="slider-component">
+            <div class="slider-text"><button onclick="myFunction('btn-LotArea')" id="btn-LotArea" style="background:grey;">LotArea</button></div>
             <div class="aria-widget-slider">
-            <div class="rail-label min">0</div>
-            <div class="rail" style="width: 160px;">
-            <img id="minBsmtQual"
-                src="../static/min-arrow.png"
-                role="slider"
-                tabindex="0"
-                class="min thumb"
-                aria-valuemin="1000"
-                aria-valuenow="1000"
-                aria-valuemax="80000">
-            <img id="maxBsmtQual"
-            src="../static/max-arrow.png"
-            role="slider"
-            tabindex="0"
-            class="max thumb"
-            aria-valuemin="1000"
-            aria-valuenow="80000"
-            aria-valuemax="80000">
-            </div>
+                <div class="rail-label min">0</div>
+                <div class="rail" style="width: 160px;">
+                    <img id="minBsmtQual" src="../static/min-arrow.png" role="slider" tabindex="0" class="min thumb" aria-valuemin="1000" aria-valuenow="1000" aria-valuemax="80000">
+                    <img id="maxBsmtQual" src="../static/max-arrow.png" role="slider" tabindex="0" class="max thumb" aria-valuemin="1000" aria-valuenow="80000" aria-valuemax="80000">
+                </div>
                 <div class="rail-label max">80000</div>
             </div>
-          </div>
+        </div>
 
-          <div class="slider-component">
-              <div class="slider-text"><button onclick="myFunction('btn-ExterQual')" id="btn-ExterQual"
-                                               style="background:grey;">ExterQual</button></div>
+        <div class="slider-component">
+            <div class="slider-text"><button onclick="myFunction('btn-ExterQual')" id="btn-ExterQual" style="background:grey;">ExterQual</button></div>
             <div class="aria-widget-slider">
-            <div class="rail-label min">100</div>
+                <div class="rail-label min">100</div>
 
-            <div class="rail" style="width: 160px;">
-    <img id="minBsmtQual"
-         src="../static/min-arrow.png"
-         role="slider"
-         tabindex="0"
-         class="min thumb"
-         aria-valuemin="1"
-         aria-valuenow="1"
-         aria-valuemax="5">
-    <img id="maxBsmtQual"
-         src="../static/max-arrow.png"
-         role="slider"
-         tabindex="0"
-         class="max thumb"
-         aria-valuemin="1"
-         aria-valuenow="5"
-         aria-valuemax="5">
-  </div>
+                <div class="rail" style="width: 160px;">
+                    <img id="minBsmtQual" src="../static/min-arrow.png" role="slider" tabindex="0" class="min thumb" aria-valuemin="1" aria-valuenow="1" aria-valuemax="5">
+                    <img id="maxBsmtQual" src="../static/max-arrow.png" role="slider" tabindex="0" class="max thumb" aria-valuemin="1" aria-valuenow="5" aria-valuemax="5">
+                </div>
                 <div class="rail-label max">5</div>
             </div>
         </div>
-          <div class="slider-component">
-                            <div class="slider-text"><button onclick="myFunction('btn-BsmtFinSF1')" id="btn-BsmtFinSF1"
-                                               style="background:grey;">BsmtFinSF1</button></div>
+        <div class="slider-component">
+            <div class="slider-text"><button onclick="myFunction('btn-BsmtFinSF1')" id="btn-BsmtFinSF1" style="background:grey;">BsmtFinSF1</button></div>
             <div class="aria-widget-slider">
-            <div class="rail-label min">0</div>
+                <div class="rail-label min">0</div>
 
-            <div class="rail" style="width: 160px;">
-            <img id="minBsmtFinSF"
-                src="../static/min-arrow.png"
-                role="slider"
-                tabindex="0"
-                class="min thumb"
-                aria-valuemin="0"
-                aria-valuenow="0"
-                aria-valuemax="2500">
-            <img id="maxBsmtFinSF"
-            src="../static/max-arrow.png"
-            role="slider"
-            tabindex="0"
-            class="max thumb"
-            aria-valuemin="0"
-            aria-valuenow="2500"
-            aria-valuemax="2500">
-            </div>
+                <div class="rail" style="width: 160px;">
+                    <img id="minBsmtFinSF" src="../static/min-arrow.png" role="slider" tabindex="0" class="min thumb" aria-valuemin="0" aria-valuenow="0" aria-valuemax="2500">
+                    <img id="maxBsmtFinSF" src="../static/max-arrow.png" role="slider" tabindex="0" class="max thumb" aria-valuemin="0" aria-valuenow="2500" aria-valuemax="2500">
+                </div>
                 <div class="rail-label max">2500</div>
             </div>
-          </div>
-          <div class="slider-component">
-              <div class="slider-text"><button onclick="myFunction('btn-FireplaceQu')" id="btn-FireplaceQu"
-                                               style="background:grey;">FireplaceQu</button></div>
+        </div>
+        <div class="slider-component">
+            <div class="slider-text"><button onclick="myFunction('btn-FireplaceQu')" id="btn-FireplaceQu" style="background:grey;">FireplaceQu</button></div>
             <div class="aria-widget-slider">
-            <div class="rail-label min">0</div>
+                <div class="rail-label min">0</div>
 
-            <div class="rail" style="width: 160px;">
-            <img id="minBsmtFinSF"
-                src="../static/min-arrow.png"
-                role="slider"
-                tabindex="0"
-                class="min thumb"
-                aria-valuemin="1"
-                aria-valuenow="1"
-                aria-valuemax="5">
-            <img id="maxBsmtFinSF"
-            src="../static/max-arrow.png"
-            role="slider"
-            tabindex="0"
-            class="max thumb"
-            aria-valuemin="1"
-            aria-valuenow="5"
-            aria-valuemax="5">
-            </div>
+                <div class="rail" style="width: 160px;">
+                    <img id="minBsmtFinSF" src="../static/min-arrow.png" role="slider" tabindex="0" class="min thumb" aria-valuemin="1" aria-valuenow="1" aria-valuemax="5">
+                    <img id="maxBsmtFinSF" src="../static/max-arrow.png" role="slider" tabindex="0" class="max thumb" aria-valuemin="1" aria-valuenow="5" aria-valuemax="5">
+                </div>
                 <div class="rail-label max">5</div>
 
             </div>
-          </div>
-          <div class="slider-component">
-              <div class="slider-text"><button onclick="myFunction('btn-KitchenQual')" id="btn-KitchenQual"
-                                               style="background:grey;">KitchenQual</button></div>
+        </div>
+        <div class="slider-component">
+            <div class="slider-text"><button onclick="myFunction('btn-KitchenQual')" id="btn-KitchenQual" style="background:grey;">KitchenQual</button></div>
             <div class="aria-widget-slider">
-            <div class="rail-label min">0</div>
-            <div class="rail" style="width: 160px;">
-            <img id="minBsmtFinSF"
-                src="../static/min-arrow.png"
-                role="slider"
-                tabindex="0"
-                class="min thumb"
-                aria-valuemin="1"
-                aria-valuenow="1"
-                aria-valuemax="5">
-            <img id="maxBsmtFinSF"
-            src="../static/max-arrow.png"
-            role="slider"
-            tabindex="0"
-            class="max thumb"
-            aria-valuemin="1"
-            aria-valuenow="5"
-            aria-valuemax="5">
-            </div>
+                <div class="rail-label min">0</div>
+                <div class="rail" style="width: 160px;">
+                    <img id="minBsmtFinSF" src="../static/min-arrow.png" role="slider" tabindex="0" class="min thumb" aria-valuemin="1" aria-valuenow="1" aria-valuemax="5">
+                    <img id="maxBsmtFinSF" src="../static/max-arrow.png" role="slider" tabindex="0" class="max thumb" aria-valuemin="1" aria-valuenow="5" aria-valuemax="5">
+                </div>
                 <div class="rail-label max">5</div>
 
             </div>
-          </div>
-          <div class="slider-component">
-              <div class="slider-text"><button onclick="myFunction('btn-YrSold')" id="btn-YrSold"
-                                               style="background:grey;">YrSold</button></div>
+        </div>
+        <div class="slider-component">
+            <div class="slider-text"><button onclick="myFunction('btn-YrSold')" id="btn-YrSold" style="background:grey;">YrSold</button></div>
             <div class="aria-widget-slider">
-            <div class="rail-label min">0</div>
+                <div class="rail-label min">0</div>
 
-            <div class="rail" style="width: 160px;">
-            <img id="minBsmtFinSF"
-                src="../static/min-arrow.png"
-                role="slider"
-                tabindex="0"
-                class="min thumb"
-                aria-valuemin="2006"
-                aria-valuenow="2006"
-                aria-valuemax="2010">
-            <img id="maxBsmtFinSF"
-            src="../static/max-arrow.png"
-            role="slider"
-            tabindex="0"
-            class="max thumb"
-            aria-valuemin="2006"
-            aria-valuenow="2010"
-            aria-valuemax="2010">
-            </div>
-                 <div class="rail-label max">2010</div>
+                <div class="rail" style="width: 160px;">
+                    <img id="minBsmtFinSF" src="../static/min-arrow.png" role="slider" tabindex="0" class="min thumb" aria-valuemin="2006" aria-valuenow="2006" aria-valuemax="2010">
+                    <img id="maxBsmtFinSF" src="../static/max-arrow.png" role="slider" tabindex="0" class="max thumb" aria-valuemin="2006" aria-valuenow="2010" aria-valuemax="2010">
+                </div>
+                <div class="rail-label max">2010</div>
 
             </div>
-          </div>
-      </div>
+        </div>
+    </div>
 
-      <div class="graph-class-top">
-          <div class="graph-class-left">
-              <div class="dcm-name">Data Context Map</div>
-              <div id="dcm-div" class="dcm-class"></div>
-          </div>
-          <div class="graph-class-right">
-              <div class="linegraph-name">Line Plot</div>
-               <div id="line-div" class="line-class"></div>
-              <div class="bubble-name">Neighborhood Plot</div>
-                <div id="bubble-div" class="bubble-class"></div>
-          </div>
-      </div>
-      <div class="graph-class-bottom">
-                <div class="pc-name">Parallel Coordinates</div>
-              <div id="parallel-div" class="parallel-class"></div>
-      </div>
+    <div class="graph-class-top">
+        <div class="graph-class-left">
+            <div class="dcm-name">Data Context Map</div>
+            <div id="dcm-div" class="dcm-class"></div>
+        </div>
+        <div class="graph-class-right">
+            <div class="linegraph-name">Line Plot</div>
+            <div id="line-div" class="line-class"></div>
+            <div class="bubble-name">Neighborhood Plot</div>
+            <div id="bubble-div" class="bubble-class"></div>
+        </div>
+    </div>
+    <div class="graph-class-bottom">
+        <div class="pc-name">Parallel Coordinates</div>
+        <div id="parallel-div" class="parallel-class"></div>
+    </div>
 
-      <div class="table-class">
-          <div class="table-left">
-                      <table class="table-left-top">
-            <tr align="center">
-            <td class="lbl">Total Houses </td>
-            </tr>
-        </table>
+    <div class="table-class">
+        <div class="table-left">
+            <table class="table-left-top">
+                <tr align="center">
+                    <td class="lbl">Total Houses </td>
+                </tr>
+            </table>
 
-                <table class="table-left-bottom">
-            <tr align="center">
-            <td class="lbl-number" id="total-houses"></td>
-            </tr>
-        </table>
+            <table class="table-left-bottom">
+                <tr align="center">
+                    <td class="lbl-number" id="total-houses"></td>
+                </tr>
+            </table>
 
-          </div>
-
-
-		  <div class="table-right">
-            <table class="table-right-top">
-            <tr align="center">
-            <td class="lbl">Top Houses acc to your preferences</td>
-            </tr>
-        </table>
-            <table class="table-right-bottom">
-    <tr align="center">
-      <td class="lbl">SalePrice</td>
-      <td class="lbl">OverallQual</td>
-	  <td class="lbl">Neighborhood</td>
-    </tr>
-    <tr>
-      <td align="center" id="1"></td>
-      <td align="center" id="2"></td>
-	  <td align="center" id="3"></td>
-    </tr>
-    <tr>
-      <td align="center" id="4"></td>
-      <td align="center" id="5"></td>
-	  <td align="center" id="6"></td>
-    </tr>
-	<tr>
-      <td align="center" id="7"></td>
-      <td align="center" id="8"></td>
-	  <td align="center" id="9"></td>
-    </tr>
-  </table>
         </div>
 
-</div>
-</div>
 
-      <script type="text/javascript">
-		  var textColor = "#e5e5e5";
-		  var scoreFeatures = [];
-          drawInitialParallelGraph();
-          bubble_test();
-          drawMDSscatter("euclidean");
-          drawInitialLineGraph();
-      </script>
-   </body>
+        <div class="table-right">
+            <table class="table-right-top">
+                <tr align="center">
+                    <td class="lbl">Top Houses acc to your preferences</td>
+                </tr>
+            </table>
+            <table class="table-right-bottom">
+                <tr align="center">
+                    <td class="lbl">SalePrice</td>
+                    <td class="lbl">OverallQual</td>
+                    <td class="lbl">Neighborhood</td>
+                </tr>
+                <tr>
+                    <td align="center" id="1"></td>
+                    <td align="center" id="2"></td>
+                    <td align="center" id="3"></td>
+                </tr>
+                <tr>
+                    <td align="center" id="4"></td>
+                    <td align="center" id="5"></td>
+                    <td align="center" id="6"></td>
+                </tr>
+                <tr>
+                    <td align="center" id="7"></td>
+                    <td align="center" id="8"></td>
+                    <td align="center" id="9"></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        var textColor = "#e5e5e5";
+        var scoreFeatures = [];
+        drawInitialParallelGraph();
+        bubble_test();
+        drawMDSscatter("euclidean");
+        drawInitialLineGraph();
+    </script>
+</body>
+
 </html>

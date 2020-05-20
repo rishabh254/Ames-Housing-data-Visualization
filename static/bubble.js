@@ -133,12 +133,12 @@ if(svg_bubble != null){
          return myColor(d.data.Scale*10);
             })
         .transition(t)
-          .attr("r", 1e-6)
+          //.attr("r", 1e-6)
           .remove();
 
       text.exit()
         .transition(t)
-          .attr("opacity", 1e-6)
+          //.attr("opacity", 1e-6)
           .remove();
 
       //UPDATE
@@ -166,7 +166,7 @@ if(svg_bubble != null){
 
       //ENTER
       circle.enter().append("circle")
-          .attr("r", 1e-6)
+          //.attr("r", 1e-6)
 		  .style("cursor","pointer")
           .attr("id", function(d){
 

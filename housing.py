@@ -1,10 +1,3 @@
-'''
-Created Date: Feb 26, 2020
-Author: Rishabh Goel
-
-CSE564 Spring 2020:- Mini Project-2
-'''
-
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -70,56 +63,7 @@ def get_line_data(data):
     df = df[df['age']>=0]
     return df.to_json(orient='records')
 
-##### Task 1.2 #####
-def kmeans_elbow(df):
-    wcss = []
-    for i in range(1, 11):
-        kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
-        kmeans.fit(df)
-        wcss.append(kmeans.inertia_)
-    plt.plot(range(1, 11), wcss,marker='x')
-    plt.title('Elbow Method')
-    plt.xlabel('Number of clusters')
-    plt.ylabel('WCSS')
-    plt.xticks(np.arange(0, 11, step=1))
-    plt.show()
-
-##### Task 2.1-2.3 #####
-def get_eigenVs(data):
-    df = data.drop(columns=['clusterNo'])
-    pca = PCA().fit(df)
-    cum_eigen = np.cumsum(pca.explained_variance_ratio_)
-    eigen =[]
-    eigen.append(cum_eigen[0])
-    for i in range(1,len(cum_eigen)):
-        eigen.append(cum_eigen[i]-cum_eigen[i-1])
-    json_data=[]
-    for i in range(0,len(eigen)):
-        json_data.append({"eigen":eigen[i]*100,
-                          "cum_eigen":cum_eigen[i]*100,
-                          "index":i+1})
-    return np.array(json_data).tolist()
-
-##### Task 2.4 #####
-def get_loading_attrs(data):    
-    pca = PCA(n_components=3)
-    principalComponents = pca.fit_transform(data)
-
-    pCs_df = pd.DataFrame(pca.components_.T
-             , columns = ['PC 1', 'PC 2', 'PC 3'], index=data.columns)
-    return (np.square(pCs_df).sum(axis=1).sort_values(ascending=False)[:3])
-
-##### Task 3.1 #####
-def get_PCS(data):
-    pca = PCA(n_components=2, random_state=0)
-    principalComponents = pca.fit_transform(data)
-    PCA_DF = pd.DataFrame(principalComponents)
-
-    PCA_DF['clusterNo'] = data['clusterNo']
-    return PCA_DF.to_json(orient='records')
-
-##### Task 3.2 #####
-def get_MDS(df_norm,df_orig,distType):
+def get_MDS(df_norm,df_orig):
     no_cols = len(df_norm.columns)
     '''dd = data.T.corr()
     vv = data.corr()
@@ -132,17 +76,9 @@ def get_MDS(df_norm,df_orig,distType):
     dv = np.array(vd).T
     cm = np.concatenate((np.concatenate((dd,dv),1), np.concatenate((vd,vv),1)),0)
     print(len(cm))'''
-    #print("df_orig",df_orig)
-    #print("df_norm",df_norm)
-    #print("distType", distType)
-    
-    if distType is 'lol':
-        embedding = MDS(n_init=1, n_components=2, dissimilarity = distType, random_state=1)
-        X_transformed = embedding.fit_transform(df_norm)
-    else:
-        embedding = MDS(n_init=1 , n_components=2, dissimilarity = 'precomputed', random_state=1)
-        X_transformed = embedding.fit_transform(pow(2*(1-df_norm.T.corr()),0.5))
-        X_transformed1 = embedding.fit_transform(pow(2*(1-df_norm.corr()),0.5))
+    embedding = MDS(n_init=1 , n_components=2, dissimilarity = 'precomputed', random_state=1)
+    X_transformed = embedding.fit_transform(pow(2*(1-df_norm.T.corr()),0.5))
+    X_transformed1 = embedding.fit_transform(pow(2*(1-df_norm.corr()),0.5))
     
     mds_df = pd.DataFrame(np.concatenate((X_transformed,X_transformed1),0), columns=['dim0','dim1'])
     # datatype 0 : datapoint , 1 : feature
@@ -160,15 +96,6 @@ def get_MDS(df_norm,df_orig,distType):
     mds_df['score'] = 0
     return mds_df.to_json(orient='records')
 
-##### Task 3.3 #####
-def get_scatter_matrix_data(data):
-    top_3_attrs = get_loading_attrs(data)
-    cols=[]
-    for index, val in top_3_attrs.iteritems():
-        cols.append(index)
-    cols.append('clusterNo')
-    data = data[cols]
-    return data.to_json(orient='records')
 
 ##### main #####
 if __name__ == "__main__":
@@ -177,16 +104,6 @@ if __name__ == "__main__":
     df_orig = preprocess(df,0)
     df_norm = preprocess(df,1)
 
-    
-    #kmeans_elbow(df_encoded)
-    #no_clusters = 3
-
-    #kmeans = KMeans(n_clusters=no_clusters, init='k-means++', max_iter=300, n_init=10, random_state=0)
-    #kmeans.fit(df_encoded)
-    #labels = kmeans.labels_
-
-    #Glue back to originaal data
-    #df_encoded['clusterNo'] = labels
     df_orig.to_csv('df_orig.csv',index=False)
     df_norm.to_csv('df_norm.csv',index=False)
     
