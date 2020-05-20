@@ -105,11 +105,7 @@ function updateDcm() {
     for (var i = 0; i < d_mds_orig.length - 14; i++) {
         var temp = true;
         for (var j = 0; j < features.length; j++) {
-            //console.log("d_mds_orig[i][features[j]]...",d_mds_orig[i][features[j]]);
-            //console.log("min...", currMin[j]);
-            //console.log("min...", currMax[j]);
             temp = temp & ((d_mds_orig[i][features[j]] >= currMin[j] && d_mds_orig[i][features[j]] <= currMax[j]));
-
         }
 
         if (selectedNeigh != null) {
@@ -117,7 +113,6 @@ function updateDcm() {
         }
         if (temp) {
             currentHouses++;
-            //console.log("currentHouses...",currentHouses);
             scoreList.push(d_mds_orig[i]);
             d3.select("#scatter_" + i).style("visibility", "visible").style("fill", function(d) {
                 return myColor1[d["dataType"]](d['score'] * 10 > 10 ? 10 : d['score'] * 10);
@@ -281,9 +276,9 @@ Slider.prototype.moveSliderTo = function(value) {
 
 
     if (this.minDomNode) {
-        //console.log("max"+this.sliderNo)
+        
         currMax[(this.sliderNo - 1) / 2] = this.valueNow;
-        //d3.select("svg").select("g").style("visibility", "hidden");
+        
         updateDcm();
         //// for line graph
         updateLineData();
@@ -308,10 +303,7 @@ Slider.prototype.moveSliderTo = function(value) {
 
         this.maxDomNode.setAttribute('aria-valuemin', this.valueNow);
     }
-    //.on('brush', ()=>brushEventHandler(x.key))
-
-
-
+    
     var pos = Math.round(((this.valueNow - this.railMin) * (this.railWidth - 2 * (this.thumbWidth - this.railBorderWidth))) / (this.railMax - this.railMin));
 
     if (this.minDomNode) {
