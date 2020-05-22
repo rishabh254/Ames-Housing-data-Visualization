@@ -44,11 +44,11 @@ Data Source : ​https://www.kaggle.com/c/house-prices-advanced-regression-techn
 After going through the data we found that the variables were a mix of nominal, ordinal,
 continuous, and discrete types. We have analyzed this dataset using a heatmap to get a view of
 all important features that will help us in visualization.
-
+![image](https://user-images.githubusercontent.com/8913742/82627860-642ac100-9bb9-11ea-9f82-af89508ab08f.png)
 ```
 Fig 1. Features with positive correlation with ‘SalePrice’
 ```
-
+![image](https://user-images.githubusercontent.com/8913742/82627880-6db42900-9bb9-11ea-8401-38b239cdec4e.png)
 ## Fig 2. Features with negative correlation with ‘SalePrice’
 
 ## Problem
@@ -90,7 +90,7 @@ other, i.e. if we filter by location, that change should reflect in the houses f
 house features and temporal features too, and vice versa.
 
 ## Project Structure
-
+![image](https://user-images.githubusercontent.com/8913742/82627846-57a66880-9bb9-11ea-834c-caf8b1588c58.png)
 ▪ Client : We use d3 Javascript library for producing our visualizations.
 ▪ Server : We use python flask framework for processing and sending data to the client.
 ▪ housing.csv contains the data which we are going to visualize.
@@ -113,7 +113,7 @@ our data clearly and we can get important insights also.
 **0. Intensity for ordering:** ​Throughout our visualizations, we use different intensities of the
     color teal to describe how relevant a house is according to a hand-crafted scoring
     function on the basis of the features selected by the user.
-
+![image](https://user-images.githubusercontent.com/8913742/82627828-4eb59700-9bb9-11ea-8b58-76cdfe6d4f8d.png)
 ```
 A. Darker shades of teal represents more relevance.
 B. For most variables, higher value indicates higher intensity of teal, except for
@@ -132,6 +132,7 @@ different shades of teal color. Based on the correlations between data-data ,
 feature-feature and data-feature, we map the data points and attributes in the same
 plane to gather as much information using as less space as possible.
 ```
+![image](https://user-images.githubusercontent.com/8913742/82627796-380f4000-9bb9-11ea-81b5-2b5a5675087b.png)
 ```
 Fig 3. Data Context Map
 ```
@@ -167,6 +168,7 @@ Motivation ​ ​: ​Using line graphs we are providing a solution for problem
 helps the user to visualize distribution of Overall Quality and SalePrice along with Age of
 the house.
 ```
+![image](https://user-images.githubusercontent.com/8913742/82627781-2c237e00-9bb9-11ea-8f2c-115ee97fb985.png)
 ```
 Fig 4. Line Graph
 ```
@@ -194,6 +196,7 @@ Motivation ​ ​ : ​This visualization helps us to solve problem #3.​ ​N
 important feature to consider before buying any house. We are using a bubble chart to
 show this information.
 ```
+![image](https://user-images.githubusercontent.com/8913742/82627779-2463d980-9bb9-11ea-88cd-13f8f2873526.png)
 ```
 Fig 5. Neighborhood Bubble Plot
 ```
@@ -227,6 +230,7 @@ features have the same scale and are comparable. We have also also added sliders
 bound and filter values across axes to check different relations at low and high values
 separately.
 ```
+![image](https://user-images.githubusercontent.com/8913742/82627750-157d2700-9bb9-11ea-8116-edd84fa2e17c.png)
 ```
 Fig 6. Parallel Coordinates
 ```
@@ -266,6 +270,7 @@ clearly see that houses with lower price ranges are having good scores.
     - While brushing and linking we are showing top 3 house data also. This shows more
     detail about houses which are high scoring from selected filters.
 
+![image](https://user-images.githubusercontent.com/8913742/82627725-06967480-9bb9-11ea-9a04-0f9ee6b747a2.png)
 ```
 Fig 7. Summary of brushed features
 ```
@@ -275,7 +280,7 @@ Fig 7. Summary of brushed features
 This project resulted in an interactive dashboard to find new insights about houses in Ames,
 Iowa, and is extensible to any housing dataset with similar features.
 
-<div style="text-align:center"><img src="https://user-images.githubusercontent.com/8913742/82627418-5d4f7e80-9bb8-11ea-9db7-3173a3a00516.png" /></div>
+![image](https://user-images.githubusercontent.com/8913742/82627418-5d4f7e80-9bb8-11ea-9db7-3173a3a00516.png)
 ```
 Fig 8. Dashboard
 ```
